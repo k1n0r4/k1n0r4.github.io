@@ -12,7 +12,7 @@ export const SITE_CONFIG = {
     customLinks: [
         {
             label: 'About',
-            url: '/about',
+            url: '/post/about',
         },
         {
             label: 'Github',
