@@ -3,9 +3,14 @@
  */
 const path = require('path')
 
+let assetPrefix = 'https://k1n0r4.github.io/'
+if (process.env.NODE_ENV === 'development') {
+    assetPrefix = ''
+}
+
 const nextConfig = {
     output: 'export',
-    assetPrefix: 'https://k1n0r4.github.io/',
+    assetPrefix,
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
     },

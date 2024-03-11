@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Script from 'next/script';
+import Image from 'next/image';
 
 import { SITE_CONFIG } from '../../../../config';
 
@@ -22,9 +23,16 @@ export default async function Post({ params }: Params) {
                 </Link>
                 <article className="post">
                     {post?.coverImage ? (
-                        <div className="article-image h-[100dvh] pb-[1000px]">
-                            <div id="article-cover" className="post-image-image" style={{ backgroundImage: `url(${post.coverImage})` }}>
-                                Article Image
+                        <div className="article-image h-[100dvh] w-screen">
+                            <div id="article-cover" className="w-screen h-screen">
+                                <Image
+                                    className="w-full h-full object-cover object-center"
+                                    src={post.coverImage}
+                                    alt={post.title}
+                                    draggable={false}
+                                    width={1800}
+                                    height={1200}
+                                />
                             </div>
                             <div className="post-meta">
                                 <h1 className="post-title">{post.title}</h1>
@@ -38,7 +46,7 @@ export default async function Post({ params }: Params) {
                                     {/*<time datetime={post.date}>{post.date}</time>*/}
                                 </div>
                                 <div className="text-center">
-                                    <Link href="#topofpage" className="topofpage"><i className="fa fa-angle-down"></i></Link>
+                                    <a href="#topofpage" className="topofpage"><i className="fa fa-angle-down"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -67,58 +75,59 @@ export default async function Post({ params }: Params) {
                     <br />
                     <br />
                     <br />
-                    <section className="post-content z-20">
-                        <div className="post-reading hidden">
-                            <span className="post-reading-time">
-                                {post.content.trim().split(/\s+/).length / 200}
-                                {' '}
-                                min read &nbsp; &nbsp; | &nbsp; &nbsp;
-                                {post.content.trim().split(/\s+/).length}
-                                {' '}
-                                words
-                            </span>
-                        </div>
-                        <a id="topofpage"></a>
-                        <div className="content" dangerouslySetInnerHTML={{ __html: content }}></div>
-                    </section>
-                    <footer className="post-footer">
-                        <section className="share">
-                            <Link href={`https://twitter.com/share?text=Hey, I just read ${post.title} on ${SITE_CONFIG.title}!&url=${process.env.NEXT_PUBLIC_DOMAIN}/post/${post.slug}`} target="_blank" className="share-twitter">
-                                Share on Twitter
-                            </Link>
+                    <div className="max-w-[800px] mx-auto px-4">
+                        <section className="post-content z-20">
+                            <div className="post-reading hidden">
+                                <span className="post-reading-time">
+                                    {post.content.trim().split(/\s+/).length / 200}
+                                    {' '}
+                                    min read &nbsp; &nbsp; | &nbsp; &nbsp;
+                                    {post.content.trim().split(/\s+/).length}
+                                    {' '}
+                                    words
+                                </span>
+                            </div>
+                            <a id="topofpage" />
+                            <div className="content" dangerouslySetInnerHTML={{ __html: content }}></div>
                         </section>
-                    </footer>
-                    <div className="bottom-teaser cf">
-                        <div className="isLeft">
-                            <h5 className="index-headline featured"><span>Written by</span></h5>
-                            <section className="author">
-                                <div
-                                    className="author-image"
-                                    style={{ backgroundImage: `url(${SITE_CONFIG.author.avatarURL || '/assets/images/logo.jpg'})` }}
-                                >
-                                    Blog
-                                    Logo
-                                </div>
-                                <h4>{SITE_CONFIG.author.name}</h4>
-                                <p className="bio">{SITE_CONFIG.author.bio}</p>
-                                <hr />
-                                <p className="published">
-                                    Published
-                                    {post.date}
-                                </p>
+                        <footer className="post-footer">
+                            <section className="share">
+                                <Link href={`https://twitter.com/share?text=Hey, I just read ${post.title} on ${SITE_CONFIG.title}!&url=${process.env.NEXT_PUBLIC_DOMAIN}/post/${post.slug}`} target="_blank" className="share-twitter">
+                                    Share on Twitter
+                                </Link>
                             </section>
-                            <section className="published opacity-30 text-xs text-center pt-12">
-                                All content copyright &nbsp;
-                                <a href={'mailto:' + SITE_CONFIG.author.mail}>{SITE_CONFIG.author.name}</a>
-                                {' '}
-                                &copy;
-                                {new Date().getFullYear()}
-                                {' '}
-&nbsp; · &nbsp;All rights reserved.
-                            </section>
-                        </div>
-                        <footer className="site-footer mt-10">
                         </footer>
+                        <div className="bottom-teaser cf">
+                            <div className="isLeft">
+                                <h5 className="index-headline featured"><span>Written by</span></h5>
+                                <section className="author">
+                                    <div
+                                        className="author-image"
+                                        style={{ backgroundImage: `url(${SITE_CONFIG.author.avatarURL || '/assets/images/logo.jpg'})` }}
+                                    >
+                                        Blog
+                                        Logo
+                                    </div>
+                                    <h4>{SITE_CONFIG.author.name}</h4>
+                                    <p className="bio">{SITE_CONFIG.author.bio}</p>
+                                    <hr />
+                                    <p className="published">
+                                        Published
+                                        {' '}
+                                        {post.date}
+                                    </p>
+                                </section>
+                                <section className="published site-footer opacity-30 text-xs text-center">
+                                    All content copyright &nbsp;
+                                    <a href={'mailto:' + SITE_CONFIG.author.mail}>{SITE_CONFIG.author.name}</a>
+                                    {' '}
+                                    &copy;
+                                    {new Date().getFullYear()}
+                                    {' '}
+                                &nbsp; · &nbsp;All rights reserved.
+                                </section>
+                            </div>
+                        </div>
                     </div>
                 </article>
             </main>
@@ -137,15 +146,15 @@ export default async function Post({ params }: Params) {
             </div>
             <Script id="custom-transition-js">
                 {`window.addEventListener('scroll', function() {
-      const image = document.getElementById('article-cover');
-      if (image) {
-        const scrollTop = window.scrollY || window.pageYOffset;
-        const opacity = 1 - Math.max(scrollTop / 700, 0); // Adjust 700 according to your needs
-        const translateY = scrollTop / 3; // Adjust 3 according to your needs
-        image.style.opacity = opacity;
-        image.style.transform = 'translateY(' + translateY + 'px)';
-      }
-    });`}
+                    const image = document.getElementById('article-cover');
+                    if (image) {
+                        const scrollTop = window.scrollY || window.pageYOffset;
+                        const opacity = 1 - Math.max(scrollTop / 700, 0); // Adjust 700 according to your needs
+                        const translateY = scrollTop / 3; // Adjust 3 according to your needs
+                        image.style.opacity = opacity;
+                        image.style.transform = 'translateY(' + translateY + 'px)';
+                    }
+                });`}
             </Script>
         </>
     );

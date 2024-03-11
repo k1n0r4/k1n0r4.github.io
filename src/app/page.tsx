@@ -62,14 +62,14 @@ export default function Index() {
                     </header>
 
 
-                    <main className="content" role="main">
+                    <main className="content mx-auto max-w-[800px]" role="main">
                         <h5 className="index-headline featured"><span>Featured</span></h5>
                         <div className="container featured">
                             {heroPost && <ArticlePreview post={heroPost} />}
                         </div>
 
                         <h5 className="index-headline normal"><span>Regular</span></h5>
-                        <div className="cf frame">
+                        <div className="cf frame flex flex-col gap-8">
                             {morePosts.map((post, index) => (
                                 <ArticlePreview post={post} key={index} />
                             ))}

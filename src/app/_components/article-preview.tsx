@@ -4,7 +4,7 @@ import { Post } from '@/interfaces/post';
 
 const ArticlePreview = ({ post }: { post: Post }) => {
     return (
-        <article className="post" role="article">
+        <article className="post pb-4" role="article">
             <div className="article-item">
                 <header className="post-header">
                     <h2 className="post-title" itemProp="name">
@@ -13,7 +13,7 @@ const ArticlePreview = ({ post }: { post: Post }) => {
                         </Link>
                     </h2>
                 </header>
-                <section className="post-excerpt mt-3 text-sm opacity-60" itemProp="description">
+                <section className="post-excerpt mt-3 !text-sm opacity-60" itemProp="description">
                     <p>
                         {post.description || post.excerpt}
                     </p>

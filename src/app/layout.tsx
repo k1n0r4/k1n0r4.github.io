@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 
 import './globals.css';
-import './main.css';
 import { SITE_CONFIG } from '../../config';
 
 export const metadata: Metadata = {
