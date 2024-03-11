@@ -4,7 +4,7 @@ title:  "Welcome to my First Blogpost"
 date:   "2024-02-28 19:34:25"
 categories: first
 tags: featured
-coverImage: "/public/assets/blog/welcome/welcome.jpg"
+coverImage: "/assets/blog/welcome/welcome.jpg"
 #image: /public/assets/blog/welcome/welcome.jpg
 #image2: public/assets/blog/welcome/welcome-mobile.jpg
 ---
