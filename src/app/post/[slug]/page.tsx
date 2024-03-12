@@ -51,7 +51,7 @@ export default async function Post({ params }: Params) {
                             </div>
                         </div>
                     ) : (
-                        <div className="noarticleimage">
+                        <div className="noarticleimage max-w-[800px] mx-auto">
                             <div className="post-meta">
                                 <h1 className="post-title">{post.title}</h1>
                                 <div className="cf post-meta-text">
@@ -63,10 +63,12 @@ export default async function Post({ params }: Params) {
                                         Logo
                                     </div>
                                     <h4 className="author-name font-bold">{SITE_CONFIG.author.name}</h4>
-                                    &nbsp;
-                                    on
-                                    &nbsp;
-                                    <span>{post.date}</span>
+                                    {post?.date && (
+                                        <span>
+                                            &nbsp;on&nbsp;
+                                            {post.date}
+                                        </span>
+                                    )}
                                     {/*<time datetime={post.date}>{post.date}</time>*/}
                                 </div>
                             </div>
