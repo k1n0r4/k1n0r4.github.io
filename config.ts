@@ -15,8 +15,8 @@ export const SITE_CONFIG = {
             url: '/post/about',
         },
         {
-            label: 'Github',
-            url: 'https://github.com/k1n0r4',
+            label: 'LinkedIn',
+            url: 'https://www.linkedin.com/in/sejal-koshta-/',
         },
         {
             label: 'Twitter',
