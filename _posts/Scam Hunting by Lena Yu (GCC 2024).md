@@ -1,0 +1,147 @@
+---
+layout: post
+title:  "Scam Hunting by Lena Yu"
+date:   "2024-03-01 12:56:29"
+categories: first
+tags: featured
+coverImage: "/assets/blog/scam_hunting/scam_hunting_bg.jpg"
+#image: /public/assets/blog/welcome/welcome.jpg
+#image2: public/assets/blog/welcome/welcome-mobile.jpg
+---
+
+# Scam Hunting by Lena Yu (GCC 2024)
+
+
+At the recent GCC(Global Cybersecurity Camp) event, I had the opportunity to attend an unofficial workshop led by [Lena Yu](https://www.linkedin.com/in/lenaaaa) titled "How to Hunt Undiscovered Scams." Despite not being part of the official program, the session proved to be highly informative and engaging.
+
+So, picture this: a group of us huddled around laptops, led by Lena Yu, diving into the depths of the internet to hunt down undiscovered scams. Lena, with her savvy insights, guided us through the process with ease.
+
+First up, we delved into the world of open source intelligence (OSINT). We used all sorts of tools to sift through the digital noise and uncover potential scams lurking in the shadows.
+
+Once we had our suspects lined up, it was time for phase two: analyzing those sus links. We meticulously examined each link, checking for signs of malicious activity.
+
+Throughout the session, Lena shared invaluable advice on how to stay safe in the online jungle. It's a wild world out there, folks, and knowing how to navigate it safely is key. I couldn't help but feel grateful for Lena's expertise and willingness to share it with us.
+
+In the end, it was both eye-opening and strangely satisfying to uncover these hidden dangers lurking in the digital underbelly. 
+
+This is a brief summary of the session's events.
+
+### Phase One: Finding Scams
+
+<hr>
+
+#### <b>[Temporary Phone numbers](https://receive-smss.com/)</b>
+
+- These are the burner/public phones, which are utilized in a manner similar to how we occasionally get around the authentication procedure by obtaining OTPs via temporary mail ids.
+- These are public numbers, therefore scam connections are frequently visible.
+
+ <!-- ![image](https://hackmd.io/_uploads/SkO1NfE0T.png) -->
+
+<img src = "/assets/blog/scam_hunting/scam_hunting/scam_hunting1.png" alt = "Scam Hunting"/>
+
+- These are quite susceptible to scams and a prime location for them to operate.
+
+<br>
+
+#### <b>[Twitter](https://twitter.com)</b>
+
+- Easiest way is to search for hashtags like #Fraud, #scam, #phishing, #scamalert, #SCAM
+- Look for screenshots from users containing scam links
+
+<!-- ![image](https://hackmd.io/_uploads/rkOW6NVRT.png) -->
+<img src = "/assets/blog/scam_hunting/scam_hunting/scam_hunting2.png" alt = "Scam Hunting"/>
+
+- You have the option to search in many languages. We tried searching in Japanese, and the results show numerous screenshots of frauds that include links.
+- You may also conduct a search by entering the name of a business or agency, such as a bank or a telecom provider, as they are more likely to be scammed.
+
+<br>
+
+#### <b>Other Ways</b>
+
+- Other ways could be to look into different sites or forums where you can find the scams which are not discovered yet
+- For the ones which are already discovered you can check the database on [OpenPhish](https://openphish.com/phishing_database.html)
+
+<br>
+
+### Phase Two: Analysing the links
+
+<hr>
+
+#### [Virustotal](https://www.virustotal.com/gui/home/url)
+
+- VirusTotal can be used to analyze URLs and websites to determine if they host any malicious content, such as phishing pages or malware distribution sites. 
+- Users can enter a website's URL into VirusTotal for scanning.
+
+<!-- ![image](https://hackmd.io/_uploads/B1_Qrcr0p.png) -->
+
+<img src = "/assets/blog/scam_hunting/scam_hunting/scam_hunting3.png" alt = "Scam Hunting"/>
+
+> Note: No malicious activities does not mean it is not suspicious. 
+
+<br>
+
+#### [UrlScan](https://urlscan.io/)
+
+
+- Public scans can be performed on the suspected link
+- As a result, you can also view the interface of the suspected link and interact with it
+
+<!-- ![image](https://hackmd.io/_uploads/r1X5_Ln3p.png) -->
+
+<img src = "/assets/blog/scam_hunting/scam_hunting/scam_hunting4.png" alt = "Scam Hunting"/>
+
+<br>
+
+#### [Browserling](https://www.browserling.com/)
+
+- Once more, this facilitates using the connection in a sandbox and seeing how it behaves in real time. 
+- However, it allows you to engage with the sandbox in addition to just watching. 
+- For instance, you can click on any link that the scam link displays and proceed to see what occurs.
+
+<!-- ![image](https://hackmd.io/_uploads/r1HAx1PAp.png) -->
+
+<img src = "/assets/blog/scam_hunting/scam_hunting/scam_hunting5.png" alt = "Scam Hunting"/>
+
+
+#### [ANY.RUN](https://any.run/)
+
+- One important feature of this site is that you can run the instance of the scam link in a sandbox and observe the behaviour live
+- You can also capture the network traffic sent or recieved by the link.
+
+<!-- ![image](https://hackmd.io/_uploads/Bk4u1RUC6.png) -->
+
+<img src = "/assets/blog/scam_hunting/scam_hunting/scam_hunting6.png" alt = "Scam Hunting"/>
+
+
+#### [Redirect Checker](https://www.redirect-checker.org/)
+
+- Checks if the link redirect you to some other site which might be the real malicious site
+
+<!-- ![image](https://hackmd.io/_uploads/HJ__N1vAa.png) -->
+
+<img src = "/assets/blog/scam_hunting/scam_hunting/scam_hunting7.png" alt = "Scam Hunting"/>
+
+
+#### [Link Unshortener](https://unshorten.it/)
+
+- Some sites shorten the link to hide the real intention behind the links, so we can use this site to unshorten the link. 
+- It also provides you with the title and description tags of the target web page, a screenshot of the target website, safety ratings provided by Web of Trust and will alert you if the website is found in the HPHosts blacklist.
+
+
+
+> One can use virustotal to search for the link's             relatives or similar sites, because the current link         might have been deactivated but it's redirected link or     the link from it's family might still be active and that     can we used to analyse the behaviour of the given link.
+
+<br>
+
+### Reverse Engineering the Code
+
+The source code of the suspected link can be analysed and reverse engineered to find out the traces of malicious activities. Few things to keep in mind while analysing the source are: 
+
+- If it is highly obfuscated
+- If it restricts any keyboard shortcut like Ctrl+C or Ctrl+V for copy and paste
+- Check if it restricts you from right clicking on the website, that is to avoid you from accessing the inspect page although the keyboard shortcuts exist.
+- If it redirects you to some other link
+
+#### Further References
+1. [Reverse Engineering the site](https://darktrace.com/blog/the-rise-of-ipfs-phishing-darktraces-detection-of-an-evasive-and-dynamic-credential-harvester)
+2. Tool - [GrimScraper](https://github.com/LambdaMamba/grim-scraper)
