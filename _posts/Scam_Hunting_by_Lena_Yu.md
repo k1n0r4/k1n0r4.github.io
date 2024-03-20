@@ -41,12 +41,9 @@ This is a brief summary of the session's events.
 - These are public numbers, therefore scam connections are frequently visible.
 
 <!-- <img src = "../public/assets/blog/scam_hunting/scam_hunting1.png" alt = "Scam Hunting"/> -->
-
-![Image file](/public/assets/blog/scam_hunting/scam_hunting1.png)
+</p>![Image file](/public/assets/blog/scam_hunting/scam_hunting1.png)
 ![Image file](../public/assets/blog/scam_hunting/scam_hunting2.png)
-![Image file](k1n0r4.github.io/public/assets/blog/scam_hunting/scam_hunting2.png)
-
-
+![Image file](k1n0r4.github.io/public/assets/blog/scam_hunting/scam_hunting2.png)<p>
 
 - These are quite susceptible to scams and a prime location for them to operate.
 
