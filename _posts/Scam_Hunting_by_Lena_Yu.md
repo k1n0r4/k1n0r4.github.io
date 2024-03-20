@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Scam Hunting by Lena Yu"
+title:  "Scam Hunting by Lena Yu (GCC 2024)"
 date:   "2024-03-01 12:56:29"
 categories: first
 tags: featured
@@ -9,7 +9,6 @@ coverImage: "/assets/blog/scam_hunting/scam_hunting_bg.jpg"
 #image2: public/assets/blog/welcome/welcome-mobile.jpg
 ---
 
-## Scam Hunting by Lena Yu (GCC 2024)
 
 <br />
 
