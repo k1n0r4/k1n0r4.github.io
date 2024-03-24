@@ -34,7 +34,7 @@ This is a brief summary of the session's events.
 
 <br />
 
-##### <b>1. [Temporary Phone numbers](https://receive-smss.com/)</b>
+##### 1. [Temporary Phone numbers](https://receive-smss.com/)
 
 - These are the burner/public phones, which are utilized in a manner similar to how we occasionally get around the authentication procedure by obtaining OTPs via temporary mail ids.
 - These are public numbers, therefore scam connections are frequently visible.
@@ -45,7 +45,7 @@ This is a brief summary of the session's events.
 
 <br>
 
-##### <b>2. [Twitter](https://twitter.com)</b>
+##### 2. [Twitter](https://twitter.com)
 
 - Easiest way is to search for hashtags like #Fraud, #scam, #phishing, #scamalert, #SCAM
 - Look for screenshots from users containing scam links
@@ -57,7 +57,7 @@ This is a brief summary of the session's events.
 
 <br />
 
-##### <b>3. Other Ways</b>
+##### 3. Other Ways
 
 - Other ways could be to look into different sites or forums where you can find the scams which are not discovered yet
 - For the ones which are already discovered you can check the database on [OpenPhish](https://openphish.com/phishing_database.html)
