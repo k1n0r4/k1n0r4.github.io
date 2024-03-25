@@ -39,7 +39,7 @@ This is a brief summary of the session's events.
 - These are the burner/public phones, which are utilized in a manner similar to how we occasionally get around the authentication procedure by obtaining OTPs via temporary mail ids.
 - These are public numbers, therefore scam connections are frequently visible.
 
-<img src = "/assets/blog/scam_hunting/scam_hunting1.png" alt = "Scam Hunting"/>
+![Scam Hunting](/assets/blog/scam_hunting/scam_hunting1.png)
 
 - These are quite susceptible to scams and a prime location for them to operate.
 
@@ -50,7 +50,7 @@ This is a brief summary of the session's events.
 - Easiest way is to search for hashtags like #Fraud, #scam, #phishing, #scamalert, #SCAM
 - Look for screenshots from users containing scam links
 
-<img src = "/assets/blog/scam_hunting/scam_hunting2.png" alt = "Scam Hunting"/>
+![Scam Hunting](/assets/blog/scam_hunting/scam_hunting2.png)
 
 - You have the option to search in many languages. We tried searching in Japanese, and the results show numerous screenshots of frauds that include links.
 - You may also conduct a search by entering the name of a business or agency, such as a bank or a telecom provider, as they are more likely to be scammed.
@@ -75,8 +75,7 @@ This is a brief summary of the session's events.
 - VirusTotal can be used to analyze URLs and websites to determine if they host any malicious content, such as phishing pages or malware distribution sites. 
 - Users can enter a website's URL into VirusTotal for scanning.
 
-
-<img src = "/assets/blog/scam_hunting/scam_hunting3.png" alt = "Scam Hunting"/>
+![Scam Hunting](/assets/blog/scam_hunting/scam_hunting3.png)
 
 > Note: No malicious activities does not mean it is not suspicious. 
 
@@ -88,7 +87,7 @@ This is a brief summary of the session's events.
 - As a result, you can also view the interface of the suspected link and interact with it
 
 
-<img src = "/assets/blog/scam_hunting/scam_hunting4.png" alt = "Scam Hunting"/>
+![Scam Hunting](/assets/blog/scam_hunting/scam_hunting4.png)
 
 <br />
 
@@ -98,8 +97,7 @@ This is a brief summary of the session's events.
 - However, it allows you to engage with the sandbox in addition to just watching. 
 - For instance, you can click on any link that the scam link displays and proceed to see what occurs.
 
-
-<img src = "/assets/blog/scam_hunting/scam_hunting5.png" alt = "Scam Hunting"/>
+![Scam Hunting](/assets/blog/scam_hunting/scam_hunting5.png)
 
 
 ##### 4. [ANY.RUN](https://any.run/)
@@ -109,7 +107,7 @@ This is a brief summary of the session's events.
 - You can also capture the network traffic sent or recieved by the link.
 
 
-<img src = "/assets/blog/scam_hunting/scam_hunting6.png" alt = "Scam Hunting"/>
+![Scam Hunting](/assets/blog/scam_hunting/scam_hunting6.png)
 
 
 ##### 5. [Redirect Checker](https://www.redirect-checker.org/)
@@ -117,7 +115,7 @@ This is a brief summary of the session's events.
 
 - Checks if the link redirect you to some other site which might be the real malicious site
 
-<img src = "/assets/blog/scam_hunting/scam_hunting7.png" alt = "Scam Hunting"/>
+![Scam Hunting](/assets/blog/scam_hunting/scam_hunting7.png)
 
 
 ##### 6. [Link Unshortener](https://unshorten.it/)
