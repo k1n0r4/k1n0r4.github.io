@@ -12,9 +12,9 @@ coverImage: "/assets/blog/scam_hunting/scam_hunting_bg.jpg"
 
 <br />
 
-At the recent GCC(Global Cybersecurity Camp) event, I had the opportunity to attend an unofficial workshop led by [Lena Yu](https://www.linkedin.com/in/lenaaaa) titled "How to Hunt Undiscovered Scams." Despite not being part of the official program, the session proved to be highly informative and engaging.
+At the recent GCC (Global Cybersecurity Camp) event, I had the opportunity to attend an unofficial workshop led by [Lena Yu](https://www.linkedin.com/in/lenaaaa) titled "How to Hunt Undiscovered Scams". Despite not being part of the official program, the session proved to be highly informative and engaging.
 
-So, picture this: a group of us huddled around laptops, led by Lena Yu, diving into the depths of the internet to hunt down undiscovered scams. Lena, with her savvy insights, guided us through the process with ease.
+So, picture this: a group of us huddled around a laptop, led by Lena Yu, diving into the depths of the internet to hunt down undiscovered scams. Lena, with her savvy insights, guided us through the process with ease.
 
 First up, we delved into the world of open source intelligence (OSINT). We used all sorts of tools to sift through the digital noise and uncover potential scams lurking in the shadows.
 
@@ -31,6 +31,8 @@ This is a brief summary of the session's events.
 #### Phase One: Finding Scams
 
 <hr />
+
+We searched through some common scam links sites, here are the ones we found
 
 <br />
 
