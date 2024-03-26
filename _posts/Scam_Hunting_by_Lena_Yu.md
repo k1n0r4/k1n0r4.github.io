@@ -34,7 +34,7 @@ This is a brief summary of the session's events.
 
 <br />
 
-##### 1. [Temporary Phone numbers](https://receive-smss.com/)
+##### 1. Temporary Phone numbers [📎](https://receive-smss.com/)
 
 - These are the burner/public phones, which are utilized in a manner similar to how we occasionally get around the authentication procedure by obtaining OTPs via temporary mail ids.
 - These are public numbers, therefore scam connections are frequently visible.
@@ -45,7 +45,7 @@ This is a brief summary of the session's events.
 
 <br>
 
-##### 2. Twitter ([📎](https://twitter.com)
+##### 2. Twitter [📎](https://twitter.com)
 
 - Easiest way is to search for hashtags like #Fraud, #scam, #phishing, #scamalert, #SCAM
 - Look for screenshots from users containing scam links
@@ -70,7 +70,7 @@ This is a brief summary of the session's events.
 
 <br />
 
-##### 1. [Virustotal](https://www.virustotal.com/gui/home/url)
+##### 1. Virustotal [📎](https://www.virustotal.com/gui/home/url)
 
 - VirusTotal can be used to analyze URLs and websites to determine if they host any malicious content, such as phishing pages or malware distribution sites. 
 - Users can enter a website's URL into VirusTotal for scanning.
@@ -81,7 +81,7 @@ This is a brief summary of the session's events.
 
 <br />
 
-##### 2. [UrlScan](https://urlscan.io/)
+##### 2. UrlScan [📎](https://urlscan.io/)
 
 - Public scans can be performed on the suspected link
 - As a result, you can also view the interface of the suspected link and interact with it
@@ -91,7 +91,7 @@ This is a brief summary of the session's events.
 
 <br />
 
-##### 3. [Browserling](https://www.browserling.com/)
+##### 3. Browserling [📎](https://www.browserling.com/)
 
 - Once more, this facilitates using the connection in a sandbox and seeing how it behaves in real time. 
 - However, it allows you to engage with the sandbox in addition to just watching. 
@@ -100,7 +100,7 @@ This is a brief summary of the session's events.
 ![Scam Hunting](/assets/blog/scam_hunting/scam_hunting5.png)
 
 
-##### 4. [ANY.RUN](https://any.run/)
+##### 4. ANY.RUN [📎](https://any.run/)
 
 
 - One important feature of this site is that you can run the instance of the scam link in a sandbox and observe the behaviour live
@@ -110,7 +110,7 @@ This is a brief summary of the session's events.
 ![Scam Hunting](/assets/blog/scam_hunting/scam_hunting6.png)
 
 
-##### 5. [Redirect Checker](https://www.redirect-checker.org/)
+##### 5. Redirect Checker [📎](https://www.redirect-checker.org/)
 
 
 - Checks if the link redirect you to some other site which might be the real malicious site
@@ -118,7 +118,7 @@ This is a brief summary of the session's events.
 ![Scam Hunting](/assets/blog/scam_hunting/scam_hunting7.png)
 
 
-##### 6. [Link Unshortener](https://unshorten.it/)
+##### 6. Link Unshortener [📎](https://unshorten.it/)
 
 
 - Some sites shorten the link to hide the real intention behind the links, so we can use this site to unshorten the link. 
