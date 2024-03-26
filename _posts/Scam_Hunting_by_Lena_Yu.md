@@ -45,7 +45,7 @@ This is a brief summary of the session's events.
 
 <br>
 
-##### 2. Twitter
+##### 2. Twitter ([📎](https://twitter.com)
 
 - Easiest way is to search for hashtags like #Fraud, #scam, #phishing, #scamalert, #SCAM
 - Look for screenshots from users containing scam links
