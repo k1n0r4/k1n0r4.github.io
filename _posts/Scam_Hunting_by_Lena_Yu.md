@@ -30,7 +30,9 @@ This is a brief summary of the session's events.
 
 #### Phase One: Finding Scams
 
-We searched through some common scam links sites, here are the ones we found
+<p>
+  We searched through some common scam links sites, here are the ones we found
+</p>
 
 ##### 1. Temporary Phone numbers [📎](https://receive-smss.com/)
 
