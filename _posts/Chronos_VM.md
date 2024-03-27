@@ -17,24 +17,26 @@ This VM has been completely customized with the intention of using it in a CTF c
 
 ### Registers
 
+There are in total 8 General Purpose registers and 4 Special registers
+
 #### General Registers
 
-700: S0
-701: S1
-702: S2
-703: S3
-704: S4
-705: S5
-706: S6
-707: S7
+* 700: S0
+* 701: S1
+* 702: S2
+* 703: S3
+* 704: S4
+* 705: S5
+* 706: S6
+* 707: S7
 
 
 #### Special Registers
 
-708: MP - Memory pointer
-PC - Program counter
-SP - Stack pointer
-BP - Base pointer
+* 708: MP - Memory pointer
+* PC - Program counter
+* SP - Stack pointer
+* BP - Base pointer
 
 ##### Flags
 * EF - Exit Flag
