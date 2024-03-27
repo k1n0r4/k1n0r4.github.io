@@ -1,0 +1,184 @@
+3:I[5613,[],""]
+5:I[1778,[],""]
+4:["slug","Chronos_VM","d"]
+0:["D6N_aHH4xhGtnAQt7i5bU",[[["",{"children":["post",{"children":[["slug","Chronos_VM","d"],{"children":["__PAGE__?{\"slug\":\"Chronos_VM\"}",{}]}]}]},"$undefined","$undefined",true],["",{"children":["post",{"children":[["slug","Chronos_VM","d"],{"children":["__PAGE__",{},["$L1","$L2",null]]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","post","children","$4","children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}]]},["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children","post","children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","styles":null}]]},[null,["$","html",null,{"lang":"en","children":[["$","head",null,{"children":[["$","link",null,{"rel":"apple-touch-icon","sizes":"180x180","href":"/favicon/apple-touch-icon.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon/favicon-16x16.png"}],["$","link",null,{"rel":"manifest","href":"/favicon/site.webmanifest"}],["$","link",null,{"rel":"mask-icon","href":"/favicon/safari-pinned-tab.svg","color":"#000000"}],["$","link",null,{"rel":"shortcut icon","href":"/favicon/favicon.ico"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#000000"}],["$","meta",null,{"name":"msapplication-config","content":"/favicon/browserconfig.xml"}],["$","meta",null,{"name":"theme-color","content":"#000"}],["$","meta",null,{"charSet":"utf-8"}],["$","meta",null,{"name":"viewport","content":"width=device-width, initial-scale=1.0"}],["$","meta",null,{"httpEquiv":"X-UA-Compatible","content":"IE=edge"}],["$","meta",null,{"name":"HandheldFriendly","content":"True"}],["$","meta",null,{"name":"MobileOptimized","content":"320"}],["$","meta",null,{"name":"apple-mobile-web-app-capable","content":"yes"}],["$","meta",null,{"name":"apple-mobile-web-app-status-bar-style","content":"black-translucent"}],["$","meta",null,{"property":"og:site_name","content":"k1n0r4"}],["$","meta",null,{"property":"og:title","content":"k1n0r4"}],["$","meta",null,{"property":"og:description","content":"Reverse Engineer | Cybersecurity"}],["$","meta",null,{"property":"og:image","content":"undefined/assets/images/background-image.png"}],["$","meta",null,{"property":"og:url","content":"$undefined"}],["$","meta",null,{"property":"og:type","content":"blog"}],["$","link",null,{"rel":"shortcut icon","href":"/assets/images/favicon.png","type":"image/png"}],["$","link",null,{"rel":"stylesheet","href":"//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i"}],["$","link",null,{"rel":"stylesheet","type":"text/css","media":"screen","href":"/main.css"}],["$","link",null,{"rel":"stylesheet","type":"text/css","media":"print","href":"/print.css"}],["$","link",null,{"rel":"stylesheet","type":"text/css","media":"screen","href":"https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css"}],["$","link",null,{"rel":"stylesheet","href":"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css","integrity":"sha512-8RxmFOVaKQe/xtg6lbscU9DU0IRhURWEuiI0tXevv+lXbAHfkpamD4VKFQRto9WgfOJDwOZ74c/s9Yesv3VvIQ==","crossOrigin":"anonymous","referrerPolicy":"no-referrer"}]]}],["$","body",null,{"children":["$","$L3",null,{"parallelRouterKey":"children","segmentPath":["children"],"loading":"$undefined","loadingStyles":"$undefined","loadingScripts":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"styles":null}]}]]}],null]],[[["$","link","0",{"rel":"stylesheet","href":"https://k1n0r4.github.io/_next/static/css/29b355f0bc1677b2.css","precedence":"next","crossOrigin":""}]],"$L6"]]]]
+7:I[5250,["250","static/chunks/250-d7e0a94ebe194dac.js","122","static/chunks/122-ed1aa65bc25002c1.js","605","static/chunks/app/post/%5Bslug%5D/page-48988677402e354f.js"],""]
+9:I[5935,["250","static/chunks/250-d7e0a94ebe194dac.js","122","static/chunks/122-ed1aa65bc25002c1.js","605","static/chunks/app/post/%5Bslug%5D/page-48988677402e354f.js"],""]
+8:T2002,<hr>
+<p>layout: post
+title:  "Chronos VM"
+date:   "2024-03-03 20:27:51"
+categories: first
+tags: featured
+coverImage: "/assets/blog/chronos/chronos_bg.jpg"
+#image: /public/assets/blog/welcome/welcome.jpg
+#image2: public/assets/blog/welcome/welcome-mobile.jpg</p>
+<hr>
+<h3>Overview</h3>
+<p>This VM has been completely customized with the intention of using it in a CTF competition. It makes use of 32-bit opcodes and registers. It comes with unique versions for jump instructions and a finite quantity of flags.</p>
+<h3>Registers</h3>
+<h4>General Registers</h4>
+<p>700: S0
+701: S1
+702: S2
+703: S3
+704: S4
+705: S5
+706: S6
+707: S7</p>
+<h4>Special Registers</h4>
+<p>708: MP - Memory pointer
+PC - Program counter
+SP - Stack pointer
+BP - Base pointer</p>
+<h5>Flags</h5>
+<ul>
+<li>EF - Exit Flag</li>
+<li>ZF - Zero Flag</li>
+</ul>
+<h3>Instruction Set</h3>
+<p>| Opcodes: | Mnemonic | Description | Use Case of  Opcodes: |
+| ---- | ---- | ---- | ---- |
+| 1200 (10) | MOVR | "Moves" a value from one register to another (It does not copy the value but actually moves it) | MOVR S0, S1S1 --> S0 |
+| 1201 (8) | COPI | Typical 'mov' operation from x86 with an immediate value | COPI S0, 44 --> S0 |
+| 1202 (10) | COPR | Typical mov operation from x86 | COPR S0, S1 |
+| 1203 (8) | ADDI | Add the values of the register and the immediate value and store it in first operand | ADDI S0, 4S0 +=  4 |
+| 1204 (10) | ADDR | Add the values of the 2 register and save the result in the first register | ADDR S0, S1S0 = S0 + S1 |
+| 1205 (8) | SUBI | Subtract the values of the register and the immediate value and store it in first operand | SUBI S0, 4S0 -=  4 |
+| 1206 (10) | SUBR | Subtract the values of the 2 register and save the result in the first register | SUBR S0, S1S0 = S0 - S1 |
+| 1207 (8) | XORI | Xor the values of the register and the immediate value and store it in first operand | XORI S0, 4S0 ^=  4 |
+| 1208 (10) | XORR | Xor the values of the 2 register and save the result in the first register | XORR S0, S1S0 = S0 ^ S1 |
+| 1209 (8) | DIVI | Divide the value of the register by the immediate value and store it in first operand | DIVI S0, 4S0 /=  4 |
+| 1210 (10) | DIVR | Divide the value of the 1st register by 2nd register and save the result in the first register | DIVR S0, S1S0 = S0 / S1 |
+| 1211 (8) | MULI | Multiply the values of the register and the immediate value and store it in first operand | MULI S0, 4S0 *=  4 |
+| 1212 (10) | MULR | Multiply the values of the 2 register and save the result in the first register | MULR S0, S1S0 = S0 * S1 |
+| 1213 (7) | POPA | Pops the top value of the stack and stores it in the given register. SP --> SP + 1 | POPA S0[SP] --> S0 |
+| 1214 (7) | PUSH | The value in the register is pushed on the top of the stack. SP --> SP - 1 | PUSH S0S0 --> [SP-1] |
+| 1215 (8) | LOAD | Load the data from the memory to register. The offset of the MP is given as the 2nd argument | LOAD S0, 1[MP+1] -->S0 |
+| 1216 (7) | STOR | Store the data from register to memory. MP --> MP + 1 | STOR S0S0 --> [MP] |
+| 1217 (~) | CALL | Calls the function given, the length of the function name and then the function name is provided | CALL 5 func0 |
+| 1218 (7) | INCR | Increments the value of the register by 1 and store it in the same register | INCR S0S0 += 1 |
+| 1219 (7) | DECR | Decrements the value of the register by 1 and store it in the same register | DECR S0S0  -= 1 |
+| 1220 (8) | LD_D | Another version of Load, where the value from the memory is deleted when it's loaded into the register | LD_D S1, 1[MP+1] -->S1 |
+| 1221 (8) | SHRI | Shift Right the value of the register by the given value | SHRI S0, 1S0 = S0 >>1 |
+| 1222 (10) | SHRR | Shift Right the value of the register by the given value within a register | SHRR S0, S1S0 = S0 >>S1 |
+| 1223 (8) | SHLI | Shift Left the value of the register by the given value | SHLI S0, 1S0 = S0 &#x3C;&#x3C; 1 |
+| 1224 (10) | SHLR | Shift Left the value of the register by the given value within a register | SHLR S0, S1S0 = S0 &#x3C;&#x3C; S1 |
+| 1225 (~) | PRIM | Print the message, the length of the message and the message is given | PRIM 5 Hello |
+| 1226 (7) | PRIR | Prints the value of the register | PRIR S0 |
+| 1227 (8) | COPS | Copies the value from the stack to the register given | COPS S0,4[SP+4] --> S0 |
+| 1228 (~) | JZD | Increment the PC by the value given if the ZF is set to 1 | JZD 4PC += 4 |
+| 1229 (~) | JNZD | Increment the PC by the value given if the ZF is set to 0 | JNZD 4PC += 4 |
+| 1230 (~) | JMPD | Increment the PC by the value given | JMPD 4PC += 4 |
+| 1231 (~) | SCAN | Takes input in 3 forms, integer, character and stringThe type of data needs to be specified as 'i' for integer, 'c' for character and 's' for stringInteger input is stored in the register specifiedCharacter input is stored directly in the memoryString input is converted to it's base64 form and then stored in the memory | SCAN i S0input --> S0 |
+| 1232 (8) | CMPI | Compares the value in the register with the immediate value and sets the zero flag accordingly | CMPI S0, 3 |
+| 1233 (10) | CMPR | Compares the values in the 2 registers and sets the zero flag accordingly | CMPI S0, S1 |
+| 1234 (4) | EXIT | Sets the Exit flag as 1 | EXIT |
+| 1235 (8) | ANDI | Bitwise And operation is performed on the value of the register and the immediate value and is stored it in the first operand | ANDI S0, 4S0 &#x26;=  4 |
+| 1236 (10) | ANDR | Bitwise And operation is performed on the values of the 2 registers and result is stored in the first operand | ANDR S0, S1S0 = S0 &#x26; S1 |
+| 1237 (8) | ORRI | Bitwise Or operation is performed on the value of the register and the immediate value and is stored it in the first operand | ANDI S0, 4S0 |=  4 |
+| 1238 (10) | ORRR | Bitwise Or operation is performed on the values of the 2 registers and result is stored in the first operand | ORRR S0, S1S0 = S0 | S1 |
+| 1239 (~) | JZU | Decrement the PC by the value given if the ZF is set to 1 | JZU 4PC -= 4 |
+| 1240 (~) | JNZU | Decrement the PC by the value given if the ZF is set to 0 | JNZU 4PC -= 4 |
+| 1241 (~) | JMPU | Decrement the PC by the value given | JMPD 4PC -= 4 |
+| 1242 (~) | JNZ | Place the PC at the offset mentioned if the zero flag is set to 0 | JNZ 4PC = 4 |
+| 1243 (~) | JZ | Place the PC at the offset mentioned if the zero flag is set to 1 | JZ 4PC = 4 |</p>
+<h3>Application</h3>
+<p>This VM is created as a part of a challenge for an International CTF, bi0s CTF 2024
+It is being used here to perform bit manipulation</p>
+<h4>Control Flow</h4>
+<ol>
+<li>Prompt for input</li>
+<li>Take input and format it</li>
+<li>Store the modified input in memory</li>
+<li>Store the same in the stack</li>
+<li>Convert into binary and store it in stack and remove the input from memory</li>
+<li>Classified array is computed and stored in memory</li>
+</ol>
+<h4>Disassembly</h4>
+<pre><code>;S0 has the modified input length
+
+		COPI 	MP, 0
+		PRIM 16 Enter the flag: 
+		SCAN s
+
+		COPI 	S1, 0
+		COPI	MP, 0
+48: 	LOAD 	S2, [MP]
+		INCR 	MP
+		INCR	S1
+		PUSH 	S2
+		CMPR  	S1, S0
+87: 	JNZU  	39        ;48
+
+
+92: 	COPI 	S7, 0
+100:	DECR	MP
+107:	LD_D	S1, [MP]
+115:	COPI	S2, 0
+123:	COPR	S3, S1
+133:	ANDI	S3, 1
+141:	PUSH	S3
+148:	SHRI	S1, 1
+156:	INCR	S2
+163:	CMPI	S2, 8
+171:	JNZU	48 			;123
+176:	INCR	S7
+183:	CMPR	S7, S0
+193:	JNZU	93  		;100
+
+
+198:	COPR 	S1, S0
+208:	DECR 	S1
+215:	COPI 	S2, 0
+223:	COPS	S3, [SP]
+231:	COPS	S4, [SP+8]
+239:	XORR	S3, S4
+249:	STOR 	S3
+256:	COPS	S3, [SP+1]
+264:	COPS	S4, [SP+9]
+272:	XORR	S3, S4
+282:	STOR 	S3
+289:	COPS	S3, [SP+2]
+297:	COPS	S4, [SP+10]
+305:	XORR	S3, S4
+315:	STOR 	S3
+322:	COPS	S3, [SP+1]
+330:	COPS	S4, [SP+8]
+338:	XORR	S3, S4
+348:	STOR 	S3
+355:	COPS	S3, [SP]
+363:	COPS	S4, [SP+9]
+371:	XORR	S3, S4
+381:	STOR 	S3
+388:	COPS	S3, [SP+2]
+396:	COPS	S4, [SP+9]
+404:	XORR	S3, S4
+414:	STOR 	S3
+421:	COPS	S3, [SP+1]
+429:	COPS	S4, [SP+10]
+437:	XORR	S3, S4
+447:	STOR 	S3
+454:	COPS	S3, [SP]
+462:	COPS	S4, [SP+2]
+470:	COPS 	S5, [SP+9]
+478:	XORR	S3, S4
+488:	XORR	S3, S5
+498:	STOR 	S3
+505:	POP		S5
+512:	INCR	S2
+519:	CMPI	S2, 6
+527:	JNZ 	223			
+532:	POP 	S5
+539:	POP		S5
+546:	DECR	S1
+553:	CMPI 	S1, 0
+561:	JNZ 	215			
+566:	CMPI	MP, 144
+574:	JNZD 	15        ;589
+579:	PRIM 5  Wrong
+589:	EXIT  
+</code></pre>
+2:[["$","main",null,{"className":"content","role":"main","children":[["$","$L7",null,{"href":"/","className":"logo-readium","children":["$","span",null,{"className":"logo","style":{"backgroundImage":"url(/assets/images/logo.png)"}}]}],["$","article",null,{"className":"post","children":[["$","div",null,{"className":"noarticleimage max-w-[800px] mx-auto","children":["$","div",null,{"className":"post-meta","children":[["$","h1",null,{"className":"post-title","children":"$undefined"}],["$","div",null,{"className":"cf post-meta-text","children":[["$","div",null,{"className":"author-image","style":{"backgroundImage":"url(/assets/images/author.jpg)"},"children":"Blog Logo"}],["$","h4",null,{"className":"author-name font-bold","children":"Sejal Koshta"}],"$undefined"]}]]}]}],["$","br",null,{}],["$","br",null,{}],["$","br",null,{}],["$","div",null,{"className":"max-w-[800px] mx-auto px-4","children":[["$","section",null,{"className":"post-content z-20","children":[["$","div",null,{"className":"post-reading hidden","children":["$","span",null,{"className":"post-reading-time","children":[8.655," ","min read     |    ",1731," ","words"]}]}],["$","a",null,{"id":"topofpage"}],["$","div",null,{"className":"content","dangerouslySetInnerHTML":{"__html":"$8"}}]]}],["$","footer",null,{"className":"post-footer","children":["$","section",null,{"className":"share","children":["$","$L7",null,{"href":"https://twitter.com/share?text=Hey, I just read undefined on k1n0r4!&url=undefined/post/Chronos_VM","target":"_blank","className":"share-twitter","children":"Share on Twitter"}]}]}],["$","div",null,{"className":"bottom-teaser cf","children":["$","div",null,{"className":"isLeft","children":[["$","h5",null,{"className":"index-headline featured","children":["$","span",null,{"children":"Written by"}]}],["$","section",null,{"className":"author","children":[["$","div",null,{"className":"author-image","style":{"backgroundImage":"url(/assets/images/author.jpg)"},"children":"Blog Logo"}],["$","h4",null,{"children":"Sejal Koshta"}],["$","p",null,{"className":"bio","children":"Reverse Engineer | Cybersecurity"}],["$","hr",null,{}],["$","p",null,{"className":"published","children":["Published"," ","$undefined"]}]]}],["$","section",null,{"className":"published site-footer opacity-30 text-xs text-center","children":["All content copyright  ",["$","a",null,{"href":"mailto:sejal.koshta2003@gmail.com","children":"Sejal Koshta"}]," ","©",2024," ","  ·  All rights reserved."]}]]}]}]]}]]}]]}],["$","div",null,{"className":"bottom-closer","children":[["$","div",null,{"className":"background-closer-image","style":{"backgroundImage":"url(/assets/images/background-image.png)"},"children":"Image"}],["$","div",null,{"className":"inner","children":[["$","h1",null,{"className":"blog-title","children":"k1n0r4"}],["$","h2",null,{"className":"blog-description","children":"Reverse Engineer | Cybersecurity"}],["$","$L7",null,{"href":"/","className":"btn","children":"Back to Overview"}]]}]]}],["$","$L9",null,{"id":"custom-transition-js","children":"window.addEventListener('scroll', function() {\n                    const image = document.getElementById('article-cover');\n                    if (image) {\n                        const scrollTop = window.scrollY || window.pageYOffset;\n                        const opacity = 1 - Math.max(scrollTop / 700, 0); // Adjust 700 according to your needs\n                        const translateY = scrollTop / 3; // Adjust 3 according to your needs\n                        image.style.opacity = opacity;\n                        image.style.transform = 'translateY(' + translateY + 'px)';\n                    }\n                });"}]]
+6:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"k1n0r4"}],["$","meta","3",{"name":"description","content":"Reverse Engineer | Cybersecurity"}],["$","meta","4",{"property":"og:title","content":"undefined | k1n0r4"}],["$","meta","5",{"property":"og:description","content":"Reverse Engineer | Cybersecurity"}],["$","meta","6",{"property":"og:image","content":"http://localhost:3000/assets/images/background-image.png"}],["$","meta","7",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","8",{"name":"twitter:title","content":"undefined | k1n0r4"}],["$","meta","9",{"name":"twitter:description","content":"Reverse Engineer | Cybersecurity"}],["$","meta","10",{"name":"twitter:image","content":"http://localhost:3000/assets/images/background-image.png"}],["$","link","11",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"256x256"}],["$","link","12",{"rel":"icon","href":"/icon.png?63ba5a64fb085ac3","type":"image/png","sizes":"896x896"}],["$","link","13",{"rel":"apple-touch-icon","href":"/apple-icon.png?63ba5a64fb085ac3","type":"image/png","sizes":"896x896"}]]
+1:null
