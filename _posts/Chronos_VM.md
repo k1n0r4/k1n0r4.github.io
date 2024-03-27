@@ -1,6 +1,4 @@
-
 ---
-
 layout: post
 title:  "Chronos VM"
 date:   "2024-03-03 20:27:51"
@@ -9,7 +7,6 @@ tags: featured
 coverImage: "/assets/blog/chronos/chronos_bg.jpg"
 #image: /public/assets/blog/welcome/welcome.jpg
 #image2: public/assets/blog/welcome/welcome-mobile.jpg
-
 ---
 
 <br />
