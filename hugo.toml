@@ -1,4 +1,10 @@
 baseURL = 'https://k1n0r4.github.io/'
 languageCode = 'en-us'
-title = 'k1n0r4 Blogs At'
+title = 'k1n0r4 Vista'
 theme = 'ananke'
+
+[[params.ananke_socials]]
+name = "twitter"
+url = "https://twitter.com/k1n0r4"
+name = "linkedin"
+url = "https://www.linkedin.com/in/sejal-koshta-/"
