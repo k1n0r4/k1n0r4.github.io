@@ -2,17 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2024-04-15T18:45:29+05:30</lastmod>
+    <loc>http://localhost:1313/post/fsvm/</loc>
+    <lastmod>2024-04-01T18:59:02+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/mypost/</loc>
-    <lastmod>2024-04-15T18:45:29+05:30</lastmod>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2024-04-01T18:59:02+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2024-04-15T18:45:29+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <lastmod>2024-04-01T18:59:02+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2024-04-01T18:59:02+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/writeup/</loc>
+    <lastmod>2024-04-01T18:59:02+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/chronos_vm/</loc>
+    <lastmod>2024-03-03T16:27:51+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/vm/</loc>
+    <lastmod>2024-03-03T16:27:51+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/scam/</loc>
+    <lastmod>2024-03-01T12:56:29+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/scam_hunting/</loc>
+    <lastmod>2024-03-01T12:56:29+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/about/</loc>
+  </url><url>
+    <loc>http://localhost:1313/categories/</loc>
   </url>
 </urlset>

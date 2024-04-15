@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>My New Hugo Site</title>
+    <title>k1n0r4</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="The last theme you&#39;ll ever need. Maybe.">
     <meta name="generator" content="Hugo 0.124.1">
     
     
@@ -24,13 +24,15 @@
 
     
       
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
 
     
 
     
     
-      <link href="/post/index.xml" rel="alternate" type="application/rss+xml" title="My New Hugo Site" />
-      <link href="/post/index.xml" rel="feed" type="application/rss+xml" title="My New Hugo Site" />
+      <link href="/post/index.xml" rel="alternate" type="application/rss+xml" title="k1n0r4" />
+      <link href="/post/index.xml" rel="feed" type="application/rss+xml" title="k1n0r4" />
       
     
 
@@ -39,12 +41,12 @@
     
 
     <meta property="og:title" content="Posts" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="The last theme you&#39;ll ever need. Maybe." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://localhost:1313/post/" />
 <meta itemprop="name" content="Posts">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content=""/>
+<meta itemprop="description" content="The last theme you&#39;ll ever need. Maybe."><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Posts"/>
+<meta name="twitter:description" content="The last theme you&#39;ll ever need. Maybe."/>
 
 	
   </head>
@@ -53,13 +55,14 @@
 
     
 
-  <header>
-    <div class="pb3-m pb6-l bg-black">
+  
+  <header class="cover bg-top" style="background-image: url('http://localhost:1313/images/background-image_n.png');">
+    <div class="bg-black-60">
       <nav class="pv3 ph3 ph4-ns" role="navigation">
   <div class="flex-l justify-between items-center center">
     <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
       
-        My New Hugo Site
+        k1n0r4
       
     </a>
     <div class="flex-l items-center">
@@ -75,8 +78,8 @@
   </div>
 </nav>
 
-      <div class="tc-l pv3 ph3 ph4-ns">
-        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+      <div class="tc-l pv4 pv6-l ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
           Posts
         </h1>
         
@@ -98,18 +101,62 @@
             <div class="mb3 pa4 mid-gray overflow-hidden">
     
       <div class="f6">
-        April 15, 2024
+        April 1, 2024
       </div>
     
     <h1 class="f3 near-black">
-      <a href="/post/mypost/" class="link black dim">
-        My post
+      <a href="/post/fsvm/" class="link black dim">
+        Fsvm : ecscCTF 2024
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      This is the content
+      I recently participated in ecscCTF 2024, mainly to try out the reversing challenges from the CTF. Subsequently, a two-part VM challenge caught my attention, called fsvm and fsvm2.
+These two use almost the same instruction set and different code dumps for emulation. The aim was to obtain the disassembly as soon as possible.
+A huge shoutout to my teammate, retr0ds, who collaborated with me to solve fsvm by helping me construct the emulator for the task.
     </div>
-  <a href="/post/mypost/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  <a href="/post/fsvm/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        March 3, 2024
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/chronos_vm/" class="link black dim">
+        Chronos VM
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      This virtual machine (VM) is custom-designed for a specific purpose. It includes standard instructions for data movement and arithmetic operations, along with unique jump instructions that extend the capabilities of typical jumping behavior. The VM also has a limited set of flags that can be expanded based on specific needs.
+It operates using 32-bit opcodes and registers. This VM is created as a part of a challenge for an International CTF, bi0s CTF 2024.
+    </div>
+  <a href="/post/chronos_vm/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        March 1, 2024
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/scam_hunting/" class="link black dim">
+        Scam Hunting by Lena Yu
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      At the recent GCC (Global Cybersecurity Camp) event, I had the opportunity to attend an unofficial workshop led by Lena Yu titled &ldquo;How to Hunt Undiscovered Scams&rdquo;. Despite not being part of the official program, the session proved to be highly informative and engaging.
+So, picture this: a group of us huddled around a laptop, led by Lena Yu, diving into the depths of the internet to hunt down undiscovered scams.
+    </div>
+  <a href="/post/scam_hunting/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
   </div>
 
         </div>
@@ -122,7 +169,7 @@
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
   <div class="flex justify-between">
   <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
-    &copy;  My New Hugo Site 2024 
+    &copy;  k1n0r4 2024 
   </a>
     <div>
 <div class="ananke-socials">

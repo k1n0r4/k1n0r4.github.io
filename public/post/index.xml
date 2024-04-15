@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on My New Hugo Site</title>
+    <title>Posts on k1n0r4</title>
     <link>http://localhost:1313/post/</link>
-    <description>Recent content in Posts on My New Hugo Site</description>
+    <description>Recent content in Posts on k1n0r4</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Apr 2024 18:45:29 +0530</lastBuildDate>
+    <lastBuildDate>Mon, 01 Apr 2024 18:59:02 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>My post</title>
-      <link>http://localhost:1313/post/mypost/</link>
-      <pubDate>Mon, 15 Apr 2024 18:45:29 +0530</pubDate>
-      <guid>http://localhost:1313/post/mypost/</guid>
-      <description>This is the content</description>
+      <title>Fsvm : ecscCTF 2024</title>
+      <link>http://localhost:1313/post/fsvm/</link>
+      <pubDate>Mon, 01 Apr 2024 18:59:02 +0530</pubDate>
+      <guid>http://localhost:1313/post/fsvm/</guid>
+      <description>I recently participated in ecscCTF 2024, mainly to try out the reversing challenges from the CTF. Subsequently, a two-part VM challenge caught my attention, called fsvm and fsvm2.&#xA;These two use almost the same instruction set and different code dumps for emulation. The aim was to obtain the disassembly as soon as possible.&#xA;A huge shoutout to my teammate, retr0ds, who collaborated with me to solve fsvm by helping me construct the emulator for the task.</description>
+    </item>
+    <item>
+      <title>Chronos VM</title>
+      <link>http://localhost:1313/post/chronos_vm/</link>
+      <pubDate>Sun, 03 Mar 2024 16:27:51 +0530</pubDate>
+      <guid>http://localhost:1313/post/chronos_vm/</guid>
+      <description>This virtual machine (VM) is custom-designed for a specific purpose. It includes standard instructions for data movement and arithmetic operations, along with unique jump instructions that extend the capabilities of typical jumping behavior. The VM also has a limited set of flags that can be expanded based on specific needs.&#xA;It operates using 32-bit opcodes and registers. This VM is created as a part of a challenge for an International CTF, bi0s CTF 2024.</description>
+    </item>
+    <item>
+      <title>Scam Hunting by Lena Yu</title>
+      <link>http://localhost:1313/post/scam_hunting/</link>
+      <pubDate>Fri, 01 Mar 2024 12:56:29 +0530</pubDate>
+      <guid>http://localhost:1313/post/scam_hunting/</guid>
+      <description>At the recent GCC (Global Cybersecurity Camp) event, I had the opportunity to attend an unofficial workshop led by Lena Yu titled &amp;ldquo;How to Hunt Undiscovered Scams&amp;rdquo;. Despite not being part of the official program, the session proved to be highly informative and engaging.&#xA;So, picture this: a group of us huddled around a laptop, led by Lena Yu, diving into the depths of the internet to hunt down undiscovered scams.</description>
     </item>
   </channel>
 </rss>
