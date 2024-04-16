@@ -25,8 +25,8 @@ enableRobotsTXT = true
 
 [params]
   text_color = ""
-  author = ""
-  favicon = ""
+  author = "Sejal"
+  favicon = "favicon.ico"
   site_logo = ""
   description = "The last theme you'll 123 ever need. Maybe."
   # choose a background color from any on this page: https://tachyons.io/docs/themes/skins/ and preface it with "bg-"
