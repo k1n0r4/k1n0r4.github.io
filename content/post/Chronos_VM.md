@@ -192,3 +192,7 @@ In that challenge, the VM performs bit manipulation on the user input which dema
 589:	EXIT  
 ```
 
+<br>
+<br>
+
+-----------------------------------------------------------------

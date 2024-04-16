@@ -2,7 +2,7 @@
 title = 'Fsvm2 : ecscCTF 2024'
 date = 2024-04-03T16:30:02+05:30
 featured_image = "/images/fsvm2/fsvm2_bg.png"
-tags = ["Writeup"]
+tags = ["Writeup", "linux", "VM", "ecscCTF"]
 +++
 
 # fsvm2 - ecscCTF 2024
@@ -365,4 +365,7 @@ else:
 
 I enjoyed how this VM was constructed and divided into two parts, each getting harder. This could be a good entry point into the world VM challenges.
 
+<br>
+<br>
 
+-----------------------------------------------------------------

@@ -3,7 +3,7 @@ title = 'Scam Hunting by Lena Yu'
 description = "GCC 2024"
 date = 2024-03-01T12:56:29+05:30
 featured_image = "/images/scam_hunting/scam_hunting_bg_n.jpg"
-tags = ["scam"]
+tags = ["scam", "osint"]
 +++
 
 
@@ -140,3 +140,11 @@ The source code of the suspected link can be analysed and reverse engineered to 
 
 1. [Reverse Engineering the site](https://darktrace.com/blog/the-rise-of-ipfs-phishing-darktraces-detection-of-an-evasive-and-dynamic-credential-harvester)
 2. Tool - [GrimScraper](https://github.com/LambdaMamba/grim-scraper)
+
+
+
+<br>
+
+<br>
+
+-----------------------------------------------------------------

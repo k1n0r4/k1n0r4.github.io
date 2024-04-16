@@ -13,4 +13,28 @@ resourceDir = "../resources"
   description = "The last theme you'll ever need. Maybe."
   # choose a background color from any on this page: https://tachyons.io/docs/themes/skins/ and preface it with "bg-"
   background_color_class = "bg-black"
-  recent_posts_number = 3
+
+
+[[params.ananke_socials]]
+name = "About"
+url = "/about"
+
+[[params.ananke_socials]]
+name = "Posts"
+url = "/post"
+
+
+[[params.ananke_socials]]
+name = "twitter"
+url = "https://twitter.com/theNewDynamic"
+
+[[params.ananke_socials]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/sejal-koshta-/"
+
+
+
+
+
+
+

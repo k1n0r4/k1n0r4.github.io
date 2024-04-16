@@ -2,7 +2,7 @@
 title = 'Cyclechaser : Kalmar CTF 2023'
 date = 2023-03-07T14:52:41+05:30
 featured_image = "/images/cyclechaser/chaser_bg.png"
-tags = ["Writeup"]
+tags = ["Writeup", "kalmarCTF"]
 +++
 
 
@@ -178,3 +178,9 @@ i_still_have_to_construct_a_flag_of_correct_length_for_this_chal
 
 #### Flag - 
 `kalmar{i_still_have_to_construct_a_flag_of_correct_length_for_this_chal}`
+
+
+<br>
+<br>
+
+-----------------------------------------------------------------

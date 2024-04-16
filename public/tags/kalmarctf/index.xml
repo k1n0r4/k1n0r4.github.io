@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>KalmarCTF on k1n0r4</title>
+    <link>http://localhost:1313/tags/kalmarctf/</link>
+    <description>Recent content in KalmarCTF on k1n0r4</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Mar 2023 14:52:41 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/kalmarctf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cyclechaser : Kalmar CTF 2023</title>
+      <link>http://localhost:1313/post/cyclechaser/</link>
+      <pubDate>Tue, 07 Mar 2023 14:52:41 +0530</pubDate>
+      <guid>http://localhost:1313/post/cyclechaser/</guid>
+      <description>I played Kalmar CTF with Team Shakti last weekend and came across this amazing reversing challenge. This challenge utilises functions like srand() and getrandom().&#xA;Let&amp;rsquo;s take a look how these functions play a role in this challenge and how I reversed the binary to clutch the flag. There were some calculated hunches that I had to make to reach the correct solution and pretty little pwntools script 🙂.&#xA;Triage Let&amp;rsquo;s first analyze the challenge binary statically.</description>
+    </item>
+  </channel>
+</rss>

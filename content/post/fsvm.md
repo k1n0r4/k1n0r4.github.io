@@ -2,7 +2,7 @@
 title = 'Fsvm : ecscCTF 2024'
 date = 2024-04-01T18:59:02+05:30
 featured_image = "/images/fsvm/fsvm_bg.png"
-tags = ["Writeup"]
+tags = ["Writeup", "linux", "VM", "ecscCTF"]
 +++
 
 
@@ -300,3 +300,9 @@ print("Done")
 Output:
 
 `openECSC{supereasyvmc4e87c4d}`
+
+
+<br>
+<br>
+
+-----------------------------------------------------------------
