@@ -16,7 +16,7 @@ A huge shoutout to my teammate, [retr0ds](https://twitter.com/_retr0ds_), who co
 
 ### Triage
 
-When we run the binary along with the provided bytecode, we encounter a prompt asking for a flag.  
+When we run the [binary](/files/fsvm/vm) along with the provided [bytecode](/files/fsvm/bytecode), we encounter a prompt asking for a flag.  
 
 ![fsvm](/images/fsvm/fsvm_1.png)
 

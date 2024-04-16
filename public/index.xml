@@ -6,8 +6,15 @@
     <description>Recent content in k1n0r4 v1sta on k1n0r4</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Apr 2024 18:59:02 +0530</lastBuildDate>
+    <lastBuildDate>Wed, 03 Apr 2024 16:30:02 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fsvm2 : ecscCTF 2024</title>
+      <link>http://localhost:1313/post/fsvm2/</link>
+      <pubDate>Wed, 03 Apr 2024 16:30:02 +0530</pubDate>
+      <guid>http://localhost:1313/post/fsvm2/</guid>
+      <description>fsvm2 - ecscCTF 2024 This is the second part of fsvm, if you haven&amp;rsquo;t checked out the writeup of fsvm yet, then I recommend you to give that a read before reading this.&#xA;In this challenge, a distinct set of VM binary and bytecode are provided with few changes in the instruction set of the VM.&#xA;Initial Triage With the exception of a few opcodes being implemented, the decompilation of this binary appears almost identical.</description>
+    </item>
     <item>
       <title>Fsvm : ecscCTF 2024</title>
       <link>http://localhost:1313/post/fsvm/</link>
@@ -28,6 +35,13 @@
       <pubDate>Fri, 01 Mar 2024 12:56:29 +0530</pubDate>
       <guid>http://localhost:1313/post/scam_hunting/</guid>
       <description>At the recent GCC (Global Cybersecurity Camp) event, I had the opportunity to attend an unofficial workshop led by Lena Yu titled &amp;ldquo;How to Hunt Undiscovered Scams&amp;rdquo;. Despite not being part of the official program, the session proved to be highly informative and engaging.&#xA;So, picture this: a group of us huddled around a laptop, led by Lena Yu, diving into the depths of the internet to hunt down undiscovered scams.</description>
+    </item>
+    <item>
+      <title>Cyclechaser : Kalmar CTF 2023</title>
+      <link>http://localhost:1313/post/cyclechaser/</link>
+      <pubDate>Tue, 07 Mar 2023 14:52:41 +0530</pubDate>
+      <guid>http://localhost:1313/post/cyclechaser/</guid>
+      <description>I played Kalmar CTF with Team Shakti last weekend and came across this amazing reversing challenge. This challenge utilises functions like srand() and getrandom().&#xA;Let&amp;rsquo;s take a look how these functions play a role in this challenge and how I reversed the binary to clutch the flag. There were some calculated hunches that I had to make to reach the correct solution and pretty little pwntools script 🙂.&#xA;Triage Let&amp;rsquo;s first analyze the challenge binary statically.</description>
     </item>
     <item>
       <title>About Me</title>
