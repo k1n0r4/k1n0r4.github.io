@@ -8,5 +8,5 @@ cascade:
   featured_image: 'images/background-image_n.png'
 ---
 
-Hey! I'm Sejal aka k1n0r4   
+Hey! I'm Sejal aka k1n0r4 👋
 Welcome to my blogpost ! 
