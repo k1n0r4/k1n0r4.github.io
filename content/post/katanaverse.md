@@ -10,6 +10,8 @@ In this detailed explanation, I will walk you through the process of constructin
 
 In Katanaverse 0.0, participants tackled the Weighted Maxcut Problem, aiming to split connected dots on a graph into two groups to maximize the weight of lines between them. This demanded strategic thinking and experimentation. In Katanaverse 1.0, participants employed a straightforward but exhaustive approach, trying every possible solution until finding the best one.
 
+Also you can find the source codes and binaries of both the challenges on my [Github repo](https://github.com/k1n0r4/Katanaverse).
+
 ## Overview of the Challenge
 
 The entire challenge is divided into multiple parts

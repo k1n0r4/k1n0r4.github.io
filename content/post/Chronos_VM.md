@@ -12,7 +12,7 @@ This VM is created as a part of a challenge for an International CTF, bi0s CTF 2
 
 In that challenge, the VM performs bit manipulation on the user input which demands reversing the logic of the bit operations and retrieve back the original bytes.
 
-
+The source code of the VM can be found [here](/files/chronos/final_vm.c).
 
 ## Registers
 
