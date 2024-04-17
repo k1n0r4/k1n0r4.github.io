@@ -29,5 +29,12 @@
       <guid>http://localhost:1313/post/chronos_vm/</guid>
       <description>This virtual machine (VM) is custom-designed for a specific purpose. It includes standard instructions for data movement and arithmetic operations, along with unique jump instructions that extend the capabilities of typical jumping behavior. The VM also has a limited set of flags that can be expanded based on specific needs.&#xA;It operates using 32-bit opcodes and registers. This VM is created as a part of a challenge for an International CTF, bi0s CTF 2024.</description>
     </item>
+    <item>
+      <title>Exploring Katanaverse Implementation</title>
+      <link>http://localhost:1313/post/katanaverse/</link>
+      <pubDate>Fri, 02 Feb 2024 12:45:19 +0530</pubDate>
+      <guid>http://localhost:1313/post/katanaverse/</guid>
+      <description>In this detailed explanation, I will walk you through the process of constructing Katanaverse, the binary utilized as a bi0sCTF 2024 Challenge. This challenge falls within the domain of reverse engineering and requires participants to employ puzzle-solving skills. Katanaverse presents a unique blend of custom architecture and concepts from Quantum Computing.&#xA;In Katanaverse 0.0, participants tackled the Weighted Maxcut Problem, aiming to split connected dots on a graph into two groups to maximize the weight of lines between them.</description>
+    </item>
   </channel>
 </rss>

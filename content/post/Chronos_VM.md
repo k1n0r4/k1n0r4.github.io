@@ -96,6 +96,9 @@ There are in total 8 General Purpose registers and 4 Special registers
 
 This VM is created as a part of a challenge for an International CTF, bi0s CTF 2024
 In that challenge, the VM performs bit manipulation on the user input which demands reversing the logic of the bit operations and retrieve back the original bytes.
+
+You can download the source code of the VM here.
+
 ### Control Flow
 
 1. Prompt for input

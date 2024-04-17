@@ -7,7 +7,7 @@ resourceDir = "../resources"
 
 [params]
   text_color = ""
-  author = "Sejal"
+  author = "Sejal Koshta"
   favicon = "favicon.ico"
   site_logo = ""
   description = "The last theme you'll ever need. Maybe."
