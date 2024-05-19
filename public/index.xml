@@ -4,10 +4,17 @@
     <title>k1n0r4 v1sta on k1n0r4</title>
     <link>http://localhost:1313/</link>
     <description>Recent content in k1n0r4 v1sta on k1n0r4</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Apr 2024 16:30:02 +0530</lastBuildDate>
+    <lastBuildDate>Sun, 05 May 2024 12:45:19 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GCC 2024</title>
+      <link>http://localhost:1313/post/gcc/</link>
+      <pubDate>Sun, 05 May 2024 12:45:19 +0530</pubDate>
+      <guid>http://localhost:1313/post/gcc/</guid>
+      <description>Writing about the work trips is my favorite hobby 😉&#xA;So well, in february I got the opportunity to attend a camp at Thailand, the land of amazing cuisine 😋&#xA;I attended Global Cybersecurity Camp, which was a 5 days event from 19th Feb to 24th Feb, 2024.&#xA;Cybersecurity enthusiasts and experts from 11 different Asian Countries 🌎 joined on this venture. The participating countries were Japan, Vietnam, South Korea, Malayasia, Singapore, Indonesia, Taiwan, India, Thailand and Australia.</description>
+    </item>
     <item>
       <title>Fsvm2 : ecscCTF 2024</title>
       <link>http://localhost:1313/post/fsvm2/</link>
@@ -42,6 +49,13 @@
       <pubDate>Fri, 02 Feb 2024 12:45:19 +0530</pubDate>
       <guid>http://localhost:1313/post/katanaverse/</guid>
       <description>In this detailed explanation, I will walk you through the process of constructing Katanaverse, the binary utilized as a bi0sCTF 2024 Challenge. This challenge falls within the domain of reverse engineering and requires participants to employ puzzle-solving skills. Katanaverse presents a unique blend of custom architecture and concepts from Quantum Computing.&#xA;In Katanaverse 0.0, participants tackled the Weighted Maxcut Problem, aiming to split connected dots on a graph into two groups to maximize the weight of lines between them.</description>
+    </item>
+    <item>
+      <title>Required : hxpCTF 2023</title>
+      <link>http://localhost:1313/post/required/</link>
+      <pubDate>Thu, 30 Mar 2023 23:17:45 +0530</pubDate>
+      <guid>http://localhost:1313/post/required/</guid>
+      <description>Description I have written a super safe flag encryptor. I’m sure nobody can figure out what my original flag was:&#xA;0xd19ee193b461fd8d1452e7659acb1f47dc3ed445c8eb4ff191b1abfa7969&#xA;Points - 182 points&#xA;Solves - 46 solves&#xA;CTF Rating - 100&#xA;Solution Initial Analysis A total of 300 javascript files are provided with a number of missing files. In most cases, the files contain a variety of constraints that our original flag bytes must navigate to produce the output mentioned in the description.</description>
     </item>
     <item>
       <title>Cyclechaser : Kalmar CTF 2023</title>

@@ -20,7 +20,7 @@ name = "About"
 url = "/about"
 
 [[params.ananke_socials]]
-name = "Posts"
+name = "Articles"
 url = "/post"
 
 

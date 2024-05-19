@@ -4,7 +4,7 @@
     <title>Writeup on k1n0r4</title>
     <link>http://localhost:1313/tags/writeup/</link>
     <description>Recent content in Writeup on k1n0r4</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 03 Apr 2024 16:30:02 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/writeup/index.xml" rel="self" type="application/rss+xml" />
@@ -21,6 +21,13 @@
       <pubDate>Mon, 01 Apr 2024 18:59:02 +0530</pubDate>
       <guid>http://localhost:1313/post/fsvm/</guid>
       <description>I recently participated in ecscCTF 2024, mainly to try out the reversing challenges from the CTF. Subsequently, a two-part VM challenge caught my attention, called fsvm and fsvm2.&#xA;These two use almost the same instruction set and different code dumps for emulation. The aim was to obtain the disassembly as soon as possible.&#xA;A huge shoutout to my teammate, retr0ds, who collaborated with me to solve fsvm by helping me construct the emulator for the task.</description>
+    </item>
+    <item>
+      <title>Required : hxpCTF 2023</title>
+      <link>http://localhost:1313/post/required/</link>
+      <pubDate>Thu, 30 Mar 2023 23:17:45 +0530</pubDate>
+      <guid>http://localhost:1313/post/required/</guid>
+      <description>Description I have written a super safe flag encryptor. I’m sure nobody can figure out what my original flag was:&#xA;0xd19ee193b461fd8d1452e7659acb1f47dc3ed445c8eb4ff191b1abfa7969&#xA;Points - 182 points&#xA;Solves - 46 solves&#xA;CTF Rating - 100&#xA;Solution Initial Analysis A total of 300 javascript files are provided with a number of missing files. In most cases, the files contain a variety of constraints that our original flag bytes must navigate to produce the output mentioned in the description.</description>
     </item>
     <item>
       <title>Cyclechaser : Kalmar CTF 2023</title>
