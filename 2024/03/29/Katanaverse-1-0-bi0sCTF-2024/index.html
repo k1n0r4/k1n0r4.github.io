@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Sejal Koshta">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2024/03/29/katanaverse-1-0-bi0sctf-2024/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="tl;dr  Utilises a VM to receive an input and modify the input by performing bit manipulation Quantum gates (quantum operations) are applied to the modified flag A quantum algorithm for the decisive ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Katanaverse 1.0 : bi0sCTF 2024">
+<meta property="og:url" content="http://example.com/2024/03/29/Katanaverse-1-0-bi0sCTF-2024/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="tl;dr  Utilises a VM to receive an input and modify the input by performing bit manipulation Quantum gates (quantum operations) are applied to the modified flag A quantum algorithm for the decisive ma">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img1.png">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img2.png">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img3.png">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img4.png">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img5.png">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img6.png">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img7.png">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img8.png">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img9.png">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img10.png">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img11.png">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img12.png">
+<meta property="og:image" content="http://example.com/images/katana_writeup/img13.png">
+<meta property="article:published_time" content="2024-03-28T19:02:21.000Z">
+<meta property="article:modified_time" content="2024-08-07T19:14:58.010Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="VM">
+<meta property="article:tag" content="bi0sCTF">
+<meta property="article:tag" content="quantum">
+<meta property="article:tag" content="writeup">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="reversing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/katana_writeup/img1.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon-n.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-n.png">
+    <meta name="theme-color" content="#083f89">
+    <link rel="shortcut icon" href="/images/favicon-n.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Katanaverse 1.0 : bi0sCTF 2024 -
+        
+        k1n0r4 Vista
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    
+        
+<script src="/js/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":["k1n0r4"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":5,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/dark_bg.png","skip_dirs":[]}},"colors":{"primary":"#083f89","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dark_bg.png","dark":"/images/dark_bg.png"},"title":"Reverse Engineer, Cybersecurity","subtitle":{"text":["Break","Debug","Reverse","Eat","Sleep","Repeat"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":130,"backing_speed":80,"starting_delay":500,"backing_delay":1000,"loop":true,"smart_backspace":true},"text_color":{"light":"#052440","dark":"#052440"},"text_style":{"title_size":"3.8rem","subtitle_size":"2.5rem","line_height":"0.8rem"},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/k1n0r4","twitter":"https://x.com/k1n0r4","email":"sejal.koshta2003@gmail.com"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","My Team":"https://bi0s.in","LinkedIn":"https://www.linkedin.com/in/sejal-koshta-"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":5}},"footerStart":"2024/2/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+    <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        k1n0r4 Vista
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [40,0],
+                translateZ: 0,
+                opacity: [0,1],
+                filter: ['blur(5px)', 'blur(0px)'], // Starting from blurred to unblurred
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i,
+            }).add({
+                targets: '.ml13 .letter',
+                translateY: [0,-40],
+                opacity: [1,0],
+                filter: ['blur(0px)', 'blur(5px)'], // Ending from unblurred to blurred
+                easing: "easeInExpo",
+                duration: 1200,
+                delay: (el, i) => 100 + 30 * i,
+                complete: function() {
+                    hidePreloader(); // Call hidePreloader after the animation completes
+                }
+            });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/k1n0r4_avatar.jpg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                k1n0r4 Vista
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://bi0s.in">
+                                                    MY TEAM
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/sejal-koshta-">
+                                                    LINKEDIN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://bi0s.in">MY TEAM</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://www.linkedin.com/in/sejal-koshta-">LINKEDIN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Katanaverse 1.0 : bi0sCTF 2024</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/k1n0r4_avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Sejal Koshta</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-03-29 00:32:21</span>
+        <span class="mobile">2024-03-29 00:32:21</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-08-08 00:44:58</span>
+            <span class="mobile">2024-08-08 00:44:58</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Writeup/">Writeup</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/VM/">VM</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/bi0sCTF/">bi0sCTF</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/quantum/">quantum</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/writeup/">writeup</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/linux/">linux</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/reversing/">reversing</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <p><strong>tl;dr</strong></p>
+<ul>
+<li>Utilises a VM to receive an input and modify the input by performing bit manipulation</li>
+<li>Quantum gates (quantum operations) are applied to the modified flag</li>
+<li>A quantum algorithm for the decisive match</li>
+</ul>
+<span id="more"></span>
+
+<p><strong>Challenge points</strong>: 1000<br><strong>No. of solves</strong>: 0</p>
+<h2 id="Challenge-Description"><a href="#Challenge-Description" class="headerlink" title="Challenge Description"></a>Challenge Description</h2><p>Yes, that should work.</p>
+<p><strong>MD5 Hash</strong>: </p>
+<p>katanaverse1.0: <em>c86e0909a1f1d0296d58c059a02bbeed</em><br>1_dump.dmp: <em>de7024faaf03edc69c2e52ee9aa95f9f</em></p>
+<p><strong>Author</strong></p>
+<ul>
+<li>Sejal Koshta: k1n0r4 | <a class="link"   target="_blank" rel="noopener" href="https://twitter.com/k1n0r4" >k1n0r4 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<br>
+<br>
+
+<p>This challenge is a second part of Katanaverse 0.0 </p>
+<h4 id="Two-phases-of-Challenge"><a href="#Two-phases-of-Challenge" class="headerlink" title="Two phases of Challenge:"></a><b>Two phases of Challenge:</b></h4><ol>
+<li>VM involving Bit Manipulation</li>
+<li>Quantum computation and algorithm</li>
+</ol>
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><p>This challenge’s binary is broken and unexecutable beyond a particular point in the code since it starts involving quantum operations, which are provided in Python. On Quantum servers, these procedures may be carried out via the Python qiskit module.</p>
+<p>The challenge’s primary goal was to comprehend how the binary operates and re-implement any sections that cannot be performed or do not exist. To understand the suggestion provided to re-implement the non-existent function, you might also need to refer to the earlier section of this challenge, “Katanaverse 0.0”. You may find the necessary technique&#x2F;method by performing a simple Google search using the essential terms.</p>
+<p>Visit this <a class="link"   target="_blank" rel="noopener" href="https://hackmd.io/@tTGS5aCyRTmUgs-Pzciyhg/SJGufLosT" >page <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to learn more about Katanaverse 0.0’s functionality. This comprises the challenge’s organizational notes.</p>
+<h4 id="Q-How-will-I-know-that-it-makes-use-of-quantum-concepts"><a href="#Q-How-will-I-know-that-it-makes-use-of-quantum-concepts" class="headerlink" title="Q. How will I know that it makes use of quantum concepts?"></a>Q. How will I know that it makes use of quantum concepts?</h4><p>Indeed, you can observe the occurrence of alpha and beta in the shellcode itself, and the structure of the shellcode also suggests a quantum or Qiskit module.</p>
+<br>
+
+
+<h2 id="VM"><a href="#VM" class="headerlink" title="VM"></a>VM</h2><h3 id="Control-flow-of-the-VM"><a href="#Control-flow-of-the-VM" class="headerlink" title="Control flow of the VM"></a>Control flow of the VM</h3><ol>
+<li>Prompt for Flag</li>
+<li>Takes the input</li>
+<li>Transforms the flag into its string encoded in base 64.</li>
+<li>Register S0 stores the updated flag’s length.</li>
+<li>Copying and storing flag bytes in “memory” and stack</li>
+<li>Binary representations of flag bytes are created and placed on the stack.</li>
+<li>As a result, each time a flag byte is converted, the byte is removed from memory.</li>
+<li>Memory is discovered to be empty following the conversion.</li>
+<li>A bit modification that is kept in memory is carried out using stored binary from the stack.</li>
+<li>VM exits</li>
+<li>It replicates its memory into a “classified” 2D array </li>
+<li>It stores the altered input length from register S0 in a new variable for use in future applications.</li>
+</ol>
+<p>Here is more information on the <a class="link"   target="_blank" rel="noopener" href="https://hackmd.io/@tTGS5aCyRTmUgs-Pzciyhg/ryTAKIsoa" >VM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> used.</p>
+<br>
+
+<h2 id="Quantum"><a href="#Quantum" class="headerlink" title="Quantum"></a>Quantum</h2><p>Upon obtaining the bit-manipulated array, which I refer to as the “classified” array, the quantum operations commence.</p>
+<h3 id="Runtime-Constant-generation"><a href="#Runtime-Constant-generation" class="headerlink" title="Runtime Constant generation"></a>Runtime Constant generation</h3><p>Prior to that, a few significant constants are created at runtime using the flag’s known portion, that is, it’s flag format.</p>
+<p>Seed for the srand function - 89<br>Aes key - [24, 6, 59, 77, 181, 112, 85, 180, 113, 194, 137, 37, 74, 136, 6, 25]</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">uint8_t aes_key[16];</span><br><span class="line"></span><br><span class="line">for(int i =0;i&lt;16;i++)</span><br><span class="line">&#123;</span><br><span class="line">aes_key[i] = classified[i][7] * 1 + classified[i][6] * 2 + classified[i][5] * 4 + classified[i][4] * 8 + classified[i][3] * 16 + classified[i][2] * 32 + classified[i][1] * 64 + classified[i][0] * 128;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img1.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<p>The seed generation also involves a user character input, which is ‘r’</p>
+<p>By taking two bytes of the modified flag at a time and creating six bytes for each such pair, the classified array is created. Therefore, a pair of flag bytes corresponds to each of these sets of six bytes. The last byte of the preceding pair is overlapped and used as the first byte to obtain the next pair of bytes.</p>
+<p>The classified array then has certain constraints applied to it, where the produced random numbers decide which row satisfies each requirement. Three such constraints are given here for each group in the classified array.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img2.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<p>Five constraints were provided to each group in the preceding section of the challenge, “Katanaverse 0.0”, allowing any constraint solver to recover the flag (Ps. This was the unintended solution to the challenge).</p>
+<p>Next in the line are 2 other constants, subtract_key and xor_key, which are again computed using the known part of the flag format</p>
+<p>subtract_key &#x3D; 24<br>xor_key &#x3D; 181</p>
+<br>
+
+<h3 id="Determining-the-operations-performed"><a href="#Determining-the-operations-performed" class="headerlink" title="Determining the operations performed"></a>Determining the operations performed</h3><p>Each one group of the classififed array includes 12 nibbles which determine which 12 operations will be performed on the initial qubit.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img3.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<p>The given loop first initialises the qubit as<br>Alpha &#x3D; 1 + 0i<br>Beta &#x3D; 0 + 0i</p>
+<p>and then 12 operations are performed on the qubit(<code>func_11</code>) one after the other. These 12 states of qubits are saved and later converted into their coordinate form via <code>func_13</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img4.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<p>These correspond to different operations performed on the qubit, one such function is <code>Blaze</code>.<br>There are in total 16 operations named as Blaze, Horizon, Nova, Quantum, Echo, Radiant, Zenith, Cipher, Nimbus, Pulse, Serene, Ember, Aurora, Lumina, Cascade and Kinetic.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img5.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<p>Within <code>func_10</code> under Blaze, we can see that it attempts at executing the shellcode given, but upon failure intends to displays “Well, I already said it’s broken.”</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img6.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<p>Shellcode given unside the Blaze function looks like this</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">OPENQASM 2.0;</span><br><span class="line">include &quot;qelib1.inc&quot;;</span><br><span class="line">gate disentangler_dg q0 &#123;  &#125;</span><br><span class="line">gate state_preparation(param0,param1) q0 &#123; disentangler_dg q0; &#125;</span><br><span class="line">gate initialize(param0,param1) q0 &#123; reset q0; state_preparation(alpha,beta) q0; &#125;</span><br><span class="line">qreg q2[1];</span><br><span class="line">creg c2[1];</span><br><span class="line">initialize(alpha,beta) q2[0];</span><br><span class="line">rx(pi/4) q2[0];</span><br><span class="line">ry(pi/3) q2[0];</span><br><span class="line">rz(pi/4) q2[0];</span><br><span class="line">measure q2[0] -&gt; c2[0]; </span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<br>
+
+<h3 id="Division-of-points"><a href="#Division-of-points" class="headerlink" title="Division of points"></a>Division of points</h3><p>The lines that are depicted between two spots are formed or determined by 41 pairs of numbers or integers. The distances between these locations multiplied by 10 (<code>func_8</code>) make up the weights of these points.</p>
+<p>In this case, the two numbers point in the direction of two points that are connected by a line, as a result, a network made up of all 12 points is formed which are connected by those lines.</p>
+<p>For each of the 41 pairings, the two points and their respective weights are kept in an array and sent to a function (<code>func_7</code>).</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img7.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<br>
+
+<h3 id="What-is-func-7"><a href="#What-is-func-7" class="headerlink" title="What is func_7 ?"></a>What is func_7 ?</h3><p>This is revealed by the shellcode or encrypted bytes within the function.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Oh no! Not only is this function flawed, it is nonexistent. Could you please solve this?</span><br><span class="line"></span><br><span class="line">**Static noise</span><br><span class="line"></span><br><span class="line">Agent, We happened to record a conversation between Martin and his subordinates. For your reference, here is the transcript of our conversation.</span><br><span class="line"></span><br><span class="line">Subordinate 1: Is it possible for an ordinary person to open the vault?</span><br><span class="line">Martin: No, definitely not. The vault needs to be slashed 12 times in order to divide those 12 points efficiently, and this needs to be done multiple times...</span><br><span class="line">Subordinate 2: However, I have heard that you are required to use an &#x27;efficient method&#x27; to divide the points</span><br><span class="line">Martin: You are right, the key to this strange method is &#x27;Brute&#x27;</span><br><span class="line"></span><br><span class="line">All we have is this. All the best in finding the correct replacement for the given function.</span><br><span class="line"></span><br><span class="line">**Static noise</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>Now let’s have a look at the shellcode given in Katanaverse 0.0 as well, because after all , this challenge is just an another part of 0.0</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Oh no! Not only is this function flawed, it is nonexistent. Could you please solve this?</span><br><span class="line"></span><br><span class="line">**Static noise</span><br><span class="line"></span><br><span class="line">Agent, We happened to record a conversation between Martin and his subordinates. For your reference, here is the transcript of our conversation.</span><br><span class="line"></span><br><span class="line">Subordinate 1: Is it possible for an ordinary person to open the vault?</span><br><span class="line">Martin: No, definitely not. The vault needs to be slashed 12 times in order to divide those 12 points efficiently, and this needs to be done multiple times...</span><br><span class="line">Subordinate 2: However, I have heard that you are not required to use an &#x27;efficient method&#x27; to divide the points, but rather some other strange method?</span><br><span class="line">Martin: You are right, the key to this strange method is &#x27;Quantum&#x27;... Have you heard of Optimization?</span><br><span class="line"></span><br><span class="line">All we have is this. All the best in finding the correct replacement for the given function.</span><br><span class="line"></span><br><span class="line">**Static noise</span><br></pre></td></tr></table></figure></div>
+
+<p>This clearly states few points - </p>
+<ol>
+<li>Quantum</li>
+<li>Division of points</li>
+<li>Optimization</li>
+<li>Weighted (Because of the distance calculated between 2 points)</li>
+<li>Brute</li>
+</ol>
+<p>Using these terms in a Google search provides us with the necessary response.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img8.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img9.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<p>These searches hint at using a popular Quantum optimization technique used in efficient division of enities, that is, QAOA (Quantum Approximate Optimization Algorithm)</p>
+<p>In Katanaverse 1.0, we only need the brute version of this algorithm, which can be again found on blog posts or can be attempted to write on your own.</p>
+<p>Since here, the weights of the points are also given, that again can be used to find the technique</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img10.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<p>Official qiskit page itself gives us an easy script to implement the given problem <a class="link"   target="_blank" rel="noopener" href="https://qiskit-community.github.io/qiskit-optimization/tutorials/06_examples_max_cut_and_tsp.html" >qiskit <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img11.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<br>
+
+<h3 id="Last-step"><a href="#Last-step" class="headerlink" title="Last step"></a>Last step</h3><p>After applying QAOA to every group in the classified array, 12 bits per group are obtained. These bits are then split in half to create two bytes. As a consequence, each group yields two final bytes, which are subsequently encrypted collectively using AES.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img12.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana_writeup/img13.png"
+                      alt="Katanaverse 1.0"
+                ></p>
+<p>For comparison, the encrypted bytes of the right flag (after going through the full process) are provided.</p>
+<br>
+
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>So far we know what all is going on this challenge, therefore it’s time to consider how to get the flag back.</p>
+<p>The constraints are given to make life easier.<br>We have the encrypted bytes of the result of the QAOA applied to the points. First, it is possible to decrypt the encrypted bytes and obtain all of the constants generated during runtime.</p>
+<p>Since each group&#x2F;set of classified array is constructed from overlapped pairs of modified flag, we can make use of the flag format to obtain the flag byte by byte.</p>
+<p>The approach being, make use of the last known character of the flag format, that is, ‘{‘. The characters of the flag after this character are unknown, hence we find all the possibilities of the next byte by using the constraints given. Since the number of constraints for the classified array group of ‘{‘ and the next byte of the flag is 3, we have 32 possibilites <code>(2^8[All possible 1 byte values] / 2^3[Branches narrowed down due to constraints given])</code></p>
+<p>These 32 possibilites are passed through the entire process until the QAOA function and then the result is compared with the decrypted bytes from the binary.</p>
+<p>Likewise, the discovered byte can be used to find the next byte in the order.</p>
+<blockquote>
+<p>Authors note:<br>These might lead to more than one possible character for the given scenario, but the branches can be eliminated by acquiring the subsequent iteration. There is a single path that leads to the last character ‘{‘. You receive the right flag if you continue down that path.</p>
+</blockquote>
+<br>
+
+
+<h2 id="Final-Script"><a href="#Final-Script" class="headerlink" title="Final Script"></a>Final Script</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> networkx <span class="keyword">as</span> nx</span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> pi, cos, sin, arccos, arctan2</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calc_weight</span>(<span class="params">a, b</span>):       <span class="comment"># Distance between 2 points</span></span><br><span class="line">    sum_of_squares = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">        diff = a[i] - b[i]</span><br><span class="line">        sum_of_squares += diff*diff</span><br><span class="line">    <span class="keyword">return</span> np.<span class="built_in">round</span>(<span class="number">10</span>*np.sqrt(sum_of_squares))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rotate</span>(<span class="params">initial_coords, rotation_matrix</span>):</span><br><span class="line">    <span class="keyword">return</span> np.dot(rotation_matrix, initial_coords)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">xyz_to_alpha_beta</span>(<span class="params">xyz</span>):</span><br><span class="line">  xyz = np.asarray(xyz)</span><br><span class="line">  r = np.linalg.norm(xyz)</span><br><span class="line">  theta = arccos(xyz[<span class="number">2</span>] / r)</span><br><span class="line">  phi = arctan2(xyz[<span class="number">1</span>], xyz[<span class="number">0</span>])</span><br><span class="line">  alpha = cos(theta / <span class="number">2</span>)</span><br><span class="line">  beta = np.exp(<span class="number">1j</span> * phi) * sin(theta / <span class="number">2</span>)</span><br><span class="line">  <span class="keyword">return</span> alpha, beta</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">alpha_beta_to_xyz</span>(<span class="params">alpha, beta</span>):</span><br><span class="line">  r = <span class="built_in">abs</span>(alpha)**<span class="number">2</span> + <span class="built_in">abs</span>(beta)**<span class="number">2</span></span><br><span class="line">  theta = <span class="number">2</span> * arccos(<span class="built_in">abs</span>(alpha) / np.sqrt(r))</span><br><span class="line">  phi = np.angle(beta / alpha)</span><br><span class="line">  x = r * sin(theta) * cos(phi)</span><br><span class="line">  y = r * sin(theta) * sin(phi)</span><br><span class="line">  z = r * cos(theta)</span><br><span class="line">  <span class="keyword">return</span> np.array([x, y, z])</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">zeroth</span>(<span class="params">coords_xyz</span>):                        <span class="comment">#Blaze</span></span><br><span class="line">  a = rotate(coords_xyz, rx_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a = rotate(a, ry_op(np.pi / <span class="number">3</span>))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line">  </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">first</span>(<span class="params">coords_xyz</span>):                        <span class="comment">#Horizon</span></span><br><span class="line">  a = rotate(coords_xyz, ry_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">3</span>))</span><br><span class="line">  a = rotate(a, rx_op(np.pi / <span class="number">3</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">second</span>(<span class="params">coords_xyz</span>):                        <span class="comment">#Nova</span></span><br><span class="line">  a = rotate(coords_xyz, rx_op(np.pi / <span class="number">6</span>))</span><br><span class="line">  a = rotate(a, ry_op(np.pi / <span class="number">2</span>))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">third</span>(<span class="params">coords_xyz</span>):                        <span class="comment">#Quantum</span></span><br><span class="line">  a = rotate(coords_xyz, ry_op(np.pi / <span class="number">6</span>))</span><br><span class="line">  a = rotate(a, rx_op(np.pi / <span class="number">2</span>))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">6</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fourth</span>(<span class="params">coords_xyz</span>):                        <span class="comment">#Echo</span></span><br><span class="line">  a = rotate(coords_xyz, rx_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a = rotate(a, ry_op(np.pi / <span class="number">3</span>))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">6</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fifth</span>(<span class="params">coords_xyz</span>):                        <span class="comment">#Radiant</span></span><br><span class="line">  a = rotate(coords_xyz, ry_op(np.pi / <span class="number">2</span>))</span><br><span class="line">  a = rotate(a, rx_op(np.pi))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sixth</span>(<span class="params">coords_xyz</span>):                        <span class="comment">#Zenith</span></span><br><span class="line">  a = rotate(coords_xyz, rx_op(np.pi / <span class="number">3</span>))</span><br><span class="line">  a = rotate(a, ry_op(np.pi))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">3</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">seventh</span>(<span class="params">coords_xyz</span>):                      <span class="comment">#Cipher</span></span><br><span class="line">  a = rotate(coords_xyz, ry_op(np.pi / <span class="number">6</span>))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a = rotate(a, rx_op(np.pi / <span class="number">2</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">eigth</span>(<span class="params">coords_xyz</span>):                        <span class="comment">#Nimbus</span></span><br><span class="line">  a = rotate(coords_xyz, rx_op(np.pi / <span class="number">6</span>))</span><br><span class="line">  a = rotate(a, ry_op(np.pi))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ninth</span>(<span class="params">coords_xyz</span>):                        <span class="comment">#Pulse</span></span><br><span class="line">  a = rotate(coords_xyz, ry_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a = rotate(a, rx_op(np.pi))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">3</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">tenth</span>(<span class="params">coords_xyz</span>):                        <span class="comment">#Serene</span></span><br><span class="line">  a = rotate(coords_xyz, rx_op(np.pi / <span class="number">6</span>))</span><br><span class="line">  a = rotate(a, ry_op(np.pi / <span class="number">3</span>))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">eleventh</span>(<span class="params">coords_xyz</span>):                    <span class="comment">#Ember</span></span><br><span class="line">  a = rotate(coords_xyz, rx_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a = rotate(a, ry_op(np.pi))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">6</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">twelfth</span>(<span class="params">coords_xyz</span>):                    <span class="comment">#Aurora</span></span><br><span class="line">  a = rotate(coords_xyz, ry_op(np.pi / <span class="number">2</span>))</span><br><span class="line">  a = rotate(a, rx_op(np.pi))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">thirteenth</span>(<span class="params">coords_xyz</span>):                <span class="comment">#Lumina</span></span><br><span class="line">  a = rotate(coords_xyz, rx_op(np.pi / <span class="number">2</span>))</span><br><span class="line">  a = rotate(a, ry_op(np.pi / <span class="number">6</span>))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">3</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fourteenth</span>(<span class="params">coords_xyz</span>):                <span class="comment">#Cascade</span></span><br><span class="line">  a = rotate(coords_xyz, rx_op(np.pi / <span class="number">3</span>))</span><br><span class="line">  a = rotate(a, ry_op(np.pi / <span class="number">3</span>))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fifteenth</span>(<span class="params">coords_xyz</span>):                <span class="comment">#Kinetic</span></span><br><span class="line">  a = rotate(coords_xyz, ry_op(np.pi / <span class="number">4</span>))</span><br><span class="line">  a = rotate(a, rz_op(np.pi / <span class="number">6</span>))</span><br><span class="line">  a = rotate(a, rx_op(np.pi / <span class="number">6</span>))</span><br><span class="line">  a[<span class="number">0</span>] = <span class="built_in">round</span>(a[<span class="number">0</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">0</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">1</span>] = <span class="built_in">round</span>(a[<span class="number">1</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">1</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  a[<span class="number">2</span>] = <span class="built_in">round</span>(a[<span class="number">2</span>], <span class="number">5</span>) <span class="keyword">if</span> <span class="built_in">abs</span>(a[<span class="number">2</span>]) &gt; <span class="number">0.00001</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rx_op</span>(<span class="params">theta</span>):                <span class="comment">#Rotation along x axis</span></span><br><span class="line">    cos_a = np.cos(theta)</span><br><span class="line">    sin_a = np.sin(theta)</span><br><span class="line">    Rx = np.array([[<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">                   [<span class="number">0</span>, cos_a, -sin_a],</span><br><span class="line">                   [<span class="number">0</span>, sin_a, cos_a]])</span><br><span class="line">    <span class="keyword">return</span> Rx</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ry_op</span>(<span class="params">theta</span>):                <span class="comment">#Rotation along y axis</span></span><br><span class="line">    cos = np.cos(theta)</span><br><span class="line">    sin = np.sin(theta)</span><br><span class="line">    Ry = np.array([[cos, <span class="number">0</span>, sin],</span><br><span class="line">                   [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">                   [-sin, <span class="number">0</span>, cos]])</span><br><span class="line">    <span class="keyword">return</span> Ry</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rz_op</span>(<span class="params">theta</span>):                <span class="comment">#Rotation along z axis</span></span><br><span class="line">    cos = np.cos(theta)</span><br><span class="line">    sin = np.sin(theta)</span><br><span class="line">    Rz = np.array([[cos, -sin, <span class="number">0</span>],</span><br><span class="line">                   [sin, cos, <span class="number">0</span>],</span><br><span class="line">                   [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]])</span><br><span class="line">    <span class="keyword">return</span> Rz</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">choice</span>(<span class="params">choi, points</span>):</span><br><span class="line">  <span class="keyword">if</span> choi == <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> zeroth(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">return</span> first(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">2</span>:</span><br><span class="line">    <span class="keyword">return</span> second(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">3</span>:</span><br><span class="line">    <span class="keyword">return</span> third(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">4</span>:</span><br><span class="line">    <span class="keyword">return</span> fourth(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">5</span>:</span><br><span class="line">    <span class="keyword">return</span> fifth(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">6</span>:</span><br><span class="line">    <span class="keyword">return</span> sixth(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">7</span>:</span><br><span class="line">    <span class="keyword">return</span> seventh(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">8</span>:</span><br><span class="line">    <span class="keyword">return</span> eigth(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">9</span>:</span><br><span class="line">    <span class="keyword">return</span> ninth(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">10</span>:</span><br><span class="line">    <span class="keyword">return</span> tenth(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">11</span>:</span><br><span class="line">    <span class="keyword">return</span> eleventh(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">12</span>:</span><br><span class="line">    <span class="keyword">return</span> twelfth(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">13</span>:</span><br><span class="line">    <span class="keyword">return</span> thirteenth(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">14</span>:</span><br><span class="line">    <span class="keyword">return</span> fourteenth(points)</span><br><span class="line">  <span class="keyword">elif</span> choi == <span class="number">15</span>:</span><br><span class="line">    <span class="keyword">return</span> fifteenth(points)</span><br><span class="line">  </span><br><span class="line">pairs = [[<span class="number">0</span>,<span class="number">2</span>], [<span class="number">0</span>,<span class="number">4</span>], [<span class="number">0</span>,<span class="number">6</span>], [<span class="number">0</span>,<span class="number">8</span>], [<span class="number">0</span>,<span class="number">10</span>], [<span class="number">1</span>,<span class="number">0</span>], [<span class="number">1</span>,<span class="number">3</span>], [<span class="number">1</span>,<span class="number">5</span>], [<span class="number">1</span>,<span class="number">7</span>], [<span class="number">1</span>,<span class="number">9</span>], [<span class="number">1</span>,<span class="number">11</span>], [<span class="number">2</span>,<span class="number">1</span>], [<span class="number">2</span>,<span class="number">4</span>], [<span class="number">2</span>,<span class="number">6</span>], [<span class="number">2</span>,<span class="number">8</span>], [<span class="number">2</span>,<span class="number">10</span>], [<span class="number">3</span>,<span class="number">2</span>], [<span class="number">3</span>,<span class="number">5</span>], [<span class="number">3</span>,<span class="number">7</span>], [<span class="number">3</span>,<span class="number">9</span>], [<span class="number">3</span>,<span class="number">11</span>], [<span class="number">4</span>,<span class="number">3</span>], [<span class="number">4</span>,<span class="number">6</span>], [<span class="number">4</span>,<span class="number">8</span>], [<span class="number">4</span>,<span class="number">10</span>], [<span class="number">5</span>,<span class="number">4</span>], [<span class="number">5</span>,<span class="number">7</span>], [<span class="number">5</span>,<span class="number">9</span>], [<span class="number">5</span>,<span class="number">11</span>], [<span class="number">6</span>,<span class="number">5</span>], [<span class="number">6</span>,<span class="number">8</span>], [<span class="number">6</span>,<span class="number">10</span>], [<span class="number">7</span>,<span class="number">6</span>], [<span class="number">7</span>,<span class="number">9</span>], [<span class="number">7</span>,<span class="number">11</span>], [<span class="number">8</span>,<span class="number">7</span>], [<span class="number">8</span>,<span class="number">10</span>], [<span class="number">9</span>,<span class="number">8</span>], [<span class="number">9</span>,<span class="number">11</span>], [<span class="number">10</span>,<span class="number">9</span>], [<span class="number">11</span>,<span class="number">10</span>]]</span><br><span class="line"></span><br><span class="line">rand_arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">cond_arr = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">dec_arr = [<span class="number">85</span>, <span class="number">74</span>, <span class="number">105</span>, <span class="number">82</span>, <span class="number">105</span>, <span class="number">102</span>, <span class="number">85</span>, <span class="number">74</span>, <span class="number">101</span>, <span class="number">90</span>, <span class="number">85</span>, <span class="number">106</span>, <span class="number">89</span>, <span class="number">102</span>, <span class="number">101</span>, <span class="number">90</span>, <span class="number">85</span>, <span class="number">106</span>, <span class="number">90</span>, <span class="number">116</span>, <span class="number">116</span>, <span class="number">90</span>, <span class="number">117</span>, <span class="number">74</span>, <span class="number">102</span>, <span class="number">86</span>, <span class="number">85</span>, <span class="number">106</span>, <span class="number">91</span>, <span class="number">82</span>, <span class="number">90</span>, <span class="number">86</span>, <span class="number">85</span>, <span class="number">74</span>, <span class="number">86</span>, <span class="number">100</span>, <span class="number">86</span>, <span class="number">118</span>, <span class="number">85</span>, <span class="number">106</span>, <span class="number">84</span>, <span class="number">110</span>]</span><br><span class="line"></span><br><span class="line">new_sol = []</span><br><span class="line">new_sol.append([<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>])    <span class="comment">#Initial solution &#x27;&#123;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> bug <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">21</span>):</span><br><span class="line"></span><br><span class="line">    solutions = new_sol</span><br><span class="line">    new_sol=[]</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\nFor &quot;</span>, bug)</span><br><span class="line">    <span class="keyword">for</span> hat <span class="keyword">in</span> solutions:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Trying...&quot;</span>, hat)</span><br><span class="line">        a = hat</span><br><span class="line">        cond = [cond_arr[bug*<span class="number">3</span>], cond_arr[bug*<span class="number">3</span>+<span class="number">1</span>], cond_arr[bug*<span class="number">3</span>+<span class="number">2</span>]]                </span><br><span class="line">        rand = [rand_arr[bug*<span class="number">3</span>], rand_arr[bug*<span class="number">3</span>+<span class="number">1</span>], rand_arr[bug*<span class="number">3</span>+<span class="number">2</span>]]</span><br><span class="line"></span><br><span class="line">        res = []</span><br><span class="line"></span><br><span class="line">        dec_bytes = [dec_arr[bug*<span class="number">2</span>], dec_arr[bug*<span class="number">2</span>+<span class="number">1</span>]]    <span class="comment">#AES decrypted bytes for each character</span></span><br><span class="line">        best = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        best_sol=[]</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#Retrieveing the 12 bit form of the encrypted bytes</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">            best += <span class="built_in">bin</span>(dec_bytes[i])[<span class="number">3</span>:]</span><br><span class="line">        best_sol = [<span class="built_in">int</span>(char) <span class="keyword">for</span> char <span class="keyword">in</span> best]    </span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> q <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">2</span>):</span><br><span class="line">            <span class="keyword">for</span> w <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">2</span>):</span><br><span class="line">                <span class="keyword">for</span> e <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">2</span>):</span><br><span class="line">                    <span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">2</span>):</span><br><span class="line">                        <span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">2</span>):</span><br><span class="line">                            <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">2</span>):</span><br><span class="line">                                <span class="keyword">for</span> u <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">2</span>):</span><br><span class="line">                                    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">2</span>):</span><br><span class="line">                                        </span><br><span class="line">                                        <span class="comment">#Bruting the second character in the pair</span></span><br><span class="line">                                        b = q,w,e,r,t,y,u,i         </span><br><span class="line">                                        c = [[<span class="number">0</span>]*<span class="number">8</span>]*<span class="number">6</span></span><br><span class="line">                                        k=<span class="number">0</span></span><br><span class="line">                                        <span class="keyword">for</span> j <span class="keyword">in</span> rand:</span><br><span class="line">                                            c = [<span class="number">0</span>]*<span class="number">8</span></span><br><span class="line">                                            c[<span class="number">0</span>] = a[(j+<span class="number">0</span>)]^b[(j+<span class="number">0</span>)]</span><br><span class="line">                                            c[<span class="number">1</span>] = a[(<span class="number">1</span>+j)]^b[(<span class="number">1</span>+j)]</span><br><span class="line">                                            c[<span class="number">2</span>] = a[(<span class="number">2</span>+j)]^b[(<span class="number">2</span>+j)]</span><br><span class="line">                                            c[<span class="number">3</span>] = a[(<span class="number">1</span>+j)]^b[(<span class="number">0</span>+j)]</span><br><span class="line">                                            c[<span class="number">4</span>] = a[(<span class="number">0</span>+j)]^b[(<span class="number">1</span>+j)]</span><br><span class="line">                                            c[<span class="number">5</span>] = a[(<span class="number">2</span>+j)]^b[(<span class="number">1</span>+j)]</span><br><span class="line">                                            c[<span class="number">6</span>] = a[(<span class="number">1</span>+j)]^b[(<span class="number">2</span>+j)]</span><br><span class="line">                                            c[<span class="number">7</span>] = a[(<span class="number">0</span>+j)]^b[(<span class="number">1</span>+j)]^a[(<span class="number">2</span>+j)]</span><br><span class="line">                                            </span><br><span class="line">                                            <span class="comment">#Check for constraints</span></span><br><span class="line">                                            <span class="keyword">if</span> c[<span class="number">0</span>] ^ c[<span class="number">7</span>] != cond[k]:                </span><br><span class="line">                                                k+=<span class="number">1</span>  </span><br><span class="line">                                        <span class="keyword">if</span> k == <span class="number">3</span>:</span><br><span class="line">                                            res.append(b)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(res)):</span><br><span class="line">            classified = []</span><br><span class="line">            final_res = res[i]</span><br><span class="line">            b = res[i]</span><br><span class="line">            </span><br><span class="line">            <span class="comment">#Formation of the classified array for each possibilitity</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):                </span><br><span class="line">                c = [<span class="number">0</span>]*<span class="number">8</span></span><br><span class="line">                c[<span class="number">0</span>] = a[(j+<span class="number">0</span>)]^b[(j+<span class="number">0</span>)]        <span class="comment">#Bit manipulation</span></span><br><span class="line">                c[<span class="number">1</span>] = a[(<span class="number">1</span>+j)]^b[(<span class="number">1</span>+j)]</span><br><span class="line">                c[<span class="number">2</span>] = a[(<span class="number">2</span>+j)]^b[(<span class="number">2</span>+j)]</span><br><span class="line">                c[<span class="number">3</span>] = a[(<span class="number">1</span>+j)]^b[(<span class="number">0</span>+j)]</span><br><span class="line">                c[<span class="number">4</span>] = a[(<span class="number">0</span>+j)]^b[(<span class="number">1</span>+j)]</span><br><span class="line">                c[<span class="number">5</span>] = a[(<span class="number">2</span>+j)]^b[(<span class="number">1</span>+j)]</span><br><span class="line">                c[<span class="number">6</span>] = a[(<span class="number">1</span>+j)]^b[(<span class="number">2</span>+j)]</span><br><span class="line">                c[<span class="number">7</span>] = a[(<span class="number">0</span>+j)]^b[(<span class="number">1</span>+j)]^a[(<span class="number">2</span>+j)]</span><br><span class="line">                classified.append(c)</span><br><span class="line">            op_list = []</span><br><span class="line">            </span><br><span class="line">            <span class="comment">#Obtaining the list of (12) operations based on the value of each nibble</span></span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):                </span><br><span class="line">                op_list.append(classified[k][<span class="number">0</span>]*<span class="number">8</span>+classified[k][<span class="number">1</span>]*<span class="number">4</span>+classified[k][<span class="number">2</span>]*<span class="number">2</span>+classified[k][<span class="number">3</span>]*<span class="number">1</span>)</span><br><span class="line">                op_list.append(classified[k][<span class="number">4</span>]*<span class="number">1</span>+classified[k][<span class="number">5</span>]*<span class="number">2</span>+classified[k][<span class="number">6</span>]*<span class="number">4</span>+classified[k][<span class="number">7</span>]*<span class="number">8</span>)</span><br><span class="line">    </span><br><span class="line">            points = [[<span class="number">0</span>]*<span class="number">3</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">12</span>)]</span><br><span class="line"></span><br><span class="line">            <span class="comment">#Inital QuBit Value in coordinate form</span></span><br><span class="line">            xyz_in = np.array([<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>])        </span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">12</span>):</span><br><span class="line">                ant = op_list[j]</span><br><span class="line">                <span class="comment">#Performing the given operation on the QuBit</span></span><br><span class="line">                xyz_in = choice(ant, xyz_in)    </span><br><span class="line">                points[j] = xyz_in</span><br><span class="line"></span><br><span class="line">            elist = [[<span class="number">0</span>] * <span class="number">3</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">41</span>)] </span><br><span class="line"></span><br><span class="line">            <span class="comment">#Formation of elist array</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">41</span>):</span><br><span class="line">                elist[j][<span class="number">0</span>] = pairs[j][<span class="number">0</span>]</span><br><span class="line">                elist[j][<span class="number">1</span>] = pairs[j][<span class="number">1</span>]</span><br><span class="line">                elist[j][<span class="number">2</span>] = calc_weight(points[pairs[j][<span class="number">0</span>]], points[pairs[j][<span class="number">1</span>]])  </span><br><span class="line"></span><br><span class="line">            n = <span class="number">12</span>                          <span class="comment">#Number of points</span></span><br><span class="line">            G = nx.Graph()</span><br><span class="line">            G.add_nodes_from(np.arange(<span class="number">0</span>, n, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">            G.add_weighted_edges_from(elist)</span><br><span class="line">            </span><br><span class="line">            w = np.zeros([n, n])</span><br><span class="line">            <span class="keyword">for</span> iy <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                    temp = G.get_edge_data(iy, j, default=<span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">if</span> temp != <span class="number">0</span>:</span><br><span class="line">                        w[iy, j] = temp[<span class="string">&quot;weight&quot;</span>]</span><br><span class="line">                </span><br><span class="line">            <span class="comment">#Bruting the way to divide the points in 2 groups</span></span><br><span class="line">            best_cost_brute = <span class="number">0</span>                    </span><br><span class="line">            <span class="keyword">for</span> b <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>**n):</span><br><span class="line">                x = [<span class="built_in">int</span>(t) <span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">reversed</span>(<span class="built_in">list</span>(<span class="built_in">bin</span>(b)[<span class="number">2</span>:].zfill(n)))]</span><br><span class="line">                cost = <span class="number">0</span></span><br><span class="line">                <span class="keyword">for</span> iy <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                        cost = cost + w[iy, j] * x[iy] * (<span class="number">1</span> - x[j])</span><br><span class="line">                <span class="keyword">if</span> best_cost_brute &lt; cost:</span><br><span class="line">                    best_cost_brute = cost</span><br><span class="line">                    xbest_brute = x</span><br><span class="line">        </span><br><span class="line">            <span class="keyword">if</span> xbest_brute == best_sol:</span><br><span class="line">                charac_s = <span class="string">&#x27;&#x27;</span>.join(<span class="built_in">str</span>(bit) <span class="keyword">for</span> bit <span class="keyword">in</span> final_res)</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">chr</span>(<span class="built_in">int</span>(charac_s, <span class="number">2</span>)) <span class="keyword">in</span> <span class="string">&#x27;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#125;&#123;&#x27;</span>:</span><br><span class="line">                    <span class="comment">#Eliminating duplicate solutions</span></span><br><span class="line">                    <span class="keyword">if</span> final_res <span class="keyword">not</span> <span class="keyword">in</span> new_sol:            </span><br><span class="line">                        new_sol.append(final_res)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Found: &quot;</span>, final_res, <span class="built_in">chr</span>(<span class="built_in">int</span>(charac_s, <span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Output:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">For  0</span><br><span class="line">Trying... [0, 1, 1, 1, 1, 0, 1, 1]</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 1, 0) b</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 1, 1) c</span><br><span class="line"></span><br><span class="line">For  1</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 0, 1, 0)</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 0, 1, 1)</span><br><span class="line">Found:  (0, 1, 0, 1, 0, 1, 1, 0) V</span><br><span class="line"></span><br><span class="line">For  2</span><br><span class="line">Trying... (0, 1, 0, 1, 0, 1, 1, 0)</span><br><span class="line">Found:  (0, 0, 1, 1, 1, 0, 0, 0) 8</span><br><span class="line">Found:  (0, 0, 1, 1, 1, 0, 0, 1) 9</span><br><span class="line"></span><br><span class="line">For  3</span><br><span class="line">Trying... (0, 0, 1, 1, 1, 0, 0, 0)</span><br><span class="line">Found:  (0, 1, 1, 0, 1, 0, 1, 0) j</span><br><span class="line">Found:  (0, 1, 1, 0, 1, 0, 1, 1) k</span><br><span class="line">Trying... (0, 0, 1, 1, 1, 0, 0, 1)</span><br><span class="line">Found:  (0, 1, 1, 0, 1, 0, 1, 0) j</span><br><span class="line">Found:  (0, 1, 1, 0, 1, 0, 1, 1) k</span><br><span class="line"></span><br><span class="line">For  4</span><br><span class="line">Trying... (0, 1, 1, 0, 1, 0, 1, 0)</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 0, 1) a</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 1, 0) b</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 1, 1) c</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 1, 0, 0) d</span><br><span class="line">Trying... (0, 1, 1, 0, 1, 0, 1, 1)</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 0, 1) a</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 1, 0) b</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 1, 1) c</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 1, 0, 1) e</span><br><span class="line"></span><br><span class="line">For  5</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 0, 0, 1)</span><br><span class="line">Found:  (0, 1, 0, 1, 0, 0, 0, 1) Q</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 0) X</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 1) Y</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 1, 0) Z</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 0, 1, 0)</span><br><span class="line">Found:  (0, 1, 0, 1, 0, 0, 1, 0) R</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 0) X</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 1) Y</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 1, 0) Z</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 0, 1, 1)</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 0) X</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 1) Y</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 1, 0) Z</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 1, 0, 0)</span><br><span class="line">Found:  (0, 1, 0, 1, 0, 0, 1, 0) R</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 0) X</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 1) Y</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 1, 0) Z</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 1, 0, 1)</span><br><span class="line">Found:  (0, 1, 0, 1, 0, 0, 1, 1) S</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 0) X</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 1) Y</span><br><span class="line"></span><br><span class="line">For  6</span><br><span class="line">Trying... (0, 1, 0, 1, 0, 0, 0, 1)</span><br><span class="line">Trying... (0, 1, 0, 1, 1, 0, 0, 0)</span><br><span class="line">Found:  (0, 1, 0, 0, 0, 0, 1, 0) B</span><br><span class="line">Trying... (0, 1, 0, 1, 1, 0, 0, 1)</span><br><span class="line">Found:  (0, 1, 0, 0, 0, 0, 1, 1) C</span><br><span class="line">Trying... (0, 1, 0, 1, 1, 0, 1, 0)</span><br><span class="line">Found:  (0, 1, 0, 0, 0, 0, 0, 1) A</span><br><span class="line">Trying... (0, 1, 0, 1, 0, 0, 1, 0)</span><br><span class="line">Trying... (0, 1, 0, 1, 0, 0, 1, 1)</span><br><span class="line"></span><br><span class="line">For  7</span><br><span class="line">Trying... (0, 1, 0, 0, 0, 0, 1, 0)</span><br><span class="line">Found:  (0, 0, 1, 1, 0, 0, 0, 0) 0</span><br><span class="line">Trying... (0, 1, 0, 0, 0, 0, 1, 1)</span><br><span class="line">Found:  (0, 0, 1, 1, 0, 0, 0, 1) 1</span><br><span class="line">Trying... (0, 1, 0, 0, 0, 0, 0, 1)</span><br><span class="line"></span><br><span class="line">For  8</span><br><span class="line">Trying... (0, 0, 1, 1, 0, 0, 0, 0)</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 0, 1) a</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 1, 0) b</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 1, 0, 0) d</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 1, 0, 1) e</span><br><span class="line">Trying... (0, 0, 1, 1, 0, 0, 0, 1)</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 0, 1) a</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 1, 1) c</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 1, 0, 0) d</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 1, 0, 1) e</span><br><span class="line"></span><br><span class="line">For  9</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 0, 0, 1)</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 0, 1, 0)</span><br><span class="line">Found:  (0, 1, 1, 0, 1, 1, 0, 1) m</span><br><span class="line">Found:  (0, 1, 1, 0, 1, 1, 1, 0) n</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 1, 0, 0)</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 1, 0, 1)</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 0, 1, 1)</span><br><span class="line">Found:  (0, 1, 1, 0, 1, 1, 0, 0) l</span><br><span class="line">Found:  (0, 1, 1, 0, 1, 1, 1, 1) o</span><br><span class="line"></span><br><span class="line">For  10</span><br><span class="line">Trying... (0, 1, 1, 0, 1, 1, 0, 1)</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 1, 1) c</span><br><span class="line">Trying... (0, 1, 1, 0, 1, 1, 1, 0)</span><br><span class="line">Trying... (0, 1, 1, 0, 1, 1, 0, 0)</span><br><span class="line">Trying... (0, 1, 1, 0, 1, 1, 1, 1)</span><br><span class="line"></span><br><span class="line">For  11</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 0, 1, 1)</span><br><span class="line">Found:  (0, 1, 1, 1, 0, 1, 0, 0) t</span><br><span class="line">Found:  (0, 1, 1, 1, 0, 1, 0, 1) u</span><br><span class="line"></span><br><span class="line">For  12</span><br><span class="line">Trying... (0, 1, 1, 1, 0, 1, 0, 0)</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 0, 1) a</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 1, 1) c</span><br><span class="line">Trying... (0, 1, 1, 1, 0, 1, 0, 1)</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 0, 1, 0) b</span><br><span class="line"></span><br><span class="line">For  13</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 0, 0, 1)</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 0) X</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 1) Y</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 1, 0) Z</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 0, 1, 1)</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 0) X</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 1) Y</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 1, 0) Z</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 0, 1, 0)</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 0) X</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 1) Y</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 1, 0) Z</span><br><span class="line"></span><br><span class="line">For  14</span><br><span class="line">Trying... (0, 1, 0, 1, 1, 0, 0, 0)</span><br><span class="line">Found:  (0, 1, 0, 0, 1, 1, 1, 0) N</span><br><span class="line">Trying... (0, 1, 0, 1, 1, 0, 0, 1)</span><br><span class="line">Trying... (0, 1, 0, 1, 1, 0, 1, 0)</span><br><span class="line"></span><br><span class="line">For  15</span><br><span class="line">Trying... (0, 1, 0, 0, 1, 1, 1, 0)</span><br><span class="line">Found:  (0, 1, 1, 0, 0, 1, 1, 0) f</span><br><span class="line"></span><br><span class="line">For  16</span><br><span class="line">Trying... (0, 1, 1, 0, 0, 1, 1, 0)</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 0) X</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 0, 1) Y</span><br><span class="line">Found:  (0, 1, 0, 1, 1, 0, 1, 0) Z</span><br><span class="line"></span><br><span class="line">For  17</span><br><span class="line">Trying... (0, 1, 0, 1, 1, 0, 0, 0)</span><br><span class="line">Trying... (0, 1, 0, 1, 1, 0, 0, 1)</span><br><span class="line">Trying... (0, 1, 0, 1, 1, 0, 1, 0)</span><br><span class="line">Found:  (0, 1, 1, 0, 1, 1, 1, 0) n</span><br><span class="line"></span><br><span class="line">For  18</span><br><span class="line">Trying... (0, 1, 1, 0, 1, 1, 1, 0)</span><br><span class="line">Found:  (0, 1, 0, 1, 0, 1, 1, 0) V</span><br><span class="line">Found:  (0, 1, 0, 1, 0, 1, 1, 1) W</span><br><span class="line"></span><br><span class="line">For  19</span><br><span class="line">Trying... (0, 1, 0, 1, 0, 1, 1, 0)</span><br><span class="line">Found:  (0, 1, 0, 0, 1, 0, 1, 0) J</span><br><span class="line">Found:  (0, 1, 0, 0, 1, 0, 1, 1) K</span><br><span class="line">Found:  (0, 1, 1, 1, 0, 0, 1, 1) s</span><br><span class="line">Found:  (0, 1, 1, 1, 0, 1, 0, 0) t</span><br><span class="line">Found:  (0, 1, 1, 1, 0, 1, 0, 1) u</span><br><span class="line">Trying... (0, 1, 0, 1, 0, 1, 1, 1)</span><br><span class="line">Found:  (0, 1, 0, 0, 1, 0, 0, 1) I</span><br><span class="line">Found:  (0, 1, 0, 0, 1, 0, 1, 0) J</span><br><span class="line">Found:  (0, 1, 0, 0, 1, 0, 1, 1) K</span><br><span class="line">Found:  (0, 1, 1, 1, 0, 0, 1, 0) r</span><br><span class="line">Found:  (0, 1, 1, 1, 0, 1, 0, 0) t</span><br><span class="line">Found:  (0, 1, 1, 1, 0, 1, 0, 1) u</span><br><span class="line"></span><br><span class="line">For  20</span><br><span class="line">Trying... (0, 1, 0, 0, 1, 0, 1, 0)</span><br><span class="line">Trying... (0, 1, 0, 0, 1, 0, 1, 1)</span><br><span class="line">Trying... (0, 1, 1, 1, 0, 0, 1, 1)</span><br><span class="line">Trying... (0, 1, 1, 1, 0, 1, 0, 0)</span><br><span class="line">Trying... (0, 1, 1, 1, 0, 1, 0, 1)</span><br><span class="line">Found:  (0, 1, 1, 1, 1, 1, 0, 1) &#125;</span><br><span class="line">Trying... (0, 1, 0, 0, 1, 0, 0, 1)</span><br><span class="line">Trying... (0, 1, 1, 1, 0, 0, 1, 0)</span><br></pre></td></tr></table></figure></div>
+
+<p>Basically prune the branches which are not yielding any output in the next iteration and that narrows down the flag to</p>
+<p><code>cV9jbXB0bmctaXNfZnVu</code></p>
+<p>with a requirement of brute for few of the characters</p>
+<p>Flag - bi0sctf{q_cmptng-is_fun}</p>
+<br>
+
+<h2 id="Katanaverse-0-0"><a href="#Katanaverse-0-0" class="headerlink" title="Katanaverse 0.0"></a>Katanaverse 0.0</h2><p>With the exception of the quantity of constraints and the technique for Dividing the points, this level is comparable to 1.0 in many ways. In contrast to the brute technique employed in 1.0, the appropriate quantum method is utilized in 0.0 to divide points more quickly. The same <a class="link"   target="_blank" rel="noopener" href="https://qiskit-community.github.io/qiskit-optimization/tutorials/06_examples_max_cut_and_tsp.html" >URL <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> as previously has the code implementation for the same.</p>
+<p>The platform that allows us to run our code on quantum computers, or the platform that supports the Qiskit module, is required to execute this. I think <a class="link"   target="_blank" rel="noopener" href="https://lab.quantum.ibm.com/" >IBM’s Quantum laboratories <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is the best platform to conduct this on.</p>
+<p>Flag - bi0sCTF{QuBitJugglr}</p>
+<h3 id="Closing-Notes"><a href="#Closing-Notes" class="headerlink" title="Closing Notes"></a>Closing Notes</h3><p>It is undoubtedly difficult to use the notion of quantum in a challenge, but I did my best to do so and do it right. </p>
+<p>We appreciate everyone who tried their hand at the CTF challenge.<br>Please feel free to DM me on Discord if you have any questions or suggestions!</p>
+<p><strong>Contact: k1n0r4</strong> | <a class="link"   target="_blank" rel="noopener" href="https://twitter.com/k1n0r4" >twitter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> | <a href="www.linkedin.com/in/sejal-koshta-">linkedin</a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Katanaverse 1.0 : bi0sCTF 2024</li>
+        <li><strong>Author:</strong> Sejal Koshta</li>
+        <li><strong>Created at
+                :</strong> 2024-03-29 00:32:21</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-08-08 00:44:58
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://k1n0r4.github.io/2024/03/29/Katanaverse-1-0-bi0sCTF-2024/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/VM/">#VM</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/bi0sCTF/">#bi0sCTF</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/quantum/">#quantum</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/writeup/">#writeup</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/linux/">#linux</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/reversing/">#reversing</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/04/01/Fsvm-ecscCTF-2024/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Fsvm : ecscCTF 2024</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/03/03/Chronos-VM/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Chronos VM</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'en-US',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Katanaverse 1.0 : bi0sCTF 2024</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Challenge-Description"><span class="nav-number">1.</span> <span class="nav-text">Challenge Description</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Two-phases-of-Challenge"><span class="nav-number">1.0.1.</span> <span class="nav-text">Two phases of Challenge:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-How-will-I-know-that-it-makes-use-of-quantum-concepts"><span class="nav-number">1.1.1.</span> <span class="nav-text">Q. How will I know that it makes use of quantum concepts?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VM"><span class="nav-number">2.</span> <span class="nav-text">VM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Control-flow-of-the-VM"><span class="nav-number">2.1.</span> <span class="nav-text">Control flow of the VM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quantum"><span class="nav-number">3.</span> <span class="nav-text">Quantum</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Runtime-Constant-generation"><span class="nav-number">3.1.</span> <span class="nav-text">Runtime Constant generation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Determining-the-operations-performed"><span class="nav-number">3.2.</span> <span class="nav-text">Determining the operations performed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Division-of-points"><span class="nav-number">3.3.</span> <span class="nav-text">Division of points</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-func-7"><span class="nav-number">3.4.</span> <span class="nav-text">What is func_7 ?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Last-step"><span class="nav-number">3.5.</span> <span class="nav-text">Last step</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">4.</span> <span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Final-Script"><span class="nav-number">5.</span> <span class="nav-text">Final Script</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Katanaverse-0-0"><span class="nav-number">6.</span> <span class="nav-text">Katanaverse 0.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Closing-Notes"><span class="nav-number">6.1.</span> <span class="nav-text">Closing Notes</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Sejal Koshta</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        9 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.4</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Sejal Koshta">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2024/03/03/chronos-vm/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="This virtual machine (VM) is custom-designed for a specific purpose. It includes standard instructions for data movement and arithmetic operations, along with unique jump instructions that extend the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chronos VM">
+<meta property="og:url" content="http://example.com/2024/03/03/Chronos-VM/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="This virtual machine (VM) is custom-designed for a specific purpose. It includes standard instructions for data movement and arithmetic operations, along with unique jump instructions that extend the">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-03-03T15:58:07.000Z">
+<meta property="article:modified_time" content="2024-08-07T17:12:45.794Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="VM">
+<meta property="article:tag" content="bi0sCTF">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon-n.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-n.png">
+    <meta name="theme-color" content="#083f89">
+    <link rel="shortcut icon" href="/images/favicon-n.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Chronos VM -
+        
+        k1n0r4 Vista
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    
+        
+<script src="/js/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":["k1n0r4"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":5,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/dark_bg.png","skip_dirs":[]}},"colors":{"primary":"#083f89","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dark_bg.png","dark":"/images/dark_bg.png"},"title":"Reverse Engineer, Cybersecurity","subtitle":{"text":["Break","Debug","Reverse","Eat","Sleep","Repeat"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":130,"backing_speed":80,"starting_delay":500,"backing_delay":1000,"loop":true,"smart_backspace":true},"text_color":{"light":"#052440","dark":"#052440"},"text_style":{"title_size":"3.8rem","subtitle_size":"2.5rem","line_height":"0.8rem"},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/k1n0r4","twitter":"https://x.com/k1n0r4","email":"sejal.koshta2003@gmail.com"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","My Team":"https://bi0s.in","LinkedIn":"https://www.linkedin.com/in/sejal-koshta-"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":5}},"footerStart":"2024/2/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+    <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        k1n0r4 Vista
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [40,0],
+                translateZ: 0,
+                opacity: [0,1],
+                filter: ['blur(5px)', 'blur(0px)'], // Starting from blurred to unblurred
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i,
+            }).add({
+                targets: '.ml13 .letter',
+                translateY: [0,-40],
+                opacity: [1,0],
+                filter: ['blur(0px)', 'blur(5px)'], // Ending from unblurred to blurred
+                easing: "easeInExpo",
+                duration: 1200,
+                delay: (el, i) => 100 + 30 * i,
+                complete: function() {
+                    hidePreloader(); // Call hidePreloader after the animation completes
+                }
+            });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/k1n0r4_avatar.jpg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                k1n0r4 Vista
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://bi0s.in">
+                                                    MY TEAM
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/sejal-koshta-">
+                                                    LINKEDIN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://bi0s.in">MY TEAM</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://www.linkedin.com/in/sejal-koshta-">LINKEDIN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                
+                
+                <img src="/images/chronos_vm/chronos_bg_n.jpg" alt="Chronos VM" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
+                
+                <div class="w-full flex items-center absolute bottom-0 justify-start">
+                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">Chronos VM</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/k1n0r4_avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Sejal Koshta</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-03-03 21:28:07</span>
+        <span class="mobile">2024-03-03 21:28:07</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-08-07 22:42:45</span>
+            <span class="mobile">2024-08-07 22:42:45</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Katanaverse/">Katanaverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/VM/">VM</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/bi0sCTF/">bi0sCTF</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <p>This virtual machine (VM) is custom-designed for a specific purpose. It includes standard instructions for data movement and arithmetic operations, along with unique jump instructions that extend the capabilities of typical jumping behavior. The VM also has a limited set of flags that can be expanded based on specific needs. </p>
+<p>It operates using 32-bit opcodes and registers.<br>This VM is created as a part of a challenge for an International CTF, bi0s CTF 2024.</p>
+<p>In that challenge, the VM performs bit manipulation on the user input which demands reversing the logic of the bit operations and retrieve back the original bytes.</p>
+<p>The source code of the VM can be found <a href="/files/chronos/final_vm.c">here</a>.</p>
+<h2 id="Registers"><a href="#Registers" class="headerlink" title="Registers"></a>Registers</h2><p>There are in total 8 General Purpose registers and 4 Special registers</p>
+<h3 id="General-Registers"><a href="#General-Registers" class="headerlink" title="General Registers"></a>General Registers</h3><ul>
+<li>700: S0</li>
+<li>701: S1</li>
+<li>702: S2</li>
+<li>703: S3</li>
+<li>704: S4</li>
+<li>705: S5</li>
+<li>706: S6</li>
+<li>707: S7</li>
+</ul>
+<h3 id="Special-Registers"><a href="#Special-Registers" class="headerlink" title="Special Registers"></a>Special Registers</h3><ul>
+<li>708: MP - Memory pointer</li>
+<li>PC - Program counter</li>
+<li>SP - Stack pointer</li>
+<li>BP - Base pointer</li>
+</ul>
+<h4 id="Flags"><a href="#Flags" class="headerlink" title="Flags"></a>Flags</h4><ul>
+<li>EF - Exit Flag</li>
+<li>ZF - Zero Flag</li>
+</ul>
+<h2 id="Instruction-Set"><a href="#Instruction-Set" class="headerlink" title="Instruction Set"></a>Instruction Set</h2><table>
+<thead>
+<tr>
+<th>Opcodes</th>
+<th>Mnemonic</th>
+<th>Description</th>
+<th>Use Case of  Opcodes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1200 (10)</td>
+<td>MOVR</td>
+<td>“Moves” a value from one register to another (It does not copy the value but actually moves it)</td>
+<td>MOVR S0, S1<br>S1 –&gt; S0</td>
+</tr>
+<tr>
+<td>1201 (8)</td>
+<td>COPI</td>
+<td>Typical ‘mov’ operation from x86 with an immediate value</td>
+<td>COPI S0, 4<br>4 –&gt; S0</td>
+</tr>
+<tr>
+<td>1202 (10)</td>
+<td>COPR</td>
+<td>Typical mov operation from x86</td>
+<td>COPR S0, S1<br></td>
+</tr>
+<tr>
+<td>1203 (8)</td>
+<td>ADDI</td>
+<td>Add the values of the register and the immediate value and store it in first operand</td>
+<td>ADDI S0, 4<br>S0 +&#x3D;  4</td>
+</tr>
+<tr>
+<td>1204 (10)</td>
+<td>ADDR</td>
+<td>Add the values of the 2 register and save the result in the first register</td>
+<td>ADDR S0, S1<br>S0 &#x3D; S0 + S1</td>
+</tr>
+<tr>
+<td>1205 (8)</td>
+<td>SUBI</td>
+<td>Subtract the values of the register and the immediate value and store it in first operand</td>
+<td>SUBI S0, 4<br>S0 -&#x3D;  4</td>
+</tr>
+<tr>
+<td>1206 (10)</td>
+<td>SUBR</td>
+<td>Subtract the values of the 2 register and save the result in the first register</td>
+<td>SUBR S0, S1<br>S0 &#x3D; S0 - S1</td>
+</tr>
+<tr>
+<td>1207 (8)</td>
+<td>XORI</td>
+<td>Xor the values of the register and the immediate value and store it in first operand</td>
+<td>XORI S0, 4<br>S0 ^&#x3D;  4</td>
+</tr>
+<tr>
+<td>1208 (10)</td>
+<td>XORR</td>
+<td>Xor the values of the 2 register and save the result in the first register</td>
+<td>XORR S0, S1<br>S0 &#x3D; S0 ^ S1</td>
+</tr>
+<tr>
+<td>1209 (8)</td>
+<td>DIVI</td>
+<td>Divide the value of the register by the immediate value and store it in first operand</td>
+<td>DIVI S0, 4<br>S0 &#x2F;&#x3D;  4</td>
+</tr>
+<tr>
+<td>1210 (10)</td>
+<td>DIVR</td>
+<td>Divide the value of the 1st register by 2nd register and save the result in the first register</td>
+<td>DIVR S0, S1<br>S0 &#x3D; S0 &#x2F; S1</td>
+</tr>
+<tr>
+<td>1211 (8)</td>
+<td>MULI</td>
+<td>Multiply the values of the register and the immediate value and store it in first operand</td>
+<td>MULI S0, 4<br>S0 *&#x3D;  4</td>
+</tr>
+<tr>
+<td>1212 (10)</td>
+<td>MULR</td>
+<td>Multiply the values of the 2 register and save the result in the first register</td>
+<td>MULR S0, S1<br>S0 &#x3D; S0 * S1</td>
+</tr>
+<tr>
+<td>1213 (7)</td>
+<td>POPA</td>
+<td>Pops the top value of the stack and stores it in the given register. SP –&gt; SP + 1</td>
+<td>POPA S0<br>[SP] –&gt; S0</td>
+</tr>
+<tr>
+<td>1214 (7)</td>
+<td>PUSH</td>
+<td>The value in the register is pushed on the top of the stack. SP –&gt; SP - 1</td>
+<td>PUSH S0<br>S0 –&gt; [SP-1]</td>
+</tr>
+<tr>
+<td>1215 (8)</td>
+<td>LOAD</td>
+<td>Load the data from the memory to register. The offset of the MP is given as the 2nd argument</td>
+<td>LOAD S0, 1<br>[MP+1] –&gt;S0</td>
+</tr>
+<tr>
+<td>1216 (7)</td>
+<td>STOR</td>
+<td>Store the data from register to memory. <br>MP –&gt; MP + 1</td>
+<td>STOR S0<br>S0 –&gt; [MP]</td>
+</tr>
+<tr>
+<td>1217 (~)</td>
+<td>CALL</td>
+<td>Calls the function given, the length of the function name and then the function name is provided</td>
+<td>CALL 5 func0</td>
+</tr>
+<tr>
+<td>1218 (7)</td>
+<td>INCR</td>
+<td>Increments the value of the register by 1 and store it in the same register</td>
+<td>INCR S0<br>S0 +&#x3D; 1</td>
+</tr>
+<tr>
+<td>1219 (7)</td>
+<td>DECR</td>
+<td>Decrements the value of the register by 1 and store it in the same register</td>
+<td>DECR S0<br>S0  -&#x3D; 1</td>
+</tr>
+<tr>
+<td>1220 (8)</td>
+<td>LD_D</td>
+<td>Another version of Load, where the value from the memory is deleted when it’s loaded into the register</td>
+<td>LD_D S1, 1<br>[MP+1] –&gt;S1</td>
+</tr>
+<tr>
+<td>1221 (8)</td>
+<td>SHRI</td>
+<td>Shift Right the value of the register by the given value</td>
+<td>SHRI S0, 1<br>S0 &#x3D; S0 &gt;&gt;1</td>
+</tr>
+<tr>
+<td>1222 (10)</td>
+<td>SHRR</td>
+<td>Shift Right the value of the register by the given value within a register</td>
+<td>SHRR S0, S1<br>S0 &#x3D; S0 &gt;&gt;S1</td>
+</tr>
+<tr>
+<td>1223 (8)</td>
+<td>SHLI</td>
+<td>Shift Left the value of the register by the given value</td>
+<td>SHLI S0, 1<br>S0 &#x3D; S0 &lt;&lt; 1</td>
+</tr>
+<tr>
+<td>1224 (10)</td>
+<td>SHLR</td>
+<td>Shift Left the value of the register by the given value within a register</td>
+<td>SHLR S0, S1<br>S0 &#x3D; S0 &lt;&lt; S1</td>
+</tr>
+<tr>
+<td>1225 (~)</td>
+<td>PRIM</td>
+<td>Print the message, the length of the message and the message is given</td>
+<td>PRIM 5 Hello</td>
+</tr>
+<tr>
+<td>1226 (7)</td>
+<td>PRIR</td>
+<td>Prints the value of the register</td>
+<td>PRIR S0</td>
+</tr>
+<tr>
+<td>1227 (8)</td>
+<td>COPS</td>
+<td>Copies the value from the stack to the register given</td>
+<td>COPS S0,4<br>[SP+4] –&gt; S0</td>
+</tr>
+<tr>
+<td>1228 (~)</td>
+<td>JZD</td>
+<td>Increment the PC by the value given if the ZF is set to 1</td>
+<td>JZD 4<br>PC +&#x3D; 4</td>
+</tr>
+<tr>
+<td>1229 (~)</td>
+<td>JNZD</td>
+<td>Increment the PC by the value given if the ZF is set to 0</td>
+<td>JNZD 4<br>PC +&#x3D; 4</td>
+</tr>
+<tr>
+<td>1230 (~)</td>
+<td>JMPD</td>
+<td>Increment the PC by the value given</td>
+<td>JMPD 4<br>PC +&#x3D; 4</td>
+</tr>
+<tr>
+<td>1231 (~)</td>
+<td>SCAN</td>
+<td>Takes input in 3 forms, integer, character and string<br>The type of data needs to be specified as ‘i’ for integer, ‘c’ for character and ‘s’ for string<br>Integer input is stored in the register specified<br>Character input is stored directly in the memory<br>String input is converted to it’s base64 form and then stored in the memory</td>
+<td>SCAN i S0<br>input –&gt; S0</td>
+</tr>
+<tr>
+<td>1232 (8)</td>
+<td>CMPI</td>
+<td>Compares the value in the register with the immediate value and sets the zero flag accordingly</td>
+<td>CMPI S0, 3</td>
+</tr>
+<tr>
+<td>1233 (10)</td>
+<td>CMPR</td>
+<td>Compares the values in the 2 registers and sets the zero flag accordingly</td>
+<td>CMPI S0, S1</td>
+</tr>
+<tr>
+<td>1234 (4)</td>
+<td>EXIT</td>
+<td>Sets the Exit flag as 1</td>
+<td>EXIT</td>
+</tr>
+<tr>
+<td>1235 (8)</td>
+<td>ANDI</td>
+<td>Bitwise And operation is performed on the value of the register and the immediate value and is stored it in the first operand</td>
+<td>ANDI S0, 4<br>S0 &amp;&#x3D;  4<br></td>
+</tr>
+<tr>
+<td>1236 (10)</td>
+<td>ANDR</td>
+<td>Bitwise And operation is performed on the values of the 2 registers and result is stored in the first operand</td>
+<td>ANDR S0, S1<br>S0 &#x3D; S0 &amp; S1</td>
+</tr>
+<tr>
+<td>1237 (8)</td>
+<td>ORRI</td>
+<td>Bitwise Or operation is performed on the value of the register and the immediate value and is stored it in the first operand</td>
+<td>ANDI S0, 4<br>S0 |&#x3D;  4</td>
+</tr>
+<tr>
+<td>1238 (10)</td>
+<td>ORRR</td>
+<td>Bitwise Or operation is performed on the values of the 2 registers and result is stored in the first operand</td>
+<td>ORRR S0, S1<br>S0 &#x3D; S0 | S1</td>
+</tr>
+<tr>
+<td>1239 (~)</td>
+<td>JZU</td>
+<td>Decrement the PC by the value given if the ZF is set to 1</td>
+<td>JZU 4<br>PC -&#x3D; 4</td>
+</tr>
+<tr>
+<td>1240 (~)</td>
+<td>JNZU</td>
+<td>Decrement the PC by the value given if the ZF is set to 0</td>
+<td>JNZU 4<br>PC -&#x3D; 4</td>
+</tr>
+<tr>
+<td>1241 (~)</td>
+<td>JMPU</td>
+<td>Decrement the PC by the value given</td>
+<td>JMPD 4<br>PC -&#x3D; 4</td>
+</tr>
+<tr>
+<td>1242 (~)</td>
+<td>JNZ</td>
+<td>Place the PC at the offset mentioned if the zero flag is set to 0</td>
+<td>JNZ 4<br>PC &#x3D; 4</td>
+</tr>
+<tr>
+<td>1243 (~)</td>
+<td>JZ</td>
+<td>Place the PC at the offset mentioned if the zero flag is set to 1</td>
+<td>JZ 4<br>PC &#x3D; 4</td>
+</tr>
+</tbody></table>
+<h2 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h2><p>This VM is created as a part of a challenge for an International CTF, bi0s CTF 2024<br>In that challenge, the VM performs bit manipulation on the user input which demands reversing the logic of the bit operations and retrieve back the original bytes.</p>
+<p>You can download the source code of the VM here.</p>
+<h3 id="Control-Flow"><a href="#Control-Flow" class="headerlink" title="Control Flow"></a>Control Flow</h3><ol>
+<li>Prompt for input</li>
+<li>Take input and format it</li>
+<li>Store the modified input in memory</li>
+<li>Store the same in the stack</li>
+<li>Convert into binary and store it in stack and remove the input from memory</li>
+<li>Classified array is computed and stored in memory</li>
+</ol>
+<h3 id="Disassembly"><a href="#Disassembly" class="headerlink" title="Disassembly"></a>Disassembly</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">;S0 has the modified input length</span><br><span class="line"></span><br><span class="line">		COPI 	MP, 0</span><br><span class="line">		PRIM 16 Enter the flag: </span><br><span class="line">		SCAN s</span><br><span class="line"></span><br><span class="line">		COPI 	S1, 0</span><br><span class="line">		COPI	MP, 0</span><br><span class="line">48: 	LOAD 	S2, [MP]</span><br><span class="line">		INCR 	MP</span><br><span class="line">		INCR	S1</span><br><span class="line">		PUSH 	S2</span><br><span class="line">		CMPR  	S1, S0</span><br><span class="line">87: 	JNZU  	39        ;48</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">92: 	COPI 	S7, 0</span><br><span class="line">100:	DECR	MP</span><br><span class="line">107:	LD_D	S1, [MP]</span><br><span class="line">115:	COPI	S2, 0</span><br><span class="line">123:	COPR	S3, S1</span><br><span class="line">133:	ANDI	S3, 1</span><br><span class="line">141:	PUSH	S3</span><br><span class="line">148:	SHRI	S1, 1</span><br><span class="line">156:	INCR	S2</span><br><span class="line">163:	CMPI	S2, 8</span><br><span class="line">171:	JNZU	48 			;123</span><br><span class="line">176:	INCR	S7</span><br><span class="line">183:	CMPR	S7, S0</span><br><span class="line">193:	JNZU	93  		;100</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">198:	COPR 	S1, S0</span><br><span class="line">208:	DECR 	S1</span><br><span class="line">215:	COPI 	S2, 0</span><br><span class="line">223:	COPS	S3, [SP]</span><br><span class="line">231:	COPS	S4, [SP+8]</span><br><span class="line">239:	XORR	S3, S4</span><br><span class="line">249:	STOR 	S3</span><br><span class="line">256:	COPS	S3, [SP+1]</span><br><span class="line">264:	COPS	S4, [SP+9]</span><br><span class="line">272:	XORR	S3, S4</span><br><span class="line">282:	STOR 	S3</span><br><span class="line">289:	COPS	S3, [SP+2]</span><br><span class="line">297:	COPS	S4, [SP+10]</span><br><span class="line">305:	XORR	S3, S4</span><br><span class="line">315:	STOR 	S3</span><br><span class="line">322:	COPS	S3, [SP+1]</span><br><span class="line">330:	COPS	S4, [SP+8]</span><br><span class="line">338:	XORR	S3, S4</span><br><span class="line">348:	STOR 	S3</span><br><span class="line">355:	COPS	S3, [SP]</span><br><span class="line">363:	COPS	S4, [SP+9]</span><br><span class="line">371:	XORR	S3, S4</span><br><span class="line">381:	STOR 	S3</span><br><span class="line">388:	COPS	S3, [SP+2]</span><br><span class="line">396:	COPS	S4, [SP+9]</span><br><span class="line">404:	XORR	S3, S4</span><br><span class="line">414:	STOR 	S3</span><br><span class="line">421:	COPS	S3, [SP+1]</span><br><span class="line">429:	COPS	S4, [SP+10]</span><br><span class="line">437:	XORR	S3, S4</span><br><span class="line">447:	STOR 	S3</span><br><span class="line">454:	COPS	S3, [SP]</span><br><span class="line">462:	COPS	S4, [SP+2]</span><br><span class="line">470:	COPS 	S5, [SP+9]</span><br><span class="line">478:	XORR	S3, S4</span><br><span class="line">488:	XORR	S3, S5</span><br><span class="line">498:	STOR 	S3</span><br><span class="line">505:	POP		S5</span><br><span class="line">512:	INCR	S2</span><br><span class="line">519:	CMPI	S2, 6</span><br><span class="line">527:	JNZ 	223			</span><br><span class="line">532:	POP 	S5</span><br><span class="line">539:	POP		S5</span><br><span class="line">546:	DECR	S1</span><br><span class="line">553:	CMPI 	S1, 0</span><br><span class="line">561:	JNZ 	215			</span><br><span class="line">566:	CMPI	MP, 144</span><br><span class="line">574:	JNZD 	15        ;589</span><br><span class="line">579:	PRIM 5  Wrong</span><br><span class="line">589:	EXIT  </span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p>Ciao !!</p>
+<br>
+
+<hr>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Chronos VM</li>
+        <li><strong>Author:</strong> Sejal Koshta</li>
+        <li><strong>Created at
+                :</strong> 2024-03-03 21:28:07</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-08-07 22:42:45
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://k1n0r4.github.io/2024/03/03/Chronos-VM/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/VM/">#VM</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/bi0sCTF/">#bi0sCTF</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/03/29/Katanaverse-1-0-bi0sCTF-2024/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Katanaverse 1.0 : bi0sCTF 2024</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/03/01/Scam-Hunting-by-Lena-Yu/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Scam Hunting by Lena Yu</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'en-US',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Chronos VM</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Registers"><span class="nav-number">1.</span> <span class="nav-text">Registers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#General-Registers"><span class="nav-number">1.1.</span> <span class="nav-text">General Registers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Special-Registers"><span class="nav-number">1.2.</span> <span class="nav-text">Special Registers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Flags"><span class="nav-number">1.2.1.</span> <span class="nav-text">Flags</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Instruction-Set"><span class="nav-number">2.</span> <span class="nav-text">Instruction Set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application"><span class="nav-number">3.</span> <span class="nav-text">Application</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Control-Flow"><span class="nav-number">3.1.</span> <span class="nav-text">Control Flow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Disassembly"><span class="nav-number">3.2.</span> <span class="nav-text">Disassembly</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Sejal Koshta</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        9 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.4</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>

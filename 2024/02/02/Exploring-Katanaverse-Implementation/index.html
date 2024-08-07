@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Sejal Koshta">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2024/02/02/exploring-katanaverse-implementation/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="In this detailed explanation, I will walk you through the process of constructing Katanaverse, the binary utilized as a bi0sCTF 2024 Challenge. This challenge falls within the domain of reverse engine">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Exploring Katanaverse Implementation">
+<meta property="og:url" content="http://example.com/2024/02/02/Exploring-Katanaverse-Implementation/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="In this detailed explanation, I will walk you through the process of constructing Katanaverse, the binary utilized as a bi0sCTF 2024 Challenge. This challenge falls within the domain of reverse engine">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/katana/katana_1.jpeg">
+<meta property="og:image" content="http://example.com/images/katana/katana_2.jpeg">
+<meta property="article:published_time" content="2024-02-02T07:15:19.000Z">
+<meta property="article:modified_time" content="2024-08-07T17:13:16.639Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="VM">
+<meta property="article:tag" content="bi0sCTF">
+<meta property="article:tag" content="quantum">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/katana/katana_1.jpeg">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon-n.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-n.png">
+    <meta name="theme-color" content="#083f89">
+    <link rel="shortcut icon" href="/images/favicon-n.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Exploring Katanaverse Implementation -
+        
+        k1n0r4 Vista
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    
+        
+<script src="/js/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":["k1n0r4"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":5,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/dark_bg.png","skip_dirs":[]}},"colors":{"primary":"#083f89","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dark_bg.png","dark":"/images/dark_bg.png"},"title":"Reverse Engineer, Cybersecurity","subtitle":{"text":["Break","Debug","Reverse","Eat","Sleep","Repeat"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":130,"backing_speed":80,"starting_delay":500,"backing_delay":1000,"loop":true,"smart_backspace":true},"text_color":{"light":"#052440","dark":"#052440"},"text_style":{"title_size":"3.8rem","subtitle_size":"2.5rem","line_height":"0.8rem"},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/k1n0r4","twitter":"https://x.com/k1n0r4","email":"sejal.koshta2003@gmail.com"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags/","icon":"fa-solid fa-tags"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","My Team":"https://bi0s.in","LinkedIn":"https://www.linkedin.com/in/sejal-koshta-"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":5}},"footerStart":"2024/2/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+    <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        k1n0r4 Vista
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [40,0],
+                translateZ: 0,
+                opacity: [0,1],
+                filter: ['blur(5px)', 'blur(0px)'], // Starting from blurred to unblurred
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i,
+            }).add({
+                targets: '.ml13 .letter',
+                translateY: [0,-40],
+                opacity: [1,0],
+                filter: ['blur(0px)', 'blur(5px)'], // Ending from unblurred to blurred
+                easing: "easeInExpo",
+                duration: 1200,
+                delay: (el, i) => 100 + 30 * i,
+                complete: function() {
+                    hidePreloader(); // Call hidePreloader after the animation completes
+                }
+            });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/k1n0r4_avatar.jpg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                k1n0r4 Vista
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://bi0s.in">
+                                                    MY TEAM
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/sejal-koshta-">
+                                                    LINKEDIN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://bi0s.in">MY TEAM</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://www.linkedin.com/in/sejal-koshta-">LINKEDIN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                
+                
+                <img src="/images/katana/katana_bg.jpg" alt="Exploring Katanaverse Implementation" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
+                
+                <div class="w-full flex items-center absolute bottom-0 justify-start">
+                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">Exploring Katanaverse Implementation</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/k1n0r4_avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Sejal Koshta</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-02-02 12:45:19</span>
+        <span class="mobile">2024-02-02 12:45:19</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-08-07 22:43:16</span>
+            <span class="mobile">2024-08-07 22:43:16</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Katanaverse/">Katanaverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/VM/">VM</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/bi0sCTF/">bi0sCTF</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/quantum/">quantum</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <p>In this detailed explanation, I will walk you through the process of constructing Katanaverse, the binary utilized as a bi0sCTF 2024 Challenge. This challenge falls within the domain of reverse engineering and requires participants to employ puzzle-solving skills. Katanaverse presents a unique blend of custom architecture and concepts from Quantum Computing.</p>
+<p>In Katanaverse 0.0, participants tackled the Weighted Maxcut Problem, aiming to split connected dots on a graph into two groups to maximize the weight of lines between them. This demanded strategic thinking and experimentation. In Katanaverse 1.0, participants employed a straightforward but exhaustive approach, trying every possible solution until finding the best one.</p>
+<p>Also you can find the source codes and binaries of both the challenges on my <a class="link"   target="_blank" rel="noopener" href="https://github.com/k1n0r4/Katanaverse" >Github repo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<h2 id="Overview-of-the-Challenge"><a href="#Overview-of-the-Challenge" class="headerlink" title="Overview of the Challenge"></a>Overview of the Challenge</h2><p>The entire challenge is divided into multiple parts</p>
+<ul>
+<li>VM which includes the bit manipulation and the creation of classified array</li>
+<li>Generation of constants<ol>
+<li>AES key generation via the known part of classified 2D array</li>
+<li>srand seed generation using the input trigger and the known part of the classfied 2D array</li>
+</ol>
+</li>
+<li>Constraint check for classified array using rand values</li>
+<li>Generate 12 points for each group of classified array </li>
+<li>Convert alpha beta notation of points into xyz coordinates</li>
+<li>Apply Quantum Approximate Optimization Algorithm on those 12 points</li>
+<li>The result of the algorithm is formatted and aes encrypted</li>
+<li>The encrpted value is then compared against the encrypted bytes of the correct flag</li>
+</ul>
+<br/>
+
+<h2 id="1-VM"><a href="#1-VM" class="headerlink" title="#1 VM"></a>#1 VM</h2><h3 id="Control-flow-of-the-VM"><a href="#Control-flow-of-the-VM" class="headerlink" title="Control flow of the VM"></a>Control flow of the VM</h3><ol>
+<li>Prompt for Flag</li>
+<li>Takes the input</li>
+<li>Transforms the flag into its string encoded in base 64.</li>
+<li>Register S0 stores the updated flag’s length.</li>
+<li>Binary representations of flag bytes are created and placed on the stack.</li>
+<li>As a result, each time a flag byte is converted, the byte is removed from memory.</li>
+<li>Memory is discovered to be empty following the conversion.</li>
+<li>A bit modification that is kept in memory is carried out using stored binary from the stack.</li>
+<li>VM exits</li>
+<li>It replicates its memory into a “classified” 2D array </li>
+<li>It stores the altered input length from register S0 in a new variable for use in future applications.</li>
+</ol>
+<p>The classified array is a 2D array of size <code>(inp_len-1)*6 X 8</code><br>8 corresponds to each bit of the byte</p>
+<p>For more details on the Chronos VM, you can refer to my blog post on <a class="link"   target="_blank" rel="noopener" href="https://k1n0r4.github.io/post/chronos_vm/" >Chronos VM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<h3 id="Bit-manipulation"><a href="#Bit-manipulation" class="headerlink" title="Bit manipulation"></a>Bit manipulation</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana/katana_1.jpeg"
+                      alt="katanaverse"
+                ></p>
+<h2 id="2-Constant-Generation"><a href="#2-Constant-Generation" class="headerlink" title="#2 Constant Generation"></a>#2 Constant Generation</h2><p>Since the flag format is included in the creation of classified array, we know the initial few bytes of classified array</p>
+<p>Those known bytes are used as aes_key</p>
+<p>AES Key Generation</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">uint8_t aes_key[16];</span><br><span class="line"></span><br><span class="line">    for(int i =0;i&lt;16;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        aes_key[i] = classified[i][7] * 1 + classified[i][6] * 2 + classified[i][5] * 4 + classified[i][4] * 8 + classified[i][3] * 16 + classified[i][2] * 32 + classified[i][1] * 64 + classified[i][0] * 128 ;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>Similarly, seed for srand is also determined using these known classified bytes</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">int seed_gen = 0;</span><br><span class="line">    for(int i =0;i&lt;8;i+=2)</span><br><span class="line">    &#123;</span><br><span class="line">        seed_gen+=classified[i][3]*1 +classified[i][2]*2 + classified[i][1]*4 + classified[i][0]*8;</span><br><span class="line">        seed_gen+=classified[i+1][7]*1 +classified[i+1][6]*2 + classified[i+1][5]*4 + classified[i+1][4]*8;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    char g[1];</span><br><span class="line">    printf(&quot;\nEnter the trigger: &quot;);</span><br><span class="line">    scanf(&quot;%c&quot;, &amp;g[0]);</span><br><span class="line"></span><br><span class="line">    if(g[0]==&#x27;r&#x27;)</span><br><span class="line">    &#123;</span><br><span class="line">        srand(seed_gen^g[0]);</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        printf(&quot;Wrong trigger\n&quot;);</span><br><span class="line">        exit(0);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>An input trigger is also used in the seed generation</p>
+<br>
+
+<h2 id="3-Constraints"><a href="#3-Constraints" class="headerlink" title="#3 Constraints"></a>#3 Constraints</h2><p><code>rand()</code> function is used to generate 5 unique numbers within the range of 0 to 5</p>
+<p>Hence for every 6 bytes, a constraint between the first and last bit for that byte is given<br>For example, if the numbers generated are 0,1,2,3,4 then first 5 bytes of that group of 6 is taken and constraint between the first and last bit is given as 0 or 1<br>0 means the bits are not same, they are either 0 and 1 or 1 and 0<br>1 means the bits are same, they are either 0 and 0 or 1 and 1</p>
+<p>These constraints are provided to make bruting less tedious</p>
+<p><code>conditions</code> array has those constraints</p>
+<p>In katanaverse 0.0, the modified input length is 25<br>So the classified array (inp_len-1) X 6 is 144</p>
+<p>Each 6 bytes correspond to the pair of bytes of our modified input</p>
+<p>hence if we take first 6 bytes of classified array and given the constraints for 5 bytes given, there are only 8 possibilities</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">int conditions[120] = &#123;1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1&#125;;</span><br><span class="line">    int p=0;</span><br><span class="line">    for(int j =0;j&lt;(inp_len-1)*6;j+=6)</span><br><span class="line">    &#123; </span><br><span class="line">        int rands[5];</span><br><span class="line">        rands[0] = rand()%4;</span><br><span class="line">        for(int i=1; i&lt;3; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            int r = rand()%4;</span><br><span class="line">            while(r == rands[i-1] || r == rands[0])</span><br><span class="line">            &#123;</span><br><span class="line">                r = rand()%4;</span><br><span class="line">            &#125;</span><br><span class="line">            rands[i] = r;</span><br><span class="line">        &#125;</span><br><span class="line">        rands[3] = 4;</span><br><span class="line">        rands[4] = 5;</span><br><span class="line"></span><br><span class="line">        for(int k=0;k&lt;5;k++)</span><br><span class="line">        &#123;</span><br><span class="line">            int g = (classified[j+rands[k]][0] == classified[j+rands[k]][7]);</span><br><span class="line">            if(g != conditions[p])</span><br><span class="line">            &#123;</span><br><span class="line">                printf(&quot;Wrong Input\n&quot;);</span><br><span class="line">                exit(0);</span><br><span class="line">            &#125;</span><br><span class="line">            p+=1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<h2 id="4-Generation-of-12-points"><a href="#4-Generation-of-12-points" class="headerlink" title="#4  Generation of 12 points"></a>#4  Generation of 12 points</h2><p>Each time 6 bytes of classified array is taken and 6 X 8 bits are divided into 12 groups of 4 bits(nibble) each</p>
+<p>These 4 bits (nibble) at a time determine which operation will be performed<br>There are 16 operations named as Blaze, Horizon, Nova, Quantum, Echo,…</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/katana/katana_2.jpeg"
+                      alt="katanaverse"
+                ></p>
+<p>These are the combination of coordinate shift that will be performed on the given qubit along it’s x,y and z axis<br>This will change the position of the qubit</p>
+<p>These operations can be visualised using the <a class="link"   target="_blank" rel="noopener" href="https://bits-and-electrons.github.io/bloch-sphere-simulator/" >Bloch Sphere <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>Initial qubit position is given by two variables alpha and beta as 1 + 0i , 0 + 0i</p>
+<p>When an operation is performed on the qubit, it will undergo change in the alpha and beta values of the qubit</p>
+<p>Hence, taking inital qubit state as given above we perform 12 such operations on the qubit and store the state of the qubit after every operation<br>Hence we have 12 combinations of alpha and beta at the end for each 6 bytes of the classified array<br>These alpha and beta are converted to their respective x,y,z coordinate form</p>
+<p>The function <code>choice</code> is used to decide which operation will be performed based on the 4 bits</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">for(int i=0;i&lt;(inp_len-1)*6;i+=6)</span><br><span class="line">    &#123;</span><br><span class="line">        double complex alpha = 1 + 0*I;</span><br><span class="line">        double complex beta = 0 + 0*I;</span><br><span class="line">        double complex alts[12][2];</span><br><span class="line"></span><br><span class="line">        for(int j=0;j&lt;6;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            int com[2] = &#123;0,0&#125;;</span><br><span class="line">            com[0] = classified[i+j][0]*8 + classified[i+j][1]*4 + classified[i+j][2]*2 + classified[i+j][3]*1;</span><br><span class="line">            com[1] = classified[i+j][4]*1 + classified[i+j][5]*2 + classified[i+j][6]*4 + classified[i+j][7]*8;</span><br><span class="line">            choice(com[0], alpha, beta, &amp;alts[j*2][0], &amp;alts[j*2][1], subtract_key, xor_key); </span><br><span class="line">            choice(com[1], alts[j*2][0], alts[j*2][1], &amp;alts[j*2+1][0], &amp;alts[j*2+1][1], subtract_key, xor_key); </span><br><span class="line">            alpha = alts[j*2+1][0];</span><br><span class="line">            beta = alts[j*2+1][1];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for(int k=0;k&lt;12;k++)</span><br><span class="line">        &#123;</span><br><span class="line">            alpha_beta_to_xyz(alts[k][0], alts[k][1], coordinates[i*2+k]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>The functions Blaze, Horizon, Nova, Quantum, Echo … represent the operations and technically to perform these operation is called to “pass the qubit through the custom gates”</p>
+<p>Within each function, there is an encrypted shellcode, which on decrypting is the qiskit code to implement that specific gate (operation&#x2F;coordinate shift in 3D cuz it is a sphere)</p>
+<p>It will look something like this</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">OPENQASM 2.0;</span><br><span class="line">include &quot;qelib1.inc&quot;;</span><br><span class="line">gate disentangler_dg q0 &#123;  &#125;</span><br><span class="line">gate state_preparation(param0,param1) q0 &#123; disentangler_dg q0; &#125;</span><br><span class="line">gate initialize(param0,param1) q0 &#123; reset q0; state_preparation(alpha,beta) q0; &#125;</span><br><span class="line">qreg q2[1];</span><br><span class="line">creg c2[1];</span><br><span class="line">initialize(alpha,beta) q2[0];</span><br><span class="line">rx(pi/4) q2[0];</span><br><span class="line">ry(pi/3) q2[0];</span><br><span class="line">rz(pi/4) q2[0];</span><br><span class="line">measure q2[0] -&gt; c2[0]; </span><br></pre></td></tr></table></figure></div>
+
+<p>Here the operation performed is, </p>
+<ol>
+<li>45 degree along x axis</li>
+<li>60 degree along y axis</li>
+<li>45 degree along z axis</li>
+</ol>
+<p>Likewise each function has different operations<br>This is where the given binary will cease to execute normally and throw a segmantation fault because you need a proper platform to execute this qiskit code</p>
+<p>It can be done in <a class="link"   target="_blank" rel="noopener" href="https://quantum.ibm.com/lab" >Quantum Lab provided by IBM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>Although, conversion from alpha beta to xyz coordinates and vice versa can be done here</p>
+<p>Hence at the end of this step we have 12 points for each group of 6 bytes of the classified array</p>
+<p>We have 24 sets of 12 points</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Note: For the encrypting the shellcode, the constants subtract_key and xor_key are determined using the known part of the classified array, the routine is a simple subtract and xor of each byte in the order</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<h2 id="5-QAOA"><a href="#5-QAOA" class="headerlink" title="#5 QAOA"></a>#5 QAOA</h2><p>Quantum Approximate Optimization Algorithm is a way to divide the given set of points in a way that they are equally divided</p>
+<p>QAOA is used to solve <a class="link"   target="_blank" rel="noopener" href="https://qiskit-community.github.io/qiskit-optimization/tutorials/06_examples_max_cut_and_tsp.html" >max cut problem <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> here</p>
+<p>The weights are the distances between the points</p>
+<p>We make 41 such pairs and calculate distances between these pairs and assign them as their weights</p>
+<p>So now we have a network of 12 points and 41 connections connecting them</p>
+<p>Now QAOA is applied on this network and based on their weights each point will be assigned to one of the group, that is Group A or Group B<br>Group A say is represented by 0, so Group B is represented by 1</p>
+<p>so the output of the QAOA applied on one network will be 12 bits</p>
+<p>For example: 001111001010</p>
+<p>Hence we can say that 1ast and second point is assigned to Group A, then next 4 points are assigned to Group B and it goes on</p>
+<p>Thus, all the points are divided in 2 groups</p>
+<p>In the binary, the function that is supposed to perform qaoa is broken, there are only encrypted bytes which give out a hint about using qaoa</p>
+<p>This is the decrypted string part under qaoa for katanaverse 0.0</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Oh no! Not only is this function flawed, it is nonexistent. Could you please solve this?</span><br><span class="line"></span><br><span class="line">**Static noise</span><br><span class="line"></span><br><span class="line">Agent, We happened to record a conversation between Martin and his subordinates. For your reference, here is the transcript of our conversation.</span><br><span class="line"></span><br><span class="line">Subordinate 1: Is it possible for an ordinary person to open the vault?</span><br><span class="line">Martin: No, definitely not. The vault needs to be slashed 12 times in order to divide those 12 points efficiently, and this needs to be done multiple times...</span><br><span class="line">Subordinate 2: However, I have heard that you are not required to use an &#x27;efficient method&#x27; to divide the points, but rather some other strange method?</span><br><span class="line">Martin: You are right, the key to this strange method is &#x27;Quantum&#x27;... Have you heard of Optimization?</span><br><span class="line"></span><br><span class="line">All we have is this. All the best in finding the correct replacement for the given function.</span><br><span class="line"></span><br><span class="line">**Static noise</span><br></pre></td></tr></table></figure></div>
+
+<p>The encryption scheme used here is same as that used for the shellcodes above</p>
+<p>Sample implementation of QAOA in qiskit is given as:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">import networkx as nx</span><br><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"># Number of nodes in the graph</span><br><span class="line">n = 12</span><br><span class="line"></span><br><span class="line">G = nx.Graph()</span><br><span class="line">G.add_nodes_from(np.arange(0, n, 1))</span><br><span class="line"></span><br><span class="line">elist = [[0, 2, 16.0], [0, 4, 20.0], [0, 6, 17.0], [0, 8, 16.0], [0, 10, 18.0], [1, 0, 13.0], [1, 3, 18.0], [1, 5, 12.0], [1, 7, 14.0], [1, 9, 17.0], [1, 11, 11.0], [2, 1, 20.0], [2, 4, 15.0], [2, 6, 13.0], [2, 8, 19.0], [2, 10, 11.0], [3, 2, 5.0], [3, 5, 13.0], [3, 7, 8.0], [3, 9, 10.0], [3, 11, 14.0], [4, 3, 12.0], [4, 6, 13.0], [4, 8, 8.0], [4, 10, 11.0], [5, 4, 17.0], [5, 7, 13.0], [5, 9, 8.0], [5, 11, 17.0], [6, 5, 6.0], [6, 8, 13.0], [6, 10, 3.0], [7, 6, 7.0], [7, 9, 15.0], [7, 11, 8.0], [8, 7, 10.0], [8, 10, 13.0], [9, 8, 19.0], [9, 11, 19.0], [10, 9, 11.0], [11, 10, 12.0]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Add weighted edges to the graph</span><br><span class="line">G.add_weighted_edges_from(elist)</span><br><span class="line"></span><br><span class="line"># Set node colors</span><br><span class="line">colors = [&quot;r&quot; for node in G.nodes()]</span><br><span class="line"></span><br><span class="line"># Calculate node positions using a spring layout</span><br><span class="line">pos = nx.spring_layout(G)</span><br><span class="line"></span><br><span class="line">def draw_graph(G, colors, pos):</span><br><span class="line">    default_axes = plt.axes(frameon=True)</span><br><span class="line">    nx.draw_networkx(G, node_color=colors, node_size=600, alpha=0.8, ax=default_axes, pos=pos)</span><br><span class="line">    edge_labels = nx.get_edge_attributes(G, &quot;weight&quot;)</span><br><span class="line">    nx.draw_networkx_edge_labels(G, pos=pos, edge_labels=edge_labels)</span><br><span class="line"></span><br><span class="line"># Draw the graph</span><br><span class="line">draw_graph(G, colors, pos)</span><br><span class="line"></span><br><span class="line"># Computing the weight matrix from the random graph</span><br><span class="line">w = np.zeros([n, n])</span><br><span class="line">for i in range(n):</span><br><span class="line">    for j in range(n):</span><br><span class="line">        temp = G.get_edge_data(i, j, default=0)</span><br><span class="line">        if temp != 0:</span><br><span class="line">            w[i, j] = temp[&quot;weight&quot;]</span><br><span class="line">print(w)</span><br><span class="line"></span><br><span class="line">max_cut = Maxcut(w)</span><br><span class="line">qp = max_cut.to_quadratic_program()</span><br><span class="line">print(qp.prettyprint())</span><br><span class="line"></span><br><span class="line">qubitOp, offset = qp.to_ising()</span><br><span class="line">print(&quot;Offset:&quot;, offset)</span><br><span class="line">print(&quot;Ising Hamiltonian:&quot;)</span><br><span class="line">print(str(qubitOp))</span><br><span class="line"></span><br><span class="line">algorithm_globals.random_seed = 123</span><br><span class="line">seed = 10598</span><br><span class="line"># construct SamplingVQE</span><br><span class="line">optimizer = SPSA(maxiter=300)</span><br><span class="line">ry = TwoLocal(qubitOp.num_qubits, &quot;ry&quot;, &quot;cz&quot;, reps=5, entanglement=&quot;linear&quot;)</span><br><span class="line">vqe = SamplingVQE(sampler=Sampler(), ansatz=ry, optimizer=optimizer)</span><br><span class="line"></span><br><span class="line"># run SamplingVQE</span><br><span class="line">result = vqe.compute_minimum_eigenvalue(qubitOp)</span><br><span class="line"></span><br><span class="line"># print results</span><br><span class="line">x = max_cut.sample_most_likely(result.eigenstate)</span><br><span class="line">print(&quot;energy:&quot;, result.eigenvalue.real)</span><br><span class="line">print(&quot;time:&quot;, result.optimizer_time)</span><br><span class="line">print(&quot;max-cut objective:&quot;, result.eigenvalue.real + offset)</span><br><span class="line">print(&quot;solution:&quot;, x)</span><br><span class="line">print(&quot;solution objective:&quot;, qp.objective.evaluate(x))</span><br><span class="line"></span><br><span class="line"># plot results</span><br><span class="line">colors = [&quot;r&quot; if x[i] == 0 else &quot;c&quot; for i in range(n)]</span><br><span class="line">draw_graph(G, colors, pos)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+<p>Sample output:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">energy: -91.93458817618827</span><br><span class="line">time: 143.12175130844116</span><br><span class="line">max-cut objective: -359.4345881761883</span><br><span class="line">solution: [1 0 1 1 0 1 0 1 0 1 1 0]</span><br><span class="line">solution objective: 362.0</span><br></pre></td></tr></table></figure></div>
+
+<p>Here the elist array is the array containing the 41 pairs of points and their associated weights</p>
+<p>While calculating weights in our binary, we multiple each weight (distance between 2 points) with a constant value 10 and then round it off </p>
+<p><code>solution: [1 0 1 1 0 1 0 1 0 1 1 0]</code> is the result, 12 bits</p>
+<p>Similarly, for Katanaverse 1.0, the brute force method is utilised to divide the points.</p>
+<br>
+
+<h2 id="6-Formatting-the-result"><a href="#6-Formatting-the-result" class="headerlink" title="#6 Formatting the result"></a>#6 Formatting the result</h2><p>The result is then divided into 2 parts of 6 bits each</p>
+<p>Each 6 bits is appended by a 01 (or addition of 64 in decimal to the given bits) at the start and made into a proper 8 bits, thus giving out 2 bytes for each solution</p>
+<p>For Katanaverse 0.0, QAOA is performed 24 times and thus there are 24*2 bytes at the end</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">qaoa(elist, &amp;res_bits); </span><br><span class="line">        fin_val[i/6] =  64 + res_bits[0]*1 + res_bits[1]*2 + res_bits[2]*4 + res_bits[3]*8 + res_bits[4]*16 + res_bits[5]*32;</span><br><span class="line">        fin_val[i/6+1] =  64 + res_bits[6]*1 + res_bits[7]*2 + res_bits[8]*4 + res_bits[9]*8 + res_bits[10]*16 + res_bits[11]*32;</span><br></pre></td></tr></table></figure></div>
+
+<p>fin_val holds the final 48 bytes</p>
+<br>
+
+<h2 id="7-AES-Encryption"><a href="#7-AES-Encryption" class="headerlink" title="#7 AES Encryption"></a>#7 AES Encryption</h2><p>These 48 bytes are then aes encrypted using the aes_key generated earlier and compared against the encrypted bytes obtained on performing the entire process with the correct flag as input</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">   uint16_t inputSize = sizeof(fin_val)/sizeof(fin_val[0]); // Calculate input size</span><br><span class="line">uint8_t padding = 16 - (inputSize % 16); // Calculate padding size</span><br><span class="line">   uint32_t paddedSize = inputSize + padding; // Calculate new size with padding</span><br><span class="line">   uint8_t *paddedIn = (uint8_t*)malloc(paddedSize); // Allocate memory for padded input</span><br><span class="line"></span><br><span class="line">   if (!paddedIn) &#123;</span><br><span class="line">       // Handle memory allocation failure</span><br><span class="line">       return 1;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   memcpy(paddedIn, fin_val, inputSize); // Copy the original input to the new padded input array</span><br><span class="line"></span><br><span class="line">   // Apply PKCS#7 padding</span><br><span class="line">   memset(paddedIn + inputSize, padding, padding);</span><br><span class="line"></span><br><span class="line">   uint8_t out[32];</span><br><span class="line">   uint8_t *w; </span><br><span class="line"></span><br><span class="line">w = aes_init(sizeof(aes_key));</span><br><span class="line">   aes_key_expansion(aes_key, w);</span><br><span class="line"></span><br><span class="line">   aes_cipher_multiple_blocks(paddedIn, out , w, paddedSize);</span><br><span class="line"></span><br><span class="line">   for(int i = 0; i&lt;64;i++)</span><br><span class="line">   &#123;</span><br><span class="line">       if(out[i] != unk_0[i])</span><br><span class="line">       &#123;</span><br><span class="line">           printf(&quot;Nope, that&#x27;s a wrong path&quot;);</span><br><span class="line">           exit(0);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   printf(&quot;That&#x27;s correct!&quot;);</span><br></pre></td></tr></table></figure></div>
+
+<p>Also, note that the source code of the AES encryption can be found <a class="link"   target="_blank" rel="noopener" href="https://github.com/dhuertas/AES" >here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<br>
+
+<p>Ciao !!<br><br></p>
+<hr>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Exploring Katanaverse Implementation</li>
+        <li><strong>Author:</strong> Sejal Koshta</li>
+        <li><strong>Created at
+                :</strong> 2024-02-02 12:45:19</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-08-07 22:43:16
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://k1n0r4.github.io/2024/02/02/Exploring-Katanaverse-Implementation/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/VM/">#VM</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/bi0sCTF/">#bi0sCTF</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/quantum/">#quantum</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/03/01/Scam-Hunting-by-Lena-Yu/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Scam Hunting by Lena Yu</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/03/30/Required-hxpCTF-2023/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Required : hxpCTF 2023</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'en-US',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Exploring Katanaverse Implementation</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview-of-the-Challenge"><span class="nav-number">1.</span> <span class="nav-text">Overview of the Challenge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-VM"><span class="nav-number">2.</span> <span class="nav-text">#1 VM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Control-flow-of-the-VM"><span class="nav-number">2.1.</span> <span class="nav-text">Control flow of the VM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bit-manipulation"><span class="nav-number">2.2.</span> <span class="nav-text">Bit manipulation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Constant-Generation"><span class="nav-number">3.</span> <span class="nav-text">#2 Constant Generation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Constraints"><span class="nav-number">4.</span> <span class="nav-text">#3 Constraints</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Generation-of-12-points"><span class="nav-number">5.</span> <span class="nav-text">#4  Generation of 12 points</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-QAOA"><span class="nav-number">6.</span> <span class="nav-text">#5 QAOA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Formatting-the-result"><span class="nav-number">7.</span> <span class="nav-text">#6 Formatting the result</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-AES-Encryption"><span class="nav-number">8.</span> <span class="nav-text">#7 AES Encryption</span></a></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Sejal Koshta</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        9 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.4</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>
