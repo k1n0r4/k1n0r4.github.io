@@ -330,6 +330,110 @@
       </tags>
   </entry>
   <entry>
+    <title>Cyclechaser : Kalmar CTF 2023</title>
+    <url>/2023/03/07/Cyclechaser-Kalmar-CTF-2023/</url>
+    <content><![CDATA[<p>I played Kalmar CTF with Team Shakti last weekend and came across this amazing reversing challenge. This challenge utilises functions like <code>srand()</code> and <code>getrandom()</code>. </p>
+<p>Let’s take a look how these functions play a role in this challenge and how I reversed the binary to clutch the flag. There were some calculated hunches that I had to make to reach the correct solution and pretty little pwntools script 🙂.</p>
+<h3 id="Triage"><a href="#Triage" class="headerlink" title="Triage"></a>Triage</h3><p>Let’s first analyze the challenge <a href="/files/cyclechaser/cyclechaser">binary</a> statically.</p>
+<p>The process generates a 4 byte number via the function <code>getrandom()</code> and this random number is then used as the seed for <code>srand()</code> function. </p>
+<p>The <code>getrandom()</code> function is then used second time to generate 1024 random bytes.</p>
+<p>Next there is an attempt to open flag.txt which is already present in the server and we aim to recover the contents of this file.</p>
+<p>The content of flag.txt is checked against the flag format and the rest of the flag is stored.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/cyclechaser/chaser1.png"
+                      alt="cyclechaser"
+                ></p>
+<p>Thereafter the program also takes our input which is 16393 bytes long.</p>
+<br>
+
+<h3 id="Initial-Approach"><a href="#Initial-Approach" class="headerlink" title="Initial Approach"></a>Initial Approach</h3><p>Since a lot of things are going on in this challenge, it was difficult to point out as to what approach would be best to take.</p>
+<p>Executing the challenge prints out the seed used for srand function, this made me believe that whatever function or part of code is using <code>rand()</code> function might be of high importance.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/cyclechaser/chaser2.png"
+                      alt="cyclechaser"
+                ></p>
+<p>In this section we have got a really large <code>for</code> loop which runs 131135 times.</p>
+<p>The final output that we get is v17 which is changed according to the value of v5 variable, which is in turn being changed based on the condition <code>if ( j &gt; 0x1FFFF )</code></p>
+<p>My initial approach was to extract all the rand() values based on the seed and then somehow try to get the flag bytes which are originally v15 in this section. </p>
+<p>Let’s make the decompilation more clearer for better understanding.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/cyclechaser/chaser3.png"
+                      alt="cyclechaser"
+                ></p>
+<p>The else part of the above conditional statement involves those random bytes which are generated via the <code>getrandom()</code> function, hence those can’t be predicted easily.</p>
+<p>So that makes it kind of tedious to determine the output if the else section is executed.</p>
+<h3 id="Right-Hunch"><a href="#Right-Hunch" class="headerlink" title="Right Hunch"></a>Right Hunch</h3><p>This made me realise that what if stopping the code flow from entering the <code>else</code> part is the primary task that I need to do ?</p>
+<p>This is where the role of step function comes in.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/cyclechaser/chaser4.png"
+                      alt="cyclechaser"
+                ></p>
+<p>Until now I haven’t checked out step function properly but just skimmed over.</p>
+<p>Here v4 needs to be 1 in order to the function to return true, which is when the output will be changed based on the v5 calculated earlier in the previous loop.</p>
+<p>In order to make v4 1 we need the first byte of our input to be an odd byte.</p>
+<p>But our trouble doesn’t ends here, if we look further we could see that our input is being shifted.</p>
+<p>That means for everytime the step function is called, the first byte of our input is different.</p>
+<p>The shifting that is taking place here is left shift by one byte along with few more calculations which I actually didn’t bother to reverse right now.</p>
+<p>So if we go back to the main function, I get a quick idea that if the step function returns 0 131072 times and then returns 1 for the rest of the iterations, we might get the flag bytes as it is printed out.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/cyclechaser/chaser5.png"
+                      alt="cyclechaser"
+                ></p>
+<p>Since output is initialized to be zero and continues to remain zero until the iteration number reaches 131072, v5 is directly assigned with the flag bytes which are xorred with the output bytes itself hence giving out the flag itself.</p>
+<p>But now we need to figure out what input will make this happen.</p>
+<p>I tried analysing the output of the same function with different inputs to find any pattern if it exists.</p>
+<p>The pattern that I observed was this -</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">step</span><span class="params">(<span class="type">char</span> *a1, <span class="type">int</span> a2)</span> &#123;</span><br><span class="line">  <span class="type">char</span> v3 = <span class="number">0</span>;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v4 ;</span><br><span class="line">  <span class="type">int</span> v8 = <span class="number">0</span>;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v9 = <span class="number">0</span>;</span><br><span class="line">  uint i;</span><br><span class="line">  <span class="type">int</span> j;</span><br><span class="line"></span><br><span class="line">    v4 = *a1 &amp; <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (v4) &#123;</span><br><span class="line">    v8 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; a2; ++i) &#123;</span><br><span class="line">      v9 = v8 + <span class="number">3</span> * a1[i];</span><br><span class="line">      v8 = v9 &gt;&gt; <span class="number">8</span>;</span><br><span class="line">      a1[i] = v9;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (v8) &#123;</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">&quot;Error.&quot;</span>);</span><br><span class="line">      <span class="built_in">exit</span>(<span class="number">99</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (j = a2 - <span class="number">1</span>; j &gt;= <span class="number">0</span>; --j) &#123;</span><br><span class="line">    <span class="type">char</span> v5 = a1[j] &amp; <span class="number">1</span>;</span><br><span class="line">    a1[j] &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    a1[j] |= v3 &lt;&lt; <span class="number">7</span>;</span><br><span class="line">    v3 = v5;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (v3)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;error\n&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> v4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> inp[] = <span class="string">&quot;\x00\x00\x00\x00\xaa\xaa\xaa\xaa&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">70</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, step(inp, <span class="number">10</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>This returns - </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/cyclechaser/chaser6.png"
+                      alt="cyclechaser"
+                ></p>
+<p>For every null byte as in input, it returns ‘0’ 8 times and thus since I provided 4 null bytes, it gave me 32 zeros and then 1’s because of ‘\xaa’</p>
+<p>So since we need to pass the step function 131072 times, which is perfectly divisible by 8, that is, 16384, we provide ‘16384’ null bytes and rest some non-null bytes.</p>
+<h4 id="Solve-script"><a href="#Solve-script" class="headerlink" title="Solve script"></a>Solve script</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">yy = <span class="string">b&#x27;\x00&#x27;</span></span><br><span class="line">zz= <span class="string">b&#x27;\xff&#x27;</span></span><br><span class="line">x = yy*<span class="number">16384</span>+zz*<span class="number">9</span></span><br><span class="line"></span><br><span class="line">io = remote(<span class="string">&#x27;3.123.91.129&#x27;</span>,<span class="number">13339</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;seed&#x27;</span>, io.recvline())</span><br><span class="line">io.sendline(x)</span><br><span class="line"></span><br><span class="line">ret = io.recvline()</span><br><span class="line"><span class="built_in">print</span>(ret)</span><br><span class="line">io.close()</span><br></pre></td></tr></table></figure></div>
+
+<p>This returns - </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/cyclechaser/chaser7.png"
+                      alt="cyclechaser"
+                ></p>
+<p>Which forms the flag - </p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">f=<span class="string">&#x27;69 5F 73 74 69 6C 6C 5F 68 61 76 65 5F 74 6F 5F 63 6F 6E 73 74 72 75 63 74 5F 61 5F 66 6C 61 67 5F 6F 66 5F 63 6F 72 72 65 63 74 5F 6C 65 6E 67 74 68 5F 66 6F 72 5F 74 68 69 73 5F 63 68 61 6C&#x27;</span>.split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> f:</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">chr</span>(<span class="built_in">int</span>(i,<span class="number">16</span>)),end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p><b>Output - </b><br>i_still_have_to_construct_a_flag_of_correct_length_for_this_chal</p>
+<h4 id="Flag"><a href="#Flag" class="headerlink" title="Flag -"></a>Flag -</h4><p><code>kalmar&#123;i_still_have_to_construct_a_flag_of_correct_length_for_this_chal&#125;</code></p>
+<br>
+
+<p>Ciao !!<br><br></p>
+<hr>
+]]></content>
+      <categories>
+        <category>Writeup</category>
+      </categories>
+      <tags>
+        <tag>writeup</tag>
+        <tag>linux</tag>
+        <tag>reversing</tag>
+        <tag>kalmarCTF</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Exploring Katanaverse Implementation</title>
     <url>/2024/02/02/Exploring-Katanaverse-Implementation/</url>
     <content><![CDATA[<p>In this detailed explanation, I will walk you through the process of constructing Katanaverse, the binary utilized as a bi0sCTF 2024 Challenge. This challenge falls within the domain of reverse engineering and requires participants to employ puzzle-solving skills. Katanaverse presents a unique blend of custom architecture and concepts from Quantum Computing.</p>
@@ -483,259 +587,6 @@
         <tag>VM</tag>
         <tag>bi0sCTF</tag>
         <tag>quantum</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Cyclechaser : Kalmar CTF 2023</title>
-    <url>/2023/03/07/Cyclechaser-Kalmar-CTF-2023/</url>
-    <content><![CDATA[<p>I played Kalmar CTF with Team Shakti last weekend and came across this amazing reversing challenge. This challenge utilises functions like <code>srand()</code> and <code>getrandom()</code>. </p>
-<p>Let’s take a look how these functions play a role in this challenge and how I reversed the binary to clutch the flag. There were some calculated hunches that I had to make to reach the correct solution and pretty little pwntools script 🙂.</p>
-<h3 id="Triage"><a href="#Triage" class="headerlink" title="Triage"></a>Triage</h3><p>Let’s first analyze the challenge <a href="/files/cyclechaser/cyclechaser">binary</a> statically.</p>
-<p>The process generates a 4 byte number via the function <code>getrandom()</code> and this random number is then used as the seed for <code>srand()</code> function. </p>
-<p>The <code>getrandom()</code> function is then used second time to generate 1024 random bytes.</p>
-<p>Next there is an attempt to open flag.txt which is already present in the server and we aim to recover the contents of this file.</p>
-<p>The content of flag.txt is checked against the flag format and the rest of the flag is stored.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/cyclechaser/chaser1.png"
-                      alt="cyclechaser"
-                ></p>
-<p>Thereafter the program also takes our input which is 16393 bytes long.</p>
-<br>
-
-<h3 id="Initial-Approach"><a href="#Initial-Approach" class="headerlink" title="Initial Approach"></a>Initial Approach</h3><p>Since a lot of things are going on in this challenge, it was difficult to point out as to what approach would be best to take.</p>
-<p>Executing the challenge prints out the seed used for srand function, this made me believe that whatever function or part of code is using <code>rand()</code> function might be of high importance.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/cyclechaser/chaser2.png"
-                      alt="cyclechaser"
-                ></p>
-<p>In this section we have got a really large <code>for</code> loop which runs 131135 times.</p>
-<p>The final output that we get is v17 which is changed according to the value of v5 variable, which is in turn being changed based on the condition <code>if ( j &gt; 0x1FFFF )</code></p>
-<p>My initial approach was to extract all the rand() values based on the seed and then somehow try to get the flag bytes which are originally v15 in this section. </p>
-<p>Let’s make the decompilation more clearer for better understanding.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/cyclechaser/chaser3.png"
-                      alt="cyclechaser"
-                ></p>
-<p>The else part of the above conditional statement involves those random bytes which are generated via the <code>getrandom()</code> function, hence those can’t be predicted easily.</p>
-<p>So that makes it kind of tedious to determine the output if the else section is executed.</p>
-<h3 id="Right-Hunch"><a href="#Right-Hunch" class="headerlink" title="Right Hunch"></a>Right Hunch</h3><p>This made me realise that what if stopping the code flow from entering the <code>else</code> part is the primary task that I need to do ?</p>
-<p>This is where the role of step function comes in.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/cyclechaser/chaser4.png"
-                      alt="cyclechaser"
-                ></p>
-<p>Until now I haven’t checked out step function properly but just skimmed over.</p>
-<p>Here v4 needs to be 1 in order to the function to return true, which is when the output will be changed based on the v5 calculated earlier in the previous loop.</p>
-<p>In order to make v4 1 we need the first byte of our input to be an odd byte.</p>
-<p>But our trouble doesn’t ends here, if we look further we could see that our input is being shifted.</p>
-<p>That means for everytime the step function is called, the first byte of our input is different.</p>
-<p>The shifting that is taking place here is left shift by one byte along with few more calculations which I actually didn’t bother to reverse right now.</p>
-<p>So if we go back to the main function, I get a quick idea that if the step function returns 0 131072 times and then returns 1 for the rest of the iterations, we might get the flag bytes as it is printed out.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/cyclechaser/chaser5.png"
-                      alt="cyclechaser"
-                ></p>
-<p>Since output is initialized to be zero and continues to remain zero until the iteration number reaches 131072, v5 is directly assigned with the flag bytes which are xorred with the output bytes itself hence giving out the flag itself.</p>
-<p>But now we need to figure out what input will make this happen.</p>
-<p>I tried analysing the output of the same function with different inputs to find any pattern if it exists.</p>
-<p>The pattern that I observed was this -</p>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">step</span><span class="params">(<span class="type">char</span> *a1, <span class="type">int</span> a2)</span> &#123;</span><br><span class="line">  <span class="type">char</span> v3 = <span class="number">0</span>;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v4 ;</span><br><span class="line">  <span class="type">int</span> v8 = <span class="number">0</span>;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v9 = <span class="number">0</span>;</span><br><span class="line">  uint i;</span><br><span class="line">  <span class="type">int</span> j;</span><br><span class="line"></span><br><span class="line">    v4 = *a1 &amp; <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (v4) &#123;</span><br><span class="line">    v8 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; a2; ++i) &#123;</span><br><span class="line">      v9 = v8 + <span class="number">3</span> * a1[i];</span><br><span class="line">      v8 = v9 &gt;&gt; <span class="number">8</span>;</span><br><span class="line">      a1[i] = v9;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (v8) &#123;</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">&quot;Error.&quot;</span>);</span><br><span class="line">      <span class="built_in">exit</span>(<span class="number">99</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (j = a2 - <span class="number">1</span>; j &gt;= <span class="number">0</span>; --j) &#123;</span><br><span class="line">    <span class="type">char</span> v5 = a1[j] &amp; <span class="number">1</span>;</span><br><span class="line">    a1[j] &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    a1[j] |= v3 &lt;&lt; <span class="number">7</span>;</span><br><span class="line">    v3 = v5;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (v3)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;error\n&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> v4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> inp[] = <span class="string">&quot;\x00\x00\x00\x00\xaa\xaa\xaa\xaa&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">70</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, step(inp, <span class="number">10</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>This returns - </p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/cyclechaser/chaser6.png"
-                      alt="cyclechaser"
-                ></p>
-<p>For every null byte as in input, it returns ‘0’ 8 times and thus since I provided 4 null bytes, it gave me 32 zeros and then 1’s because of ‘\xaa’</p>
-<p>So since we need to pass the step function 131072 times, which is perfectly divisible by 8, that is, 16384, we provide ‘16384’ null bytes and rest some non-null bytes.</p>
-<h4 id="Solve-script"><a href="#Solve-script" class="headerlink" title="Solve script"></a>Solve script</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">yy = <span class="string">b&#x27;\x00&#x27;</span></span><br><span class="line">zz= <span class="string">b&#x27;\xff&#x27;</span></span><br><span class="line">x = yy*<span class="number">16384</span>+zz*<span class="number">9</span></span><br><span class="line"></span><br><span class="line">io = remote(<span class="string">&#x27;3.123.91.129&#x27;</span>,<span class="number">13339</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;seed&#x27;</span>, io.recvline())</span><br><span class="line">io.sendline(x)</span><br><span class="line"></span><br><span class="line">ret = io.recvline()</span><br><span class="line"><span class="built_in">print</span>(ret)</span><br><span class="line">io.close()</span><br></pre></td></tr></table></figure></div>
-
-<p>This returns - </p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/cyclechaser/chaser7.png"
-                      alt="cyclechaser"
-                ></p>
-<p>Which forms the flag - </p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">f=<span class="string">&#x27;69 5F 73 74 69 6C 6C 5F 68 61 76 65 5F 74 6F 5F 63 6F 6E 73 74 72 75 63 74 5F 61 5F 66 6C 61 67 5F 6F 66 5F 63 6F 72 72 65 63 74 5F 6C 65 6E 67 74 68 5F 66 6F 72 5F 74 68 69 73 5F 63 68 61 6C&#x27;</span>.split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> f:</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">chr</span>(<span class="built_in">int</span>(i,<span class="number">16</span>)),end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
-
-<p><b>Output - </b><br>i_still_have_to_construct_a_flag_of_correct_length_for_this_chal</p>
-<h4 id="Flag"><a href="#Flag" class="headerlink" title="Flag -"></a>Flag -</h4><p><code>kalmar&#123;i_still_have_to_construct_a_flag_of_correct_length_for_this_chal&#125;</code></p>
-<br>
-
-<p>Ciao !!<br><br></p>
-<hr>
-]]></content>
-      <categories>
-        <category>Writeup</category>
-      </categories>
-      <tags>
-        <tag>writeup</tag>
-        <tag>linux</tag>
-        <tag>reversing</tag>
-        <tag>kalmarCTF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GCC 2024</title>
-    <url>/2024/05/05/GCC-2024/</url>
-    <content><![CDATA[<p>Writing about the work trips is my favorite hobby 😉</p>
-<p>So well, in february I got the opportunity to attend a camp at Thailand, the land of amazing cuisine 😋</p>
-<p>I attended Global Cybersecurity Camp, which was a 5 days event from 19th Feb to 24th Feb, 2024.</p>
-<p>Cybersecurity enthusiasts and experts from 11 different Asian Countries 🌎 joined on this venture. The participating countries were Japan, Vietnam, South Korea, Malayasia, Singapore, Indonesia, Taiwan, India, Thailand and Australia. Unfortunately Australia couldn’t make it onsite for the event.</p>
-<p>This year marked India’s first participation in the camp !!!</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_1.png"
-                      alt="GCC"
-                ></p>
-<p>From India we were 4 students and 2 staff members who participated in the onsite event.<br>We left on 17th Feb from different parts of India, and reached Thailand around early morning on 18th Feb 2024.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_2.png"
-                      alt="GCC"
-                ></p>
-<p>After everyone arrived, we were picked up by one of the Thailand staff member, Gong, and they had arranged a private van for us. The journey from airport to the hotel was 2 hours and we stopped by on our way for breakfast.</p>
-<p>That was my first time live seeing the street food of south eastern asian countries, and it was truly mesmerizing😋 </p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_3.png"
-                      alt="GCC"
-                ></p>
-<p>We had to exit the vehicle and walk when we got close to the hotel since there was a marathon going on. Later on, we found out that it was actually a triathlon with competitors from several nations.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_4.jpg"
-                      alt="GCC"
-                ></p>
-<p>Team Japan was getting off their van just as we were coming out of ours.</p>
-<p>We had a little chat with Team Japan after reaching the hotel and went out for lunch with them at a nearby restaurant.</p>
-<p>We had authentic Thai food and specially the delicious Thai soups. </p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_5.jpg"
-                      alt="GCC"
-                ></p>
-<p>After lunch, we all had an icebreaker session in the evening during which we introduced ourselves and our nations to one other. </p>
-<p>The introductions was pretty cool and the ppts were very chill and casual. I was surprised and at the same time excite to see that people from some famous and top teams had joined us on this camp like Hitcon, hackerscrew and players who have participated in Defcon Finals onsite.<br>There were poeple who had a CVE on their name already.</p>
-<p>Jumping on to Day 1</p>
-<h3 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h3><p>The opening sessions were given by the organisers and everyone was sitting with their groupmates on a round table. I was in Team 9, and my teammates were from the countries, South Korea, Taiwan, Vietnam, Thailand and Malaysia.</p>
-<p>We were also introduced to group projects and our Group porject was a CTF Battle against Group 4.</p>
-<p>After a good ethics session we had lunch and then we were onto our workshops.</p>
-<p>Our first session was <strong>Active Directory Attack Techniques</strong>. It was taken by <a class="link"   href="https://www.linkedin.com/in/marscheng93/" >Mars Cheng <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and it was quite a detailed session with labs. It was honestly a lot to take in, in one time. </p>
-<p>The dinner was followed by a house warming typa party at a hotel room. The people were very welcoming and we played some dares as well. </p>
-<h3 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h3><p>Day 2 had 2 sessions.</p>
-<p>First one was <strong>Handling Threat Intelligence</strong>: Techniques of consuming and creating threat intelligence by <a class="link"   href="https://www.linkedin.com/in/tomohisaishikawa/" >Tomohisa Ishikawa <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [JP]</p>
-<p>This session involved identifying threats and malwares using different techniques, one of them being by writing YARA rules. After an intro session, we were provided with a lab where different malicious files were given to us, and we had to write YARA rules depending on the file hash and data that can be retrieved from sites like virustotal about the hash.</p>
-<p>After lunch, second session was <strong>Fuzzing in the kernel world</strong> by <a class="link"   href="https://www.linkedin.com/in/yi-han-wang-299749208/" >Yi-Han Wang <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [TW]</p>
-<p>This was an intro to Fuzzing and Virtualisation followed by the lab for both of these. This was a group work where each group was provided with a hosted VM which could be accessed by all the members of the team. This was a fun activity, and even though the set up took a lot of time, those breaks gave us some good time to talk and enjoy the snacks deployed outside the hall.</p>
-<h3 id="Day-3"><a href="#Day-3" class="headerlink" title="Day 3"></a>Day 3</h3><p><strong>How (not) to build a vulnerable LLM web app</strong> by <a class="link"   href="https://www.linkedin.com/in/shota-shinogi/" >Shota Shinogi <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [JP] was held in morning, which was again a group work and had a competitive environment as to which team manages to build a vulnerable LLM web app first. We were not just taught how to build a vulnerable LLM web app but were also challenged to fix that vulnerablility and make a secure version of that app. At the end of the session, one of the teams was asked to present their app on the stage as well. Group 1 presented their app and they had built an undefeatable game.</p>
-<p>My team built a code sanitiser meant for performing calculations only.</p>
-<p>Second session of the day was a forensics session, <strong>Hunting with a dinosaur</strong> by <a class="link"   href="https://www.linkedin.com/in/andreasvanleeuwenflamino/" >Andreas van Leeuwen Flamino <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [NL], where we were introduced to a very powerful DFIR tool <a class="link"   href="https://www.rapid7.com/products/velociraptor/" >velociraptor <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. We were given a storyline and a situation, along with some questions. We were supposed to perform the investigation using the tool and find answers to all the questions given. We learned about how to search different artefacts, filter them and extract necessary information  from them. It was a fun experience.</p>
-<h3 id="Day-4"><a href="#Day-4" class="headerlink" title="Day 4"></a>Day 4</h3><p>Fourth entire day was dedicated to <strong>Hands-on Car Hacking</strong><br>By <a class="link"   href="https://www.linkedin.com/in/mohammad-kamel-ghali/" >Kamel Ghali <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [JP]. Kamel is incredibly helpful and has a really cool personality. In this group exercise, which was our first hardware-related workshop, we were given pre-made virtual machine images to use as workstations. We had to hack a Bluetooth device in order to get its contents before using the hacked device to send and receive data.</p>
-<p>And that was only the start, as a speedometer and hacking into the speed, breaks, indicator lights, and other things were added later.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_6.jpg"
-                      alt="GCC"
-                ></p>
-<h3 id="Day-5"><a href="#Day-5" class="headerlink" title="Day 5"></a>Day 5</h3><p>Last day, we only had one session, <strong>Practical Malware Analysis and .NET Reversing</strong> (Based on Real-World Cases) by <a class="link"   href="https://www.linkedin.com/in/oalieno/" >Wei-Chieh Chao <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [TW] and <a class="link"   href="https://www.linkedin.com/in/yi-hsien-chen-05b411138/" >Yi-Hsien Chen <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [TW]. As a reverse engineer, I really liked the resources and materials they provided for this training. The resources were very well crafted with a perfect learning curve. A pre-built virtual machine image with all the necessary tools and malware was sent to us.<br>We were exposed to a variety of the most recent malwares, and there was a CTF hosted by them where we had to submit the answers to the questions posed to us during the malare session in a form of flag.</p>
-<h3 id="After-work"><a href="#After-work" class="headerlink" title="After work"></a>After work</h3><p>The same venue where our workshops were conducted allowed us to continue working on our group projects until 10pm at night. This was the time were the entire team interacted and discussed with each other. I thought this was a great opportunity to learn about the work processes that individuals in many countries follow. </p>
-<p>My group project was CTF Challenges, and we had our CTF platform (ctfd) setup on day 1 itself. In total we had 8 challenges in our CTF which was equal to the number of challenges that were provided to us during the battle phase. On thursday (Day 4), we exchanged our challenges and started working on those. It was a 24 hour CTF, and players from other teams were also given the oppotunity to try out the challenges. My team managed to solve all the challenges from Team 4 (our opponent). The CTF challenges made by us were diverse and included challenges from the fields like forensics, misc, cryptography, reverse engineering, web exploitation (which was based on the past CVE of one of my group member) and wifi hacking. We had a cool black wifi router sitting on our table for the same purpose throughtout the event.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_7.jpg"
-                      alt="GCC"
-                ></p>
-<h3 id="Party"><a href="#Party" class="headerlink" title="Party"></a>Party</h3><p>South Eastern Asian countries appear to have a fairly prevalent tradition of parties where people socialize and drink after a long day. There used to be planned party like this every night, and it was a great opportunity to mingle with other students, speakers, and sponsors who had come along for the event. There were several locations for the parties: occasionally it was a little ramyeon party in a room, sometimes drinks by the pool, and occasionally it was a replica of a housewarming celebration in a room.</p>
-<p>In Thailand, a well-known convenience store chain called “7 Eleven” is open around-the-clock. Our hotel was not far from one of these store. Every day when we had late work or ran out of snacks at the party, we would stop by to get some.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_8.jpg"
-                      alt="GCC"
-                ></p>
-<h3 id="GSC-Glocal-Snack-Camp"><a href="#GSC-Glocal-Snack-Camp" class="headerlink" title="GSC - Glocal Snack Camp"></a>GSC - Glocal Snack Camp</h3><p>On 5th day, we officially named the camp as Global Snack Camp because of the amount of snacks we were given from different countries everyday 😂</p>
-<p>Every country presented each other with souvenirs, stickers, badges and snacks.</p>
-<p>We offered some Indian snacks to the crowd on the last day, and they were quite fond of the food’s explosion of flavor. Even though some Japanese people found it hot, they continued to eat and enjoy it. I discovered that parathas (An Indian Dish) are pretty common in Singapore.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_9.png"
-                      alt="GCC"
-                ></p>
-<h3 id="Closing-ceremony"><a href="#Closing-ceremony" class="headerlink" title="Closing ceremony"></a>Closing ceremony</h3><p>Last day, after lunch we had a closing ceremony. We were awarded with certificates for participating in the event which was followed by group presentations on our projects.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_10.jpg"
-                      alt="GCC"
-                ></p>
-<p>We were strictly provided only 5 minutes for the presentation and a panel of judges from different countries was present to rate us on our project. The presentation also demanded a demo.</p>
-<p>All the presentations were very impressive, and I wonder if given more time, the result would have been phonemonen. There were total 4 project topics which were divided among 9 teams and winner in each topic was announced first. My team won in the CTF Challenge.</p>
-<p>Later top 2 teams were selected which were awarded with off sec playground subscriptions for each member. In this, my team (team 9) clutched second position.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_11.jpg"
-                      alt="GCC"
-                ></p>
-<h3 id="After-event"><a href="#After-event" class="headerlink" title="After event"></a>After event</h3><p>The formal GCC event came to an end at this point. Now that we had some spare time, we explored the nearby walkways and beach. Our meal was at a seaside restaurant that was ten minutes away. Every table had a different spicy dish that we dared each other to try.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_12.jpg"
-                      alt="GCC"
-                ></p>
-<p>On the last day of the trip, everyone was dropped off at the airport and given a tour by the organizers. The event was really well-planned and executed throughout. We also made a shopping trip at a nearby market, where the main attraction was their well-known snack, dried sea food.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/seafoodsnacks.jpg"
-                      alt="GCC"
-                ></p>
-<p>We came to a sightseeing spot at the end, took one more picture, and said each other farewell.</p>
-<p>Overall, the entire trip was very heart-filling and I personally feel I got a very good exposure to the outside world, their work ethics, their mentalities and their perspective on different topics.</p>
-<p>Technically and non-technically, I learned a lot from this trip, and look forward to meet these amazing people again soon!!</p>
-<p>Until then, bye bye !!!</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/gcc/gcc_13.jpg"
-                      alt="GCC"
-                ></p>
-<br>
-Ciao !!
-
-<br>
-
-<hr>
-]]></content>
-      <categories>
-        <category>Conference</category>
-      </categories>
-      <tags>
-        <tag>GCC</tag>
       </tags>
   </entry>
   <entry>
@@ -937,6 +788,155 @@ Ciao !!
         <tag>linux</tag>
         <tag>reversing</tag>
         <tag>ecscCTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GCC 2024</title>
+    <url>/2024/05/05/GCC-2024/</url>
+    <content><![CDATA[<p>Writing about the work trips is my favorite hobby 😉</p>
+<p>So well, in february I got the opportunity to attend a camp at Thailand, the land of amazing cuisine 😋</p>
+<p>I attended Global Cybersecurity Camp, which was a 5 days event from 19th Feb to 24th Feb, 2024.</p>
+<p>Cybersecurity enthusiasts and experts from 11 different Asian Countries 🌎 joined on this venture. The participating countries were Japan, Vietnam, South Korea, Malayasia, Singapore, Indonesia, Taiwan, India, Thailand and Australia. Unfortunately Australia couldn’t make it onsite for the event.</p>
+<p>This year marked India’s first participation in the camp !!!</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_1.png"
+                      alt="GCC"
+                ></p>
+<p>From India we were 4 students and 2 staff members who participated in the onsite event.<br>We left on 17th Feb from different parts of India, and reached Thailand around early morning on 18th Feb 2024.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_2.png"
+                      alt="GCC"
+                ></p>
+<p>After everyone arrived, we were picked up by one of the Thailand staff member, Gong, and they had arranged a private van for us. The journey from airport to the hotel was 2 hours and we stopped by on our way for breakfast.</p>
+<p>That was my first time live seeing the street food of south eastern asian countries, and it was truly mesmerizing😋 </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_3.png"
+                      alt="GCC"
+                ></p>
+<p>We had to exit the vehicle and walk when we got close to the hotel since there was a marathon going on. Later on, we found out that it was actually a triathlon with competitors from several nations.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_4.jpg"
+                      alt="GCC"
+                ></p>
+<p>Team Japan was getting off their van just as we were coming out of ours.</p>
+<p>We had a little chat with Team Japan after reaching the hotel and went out for lunch with them at a nearby restaurant.</p>
+<p>We had authentic Thai food and specially the delicious Thai soups. </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_5.jpg"
+                      alt="GCC"
+                ></p>
+<p>After lunch, we all had an icebreaker session in the evening during which we introduced ourselves and our nations to one other. </p>
+<p>The introductions was pretty cool and the ppts were very chill and casual. I was surprised and at the same time excite to see that people from some famous and top teams had joined us on this camp like Hitcon, hackerscrew and players who have participated in Defcon Finals onsite.<br>There were poeple who had a CVE on their name already.</p>
+<p>Jumping on to Day 1</p>
+<h3 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h3><p>The opening sessions were given by the organisers and everyone was sitting with their groupmates on a round table. I was in Team 9, and my teammates were from the countries, South Korea, Taiwan, Vietnam, Thailand and Malaysia.</p>
+<p>We were also introduced to group projects and our Group porject was a CTF Battle against Group 4.</p>
+<p>After a good ethics session we had lunch and then we were onto our workshops.</p>
+<p>Our first session was <strong>Active Directory Attack Techniques</strong>. It was taken by <a class="link"   href="https://www.linkedin.com/in/marscheng93/" >Mars Cheng <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and it was quite a detailed session with labs. It was honestly a lot to take in, in one time. </p>
+<p>The dinner was followed by a house warming typa party at a hotel room. The people were very welcoming and we played some dares as well. </p>
+<h3 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h3><p>Day 2 had 2 sessions.</p>
+<p>First one was <strong>Handling Threat Intelligence</strong>: Techniques of consuming and creating threat intelligence by <a class="link"   href="https://www.linkedin.com/in/tomohisaishikawa/" >Tomohisa Ishikawa <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [JP]</p>
+<p>This session involved identifying threats and malwares using different techniques, one of them being by writing YARA rules. After an intro session, we were provided with a lab where different malicious files were given to us, and we had to write YARA rules depending on the file hash and data that can be retrieved from sites like virustotal about the hash.</p>
+<p>After lunch, second session was <strong>Fuzzing in the kernel world</strong> by <a class="link"   href="https://www.linkedin.com/in/yi-han-wang-299749208/" >Yi-Han Wang <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [TW]</p>
+<p>This was an intro to Fuzzing and Virtualisation followed by the lab for both of these. This was a group work where each group was provided with a hosted VM which could be accessed by all the members of the team. This was a fun activity, and even though the set up took a lot of time, those breaks gave us some good time to talk and enjoy the snacks deployed outside the hall.</p>
+<h3 id="Day-3"><a href="#Day-3" class="headerlink" title="Day 3"></a>Day 3</h3><p><strong>How (not) to build a vulnerable LLM web app</strong> by <a class="link"   href="https://www.linkedin.com/in/shota-shinogi/" >Shota Shinogi <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [JP] was held in morning, which was again a group work and had a competitive environment as to which team manages to build a vulnerable LLM web app first. We were not just taught how to build a vulnerable LLM web app but were also challenged to fix that vulnerablility and make a secure version of that app. At the end of the session, one of the teams was asked to present their app on the stage as well. Group 1 presented their app and they had built an undefeatable game.</p>
+<p>My team built a code sanitiser meant for performing calculations only.</p>
+<p>Second session of the day was a forensics session, <strong>Hunting with a dinosaur</strong> by <a class="link"   href="https://www.linkedin.com/in/andreasvanleeuwenflamino/" >Andreas van Leeuwen Flamino <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [NL], where we were introduced to a very powerful DFIR tool <a class="link"   href="https://www.rapid7.com/products/velociraptor/" >velociraptor <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. We were given a storyline and a situation, along with some questions. We were supposed to perform the investigation using the tool and find answers to all the questions given. We learned about how to search different artefacts, filter them and extract necessary information  from them. It was a fun experience.</p>
+<h3 id="Day-4"><a href="#Day-4" class="headerlink" title="Day 4"></a>Day 4</h3><p>Fourth entire day was dedicated to <strong>Hands-on Car Hacking</strong><br>By <a class="link"   href="https://www.linkedin.com/in/mohammad-kamel-ghali/" >Kamel Ghali <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [JP]. Kamel is incredibly helpful and has a really cool personality. In this group exercise, which was our first hardware-related workshop, we were given pre-made virtual machine images to use as workstations. We had to hack a Bluetooth device in order to get its contents before using the hacked device to send and receive data.</p>
+<p>And that was only the start, as a speedometer and hacking into the speed, breaks, indicator lights, and other things were added later.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_6.jpg"
+                      alt="GCC"
+                ></p>
+<h3 id="Day-5"><a href="#Day-5" class="headerlink" title="Day 5"></a>Day 5</h3><p>Last day, we only had one session, <strong>Practical Malware Analysis and .NET Reversing</strong> (Based on Real-World Cases) by <a class="link"   href="https://www.linkedin.com/in/oalieno/" >Wei-Chieh Chao <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [TW] and <a class="link"   href="https://www.linkedin.com/in/yi-hsien-chen-05b411138/" >Yi-Hsien Chen <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> [TW]. As a reverse engineer, I really liked the resources and materials they provided for this training. The resources were very well crafted with a perfect learning curve. A pre-built virtual machine image with all the necessary tools and malware was sent to us.<br>We were exposed to a variety of the most recent malwares, and there was a CTF hosted by them where we had to submit the answers to the questions posed to us during the malare session in a form of flag.</p>
+<h3 id="After-work"><a href="#After-work" class="headerlink" title="After work"></a>After work</h3><p>The same venue where our workshops were conducted allowed us to continue working on our group projects until 10pm at night. This was the time were the entire team interacted and discussed with each other. I thought this was a great opportunity to learn about the work processes that individuals in many countries follow. </p>
+<p>My group project was CTF Challenges, and we had our CTF platform (ctfd) setup on day 1 itself. In total we had 8 challenges in our CTF which was equal to the number of challenges that were provided to us during the battle phase. On thursday (Day 4), we exchanged our challenges and started working on those. It was a 24 hour CTF, and players from other teams were also given the oppotunity to try out the challenges. My team managed to solve all the challenges from Team 4 (our opponent). The CTF challenges made by us were diverse and included challenges from the fields like forensics, misc, cryptography, reverse engineering, web exploitation (which was based on the past CVE of one of my group member) and wifi hacking. We had a cool black wifi router sitting on our table for the same purpose throughtout the event.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_7.jpg"
+                      alt="GCC"
+                ></p>
+<h3 id="Party"><a href="#Party" class="headerlink" title="Party"></a>Party</h3><p>South Eastern Asian countries appear to have a fairly prevalent tradition of parties where people socialize and drink after a long day. There used to be planned party like this every night, and it was a great opportunity to mingle with other students, speakers, and sponsors who had come along for the event. There were several locations for the parties: occasionally it was a little ramyeon party in a room, sometimes drinks by the pool, and occasionally it was a replica of a housewarming celebration in a room.</p>
+<p>In Thailand, a well-known convenience store chain called “7 Eleven” is open around-the-clock. Our hotel was not far from one of these store. Every day when we had late work or ran out of snacks at the party, we would stop by to get some.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_8.jpg"
+                      alt="GCC"
+                ></p>
+<h3 id="GSC-Glocal-Snack-Camp"><a href="#GSC-Glocal-Snack-Camp" class="headerlink" title="GSC - Glocal Snack Camp"></a>GSC - Glocal Snack Camp</h3><p>On 5th day, we officially named the camp as Global Snack Camp because of the amount of snacks we were given from different countries everyday 😂</p>
+<p>Every country presented each other with souvenirs, stickers, badges and snacks.</p>
+<p>We offered some Indian snacks to the crowd on the last day, and they were quite fond of the food’s explosion of flavor. Even though some Japanese people found it hot, they continued to eat and enjoy it. I discovered that parathas (An Indian Dish) are pretty common in Singapore.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_9.png"
+                      alt="GCC"
+                ></p>
+<h3 id="Closing-ceremony"><a href="#Closing-ceremony" class="headerlink" title="Closing ceremony"></a>Closing ceremony</h3><p>Last day, after lunch we had a closing ceremony. We were awarded with certificates for participating in the event which was followed by group presentations on our projects.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_10.jpg"
+                      alt="GCC"
+                ></p>
+<p>We were strictly provided only 5 minutes for the presentation and a panel of judges from different countries was present to rate us on our project. The presentation also demanded a demo.</p>
+<p>All the presentations were very impressive, and I wonder if given more time, the result would have been phonemonen. There were total 4 project topics which were divided among 9 teams and winner in each topic was announced first. My team won in the CTF Challenge.</p>
+<p>Later top 2 teams were selected which were awarded with off sec playground subscriptions for each member. In this, my team (team 9) clutched second position.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_11.jpg"
+                      alt="GCC"
+                ></p>
+<h3 id="After-event"><a href="#After-event" class="headerlink" title="After event"></a>After event</h3><p>The formal GCC event came to an end at this point. Now that we had some spare time, we explored the nearby walkways and beach. Our meal was at a seaside restaurant that was ten minutes away. Every table had a different spicy dish that we dared each other to try.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_12.jpg"
+                      alt="GCC"
+                ></p>
+<p>On the last day of the trip, everyone was dropped off at the airport and given a tour by the organizers. The event was really well-planned and executed throughout. We also made a shopping trip at a nearby market, where the main attraction was their well-known snack, dried sea food.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/seafoodsnacks.jpg"
+                      alt="GCC"
+                ></p>
+<p>We came to a sightseeing spot at the end, took one more picture, and said each other farewell.</p>
+<p>Overall, the entire trip was very heart-filling and I personally feel I got a very good exposure to the outside world, their work ethics, their mentalities and their perspective on different topics.</p>
+<p>Technically and non-technically, I learned a lot from this trip, and look forward to meet these amazing people again soon!!</p>
+<p>Until then, bye bye !!!</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/gcc/gcc_13.jpg"
+                      alt="GCC"
+                ></p>
+<br>
+Ciao !!
+
+<br>
+
+<hr>
+]]></content>
+      <categories>
+        <category>Conference</category>
+      </categories>
+      <tags>
+        <tag>GCC</tag>
       </tags>
   </entry>
   <entry>
@@ -1161,10 +1161,10 @@ Ciao !!
       <tags>
         <tag>VM</tag>
         <tag>bi0sCTF</tag>
-        <tag>quantum</tag>
         <tag>writeup</tag>
         <tag>linux</tag>
         <tag>reversing</tag>
+        <tag>quantum</tag>
       </tags>
   </entry>
   <entry>
@@ -1391,10 +1391,5 @@ Ciao !!
         <tag>scam</tag>
         <tag>osint</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>DarkSide</title>
-    <url>/2024/08/08/DarkSide/</url>
-    <content><![CDATA[]]></content>
   </entry>
 </search>
