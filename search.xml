@@ -982,7 +982,7 @@ Ciao !!
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/hacktheon/img5.jpeg"
+                     data-src="/images/hacktheon/img5.png"
                       alt="image"
                 ></p>
 <p><img  
@@ -996,7 +996,7 @@ Ciao !!
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/hacktheon/img7.jpeg"
+                     data-src="/images/hacktheon/img7.png"
                       alt="image"
                 ></p>
 <h3 id="Short-writeups-of-Reversing-Challenges"><a href="#Short-writeups-of-Reversing-Challenges" class="headerlink" title="Short writeups of Reversing Challenges"></a>Short writeups of Reversing Challenges</h3><p>I mostly attempted and solved Reversing challenges from the CTF, below is a glimpse of some of those challenges</p>
