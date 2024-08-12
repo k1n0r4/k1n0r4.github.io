@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://example.com/images/fsvm2/fsvm2_6.png">
 <meta property="og:image" content="http://example.com/images/fsvm2/fsvm2_7.png">
 <meta property="article:published_time" content="2024-04-03T11:00:02.000Z">
-<meta property="article:modified_time" content="2024-08-07T17:13:29.963Z">
+<meta property="article:modified_time" content="2024-08-12T17:12:13.248Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="VM">
 <meta property="article:tag" content="writeup">
@@ -55,7 +55,7 @@
         
             Fsvm2 : ecscCTF 2024 -
         
-        k1n0r4 Vista
+        k1n0r4&#39;s blog
     </title>
 
     
@@ -203,7 +203,7 @@
 
 <div class="preloader">
     <h2 class="ml13">
-        k1n0r4 Vista
+        k1n0r4&#39;s blog
     </h2>
     <script>
         var textWrapper = document.querySelector('.ml13');
@@ -298,7 +298,7 @@
             
             <a class="logo-title" href="/">
                 
-                k1n0r4 Vista
+                k1n0r4&#39;s blog
                 
             </a>
         </div>
@@ -565,15 +565,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -627,8 +627,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-08-07 22:43:29</span>
-            <span class="mobile">2024-08-07 22:43:29</span>
+            <span class="desktop">2024-08-12 22:42:13</span>
+            <span class="mobile">2024-08-12 22:42:13</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -681,6 +681,14 @@
 
     
     
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>7.3k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>45 Mins</span>
+        </span>
     
     
         <span class="article-pv article-meta-item">
@@ -704,7 +712,7 @@
 <p>16 registers are used by this virtual machine (reg0 - regf). </p>
 <p>I was unable to properly disassemble the emulator after adding the additional opcodes since it appeared to be off by one or two opcodes. It is faster and more efficient to utilize gdb for disassembly since the bytecode is significantly bigger than the previous bytecode.</p>
 <p>Let’s first see which opcodes are utilized in this instance.</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;(&#x27;, &#x27;)&#x27;, &#x27;*&#x27;, &#x27;+&#x27;, &#x27;-&#x27;, &#x27;/&#x27;, &#x27;4&#x27;, &#x27;5&#x27;, &#x27;6&#x27;, &#x27;7&#x27;, &#x27;8&#x27;, &#x27;;&#x27;, &#x27;=&#x27;, &#x27;&gt;&#x27;, &#x27;?&#x27;, &#x27;@&#x27;, &#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27;, &#x27;D&#x27;, &#x27;F&#x27;, &#x27;G&#x27;, &#x27;J&#x27;, &#x27;K&#x27;, &#x27;L&#x27;, &#x27;M&#x27;, &#x27;N&#x27;, &#x27;O&#x27;, &#x27;Q&#x27;, &#x27;R&#x27;, &#x27;S&#x27;, &#x27;T&#x27;, &#x27;U&#x27;, &#x27;V&#x27;, &#x27;W&#x27;]</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;)&#x27;</span>, <span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;+&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;/&#x27;</span>, <span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;5&#x27;</span>, <span class="string">&#x27;6&#x27;</span>, <span class="string">&#x27;7&#x27;</span>, <span class="string">&#x27;8&#x27;</span>, <span class="string">&#x27;;&#x27;</span>, <span class="string">&#x27;=&#x27;</span>, <span class="string">&#x27;&gt;&#x27;</span>, <span class="string">&#x27;?&#x27;</span>, <span class="string">&#x27;@&#x27;</span>, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;F&#x27;</span>, <span class="string">&#x27;G&#x27;</span>, <span class="string">&#x27;J&#x27;</span>, <span class="string">&#x27;K&#x27;</span>, <span class="string">&#x27;L&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="string">&#x27;N&#x27;</span>, <span class="string">&#x27;O&#x27;</span>, <span class="string">&#x27;Q&#x27;</span>, <span class="string">&#x27;R&#x27;</span>, <span class="string">&#x27;S&#x27;</span>, <span class="string">&#x27;T&#x27;</span>, <span class="string">&#x27;U&#x27;</span>, <span class="string">&#x27;V&#x27;</span>, <span class="string">&#x27;W&#x27;</span>]</span><br></pre></td></tr></table></figure></div>
 
 <h3 id="Opcodes-Resolution"><a href="#Opcodes-Resolution" class="headerlink" title="Opcodes Resolution"></a>Opcodes Resolution</h3><p>Some of the opcodes which are new or implemented for the first time in this bytecode are:</p>
 <ul>
@@ -771,7 +779,7 @@
                       alt="fsvm2"
                 ></p>
 <p>Hence, the First loop looks like this:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag[36]*74 + flag[35]*46 + flag[34]*70 + flag[33]*79 + flag[32]*58 + flag[31]*39 + flag[30]*41 + flag[29]*26 + flag[28]*46 + flag[27]*1 + flag[26]*79 + flag[25]*1 + flag[24]*27 + flag[23]*66 + flag[22]*34 + flag[21]*83 + flag[20]*97 + flag[19]*35 + flag[18]*94 + flag[17]*79 + flag[16]*37 + flag[15]*17 + flag[14]*76 + flag[13]*59 + flag[12]*97 + flag[11]*95 + flag[10]*1 + flag[9]*70 + flag[8]*26 + flag[7]*28 + flag[6]*99 + flag[5]*1 + flag[4]*95 + flag[3]*51 + flag[2]*10 + flag[1]*61 + flag[0]*44 == 172921</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag[<span class="number">36</span>]*<span class="number">74</span> + flag[<span class="number">35</span>]*<span class="number">46</span> + flag[<span class="number">34</span>]*<span class="number">70</span> + flag[<span class="number">33</span>]*<span class="number">79</span> + flag[<span class="number">32</span>]*<span class="number">58</span> + flag[<span class="number">31</span>]*<span class="number">39</span> + flag[<span class="number">30</span>]*<span class="number">41</span> + flag[<span class="number">29</span>]*<span class="number">26</span> + flag[<span class="number">28</span>]*<span class="number">46</span> + flag[<span class="number">27</span>]*<span class="number">1</span> + flag[<span class="number">26</span>]*<span class="number">79</span> + flag[<span class="number">25</span>]*<span class="number">1</span> + flag[<span class="number">24</span>]*<span class="number">27</span> + flag[<span class="number">23</span>]*<span class="number">66</span> + flag[<span class="number">22</span>]*<span class="number">34</span> + flag[<span class="number">21</span>]*<span class="number">83</span> + flag[<span class="number">20</span>]*<span class="number">97</span> + flag[<span class="number">19</span>]*<span class="number">35</span> + flag[<span class="number">18</span>]*<span class="number">94</span> + flag[<span class="number">17</span>]*<span class="number">79</span> + flag[<span class="number">16</span>]*<span class="number">37</span> + flag[<span class="number">15</span>]*<span class="number">17</span> + flag[<span class="number">14</span>]*<span class="number">76</span> + flag[<span class="number">13</span>]*<span class="number">59</span> + flag[<span class="number">12</span>]*<span class="number">97</span> + flag[<span class="number">11</span>]*<span class="number">95</span> + flag[<span class="number">10</span>]*<span class="number">1</span> + flag[<span class="number">9</span>]*<span class="number">70</span> + flag[<span class="number">8</span>]*<span class="number">26</span> + flag[<span class="number">7</span>]*<span class="number">28</span> + flag[<span class="number">6</span>]*<span class="number">99</span> + flag[<span class="number">5</span>]*<span class="number">1</span> + flag[<span class="number">4</span>]*<span class="number">95</span> + flag[<span class="number">3</span>]*<span class="number">51</span> + flag[<span class="number">2</span>]*<span class="number">10</span> + flag[<span class="number">1</span>]*<span class="number">61</span> + flag[<span class="number">0</span>]*<span class="number">44</span> == <span class="number">172921</span></span><br></pre></td></tr></table></figure></div>
 
 
 
@@ -792,7 +800,7 @@
 <h3 id="Parsing-the-constant-values"><a href="#Parsing-the-constant-values" class="headerlink" title="Parsing the constant values"></a>Parsing the constant values</h3><p>Let’s disassemble that and get all those values.</p>
 <p>I eliminated the initial portion of the disassembly that calculates the input flag’s length in order to extract the constants.</p>
 <p>Hence, we will perform the extraction on this modified <a class="link"   target="_blank" rel="noopener" href="https://drive.google.com/file/d/11dxBl2rpXGscWrLyVBWN27fKplmzPoro/view?usp=drive_link" >file <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># Extracting the constants</span><br><span class="line"></span><br><span class="line">vals = []</span><br><span class="line">eqt_vals = []</span><br><span class="line"></span><br><span class="line">with open(&#x27;disas_fin.txt&#x27;, &#x27;r&#x27;) as f:</span><br><span class="line">    x = f.readlines()</span><br><span class="line">    for i in range(len(x)):</span><br><span class="line">        if &#x27;CASE S | reg8&#x27; in x[i]:</span><br><span class="line">            jit = x[i+1]</span><br><span class="line">            cons = jit[jit.rfind(&#x27;&lt; b&#x27;)+4:jit.rfind(&#x27;then&#x27;)-2]</span><br><span class="line">            vals.append(int(cons)+1)</span><br><span class="line">        elif &#x27;CASE * | if&#x27; in x[i]:</span><br><span class="line">            jit = x[i]</span><br><span class="line">            dd = jit[jit.rfind(&#x27;!= &#x27;)+3:jit.rfind(&#x27;then&#x27;)-1]</span><br><span class="line">            eqt_vals.append(int(dd))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(vals)</span><br><span class="line">print(&quot;\n&quot;)</span><br><span class="line">print(eqt_vals)</span><br><span class="line">print(&quot; vals length:&quot;, len(vals))</span><br><span class="line">print(&quot; eqt_vals length: &quot;, len(eqt_vals))</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Extracting the constants</span></span><br><span class="line"></span><br><span class="line">vals = []</span><br><span class="line">eqt_vals = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;disas_fin.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    x = f.readlines()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x)):</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;CASE S | reg8&#x27;</span> <span class="keyword">in</span> x[i]:</span><br><span class="line">            jit = x[i+<span class="number">1</span>]</span><br><span class="line">            cons = jit[jit.rfind(<span class="string">&#x27;&lt; b&#x27;</span>)+<span class="number">4</span>:jit.rfind(<span class="string">&#x27;then&#x27;</span>)-<span class="number">2</span>]</span><br><span class="line">            vals.append(<span class="built_in">int</span>(cons)+<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">elif</span> <span class="string">&#x27;CASE * | if&#x27;</span> <span class="keyword">in</span> x[i]:</span><br><span class="line">            jit = x[i]</span><br><span class="line">            dd = jit[jit.rfind(<span class="string">&#x27;!= &#x27;</span>)+<span class="number">3</span>:jit.rfind(<span class="string">&#x27;then&#x27;</span>)-<span class="number">1</span>]</span><br><span class="line">            eqt_vals.append(<span class="built_in">int</span>(dd))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(vals)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(eqt_vals)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot; vals length:&quot;</span>, <span class="built_in">len</span>(vals))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot; eqt_vals length: &quot;</span>, <span class="built_in">len</span>(eqt_vals))</span><br></pre></td></tr></table></figure></div>
 
 <p>A constraint solver called z3 would be the best option to solve these contraints and obtain the flag.</p>
 <p>So let’s format these values in the z3 script</p>
@@ -820,7 +828,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-08-07 22:43:29
+                    :</strong> 2024-08-12 22:42:13
             </li>
         
         <li>
@@ -993,8 +1001,12 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        9 posts in total
+                        10 posts in total
                     </span>
+                    
+                        <span>
+                            24.8k words in total
+                        </span>
                     
                 </p>
             

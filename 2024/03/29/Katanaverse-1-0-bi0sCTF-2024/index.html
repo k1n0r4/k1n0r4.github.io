@@ -39,7 +39,7 @@
 <meta property="og:image" content="http://example.com/images/katana_writeup/img12.png">
 <meta property="og:image" content="http://example.com/images/katana_writeup/img13.png">
 <meta property="article:published_time" content="2024-03-28T19:02:21.000Z">
-<meta property="article:modified_time" content="2024-08-07T19:14:58.010Z">
+<meta property="article:modified_time" content="2024-08-12T17:12:04.754Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="VM">
 <meta property="article:tag" content="bi0sCTF">
@@ -62,7 +62,7 @@
         
             Katanaverse 1.0 : bi0sCTF 2024 -
         
-        k1n0r4 Vista
+        k1n0r4&#39;s blog
     </title>
 
     
@@ -210,7 +210,7 @@
 
 <div class="preloader">
     <h2 class="ml13">
-        k1n0r4 Vista
+        k1n0r4&#39;s blog
     </h2>
     <script>
         var textWrapper = document.querySelector('.ml13');
@@ -305,7 +305,7 @@
             
             <a class="logo-title" href="/">
                 
-                k1n0r4 Vista
+                k1n0r4&#39;s blog
                 
             </a>
         </div>
@@ -572,15 +572,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -634,8 +634,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-08-08 00:44:58</span>
-            <span class="mobile">2024-08-08 00:44:58</span>
+            <span class="desktop">2024-08-12 22:42:04</span>
+            <span class="mobile">2024-08-12 22:42:04</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -692,6 +692,14 @@
 
     
     
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.6k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>35 Mins</span>
+        </span>
     
     
         <span class="article-pv article-meta-item">
@@ -760,7 +768,7 @@
 <h2 id="Quantum"><a href="#Quantum" class="headerlink" title="Quantum"></a>Quantum</h2><p>Upon obtaining the bit-manipulated array, which I refer to as the “classified” array, the quantum operations commence.</p>
 <h3 id="Runtime-Constant-generation"><a href="#Runtime-Constant-generation" class="headerlink" title="Runtime Constant generation"></a>Runtime Constant generation</h3><p>Prior to that, a few significant constants are created at runtime using the flag’s known portion, that is, it’s flag format.</p>
 <p>Seed for the srand function - 89<br>Aes key - [24, 6, 59, 77, 181, 112, 85, 180, 113, 194, 137, 37, 74, 136, 6, 25]</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">uint8_t aes_key[16];</span><br><span class="line"></span><br><span class="line">for(int i =0;i&lt;16;i++)</span><br><span class="line">&#123;</span><br><span class="line">aes_key[i] = classified[i][7] * 1 + classified[i][6] * 2 + classified[i][5] * 4 + classified[i][4] * 8 + classified[i][3] * 16 + classified[i][2] * 32 + classified[i][1] * 64 + classified[i][0] * 128;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint8_t</span> aes_key[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span>;i&lt;<span class="number">16</span>;i++)</span><br><span class="line">&#123;</span><br><span class="line">aes_key[i] = classified[i][<span class="number">7</span>] * <span class="number">1</span> + classified[i][<span class="number">6</span>] * <span class="number">2</span> + classified[i][<span class="number">5</span>] * <span class="number">4</span> + classified[i][<span class="number">4</span>] * <span class="number">8</span> + classified[i][<span class="number">3</span>] * <span class="number">16</span> + classified[i][<span class="number">2</span>] * <span class="number">32</span> + classified[i][<span class="number">1</span>] * <span class="number">64</span> + classified[i][<span class="number">0</span>] * <span class="number">128</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <p><img  
                      lazyload
@@ -919,7 +927,7 @@
 <p>The platform that allows us to run our code on quantum computers, or the platform that supports the Qiskit module, is required to execute this. I think <a class="link"   target="_blank" rel="noopener" href="https://lab.quantum.ibm.com/" >IBM’s Quantum laboratories <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is the best platform to conduct this on.</p>
 <p>Flag - bi0sCTF{QuBitJugglr}</p>
 <h3 id="Closing-Notes"><a href="#Closing-Notes" class="headerlink" title="Closing Notes"></a>Closing Notes</h3><p>It is undoubtedly difficult to use the notion of quantum in a challenge, but I did my best to do so and do it right. </p>
-<p>We appreciate everyone who tried their hand at the CTF challenge.<br>Please feel free to DM me on Discord if you have any questions or suggestions!</p>
+<p>We appreciate everyone who tried their hand at the CTF challenge.</p>
 <p><strong>Contact: k1n0r4</strong> | <a class="link"   target="_blank" rel="noopener" href="https://twitter.com/k1n0r4" >twitter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> | <a href="www.linkedin.com/in/sejal-koshta-">linkedin</a></p>
 
         </div>
@@ -935,7 +943,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-08-08 00:44:58
+                    :</strong> 2024-08-12 22:42:04
             </li>
         
         <li>
@@ -1112,8 +1120,12 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        9 posts in total
+                        10 posts in total
                     </span>
+                    
+                        <span>
+                            24.8k words in total
+                        </span>
                     
                 </p>
             
